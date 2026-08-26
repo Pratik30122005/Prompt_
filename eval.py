@@ -8,6 +8,11 @@ import argparse, getpass, json, os, statistics, sys, time, urllib.request, urlli
 
 API = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
 
+# Paste your key here to skip the environment variable. WARNING: this repo is public - a key
+# committed here is a leaked key. Prefer GEMINI_API_KEY in your environment, and if you do fill
+# this in, keep it out of commits: git update-index --skip-worktree eval.py
+API_KEY = ""
+
 # USD per 1M tokens (input, output). Goes stale every time Google ships a model - unpriced
 # models report cost "?"; override or extend at the CLI with --price MODEL=IN/OUT.
 PRICES = {
@@ -314,7 +319,8 @@ def main():
         sys.exit("no prompt given")
     if args.reference and args.reference.startswith("@"):
         args.reference = open(args.reference[1:], encoding="utf-8").read()
-    key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    key = (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+           or API_KEY.strip())
     if not key:
         key = getpass.getpass("GEMINI_API_KEY (https://aistudio.google.com/apikey): ").strip()
     if not key:

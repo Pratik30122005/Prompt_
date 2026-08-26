@@ -36,8 +36,20 @@ export GEMINI_API_KEY=your-key-here        # Windows PowerShell: $env:GEMINI_API
 # option 2 - just run it; if the variable is not set, it asks for the key at the prompt
 ```
 
-**Never commit an API key.** The tool only ever reads it from the environment or from a hidden
-terminal prompt, and never writes it to disk.
+Option 3, if you would rather not deal with environment variables: paste the key into the
+`API_KEY = ""` line near the top of `eval.py`. It is checked after the environment variables and
+before the interactive prompt.
+
+**This repo is public, so a key committed in `API_KEY` is a leaked key.** If you fill it in,
+stop git from ever staging it:
+
+```bash
+git update-index --skip-worktree eval.py     # undo with --no-skip-worktree
+```
+
+The environment variable and the interactive prompt carry no such risk — nothing is written to
+disk either way. Rotate any key that has been committed or shared, at
+https://aistudio.google.com/apikey.
 
 ## How to run it
 
