@@ -87,3 +87,31 @@ export async function getModels() {
   if (!res.ok) throw new Error('Failed to fetch models')
   return res.json()
 }
+
+/**
+ * Route one task to a tool + intelligence level.
+ */
+export async function recommendTool(prompt, model) {
+  const res = await fetch(`${API_BASE}/recommend`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': getApiKey(),
+    },
+    body: JSON.stringify(model ? { prompt, model } : { prompt }),
+  })
+  if (!res.ok) {
+    const { detail } = await res.json().catch(() => ({}))
+    throw new Error(detail || `Recommendation failed: ${res.status}`)
+  }
+  return res.json()
+}
+
+/**
+ * Get the router's tool catalog.
+ */
+export async function getTools() {
+  const res = await fetch(`${API_BASE}/tools`)
+  if (!res.ok) throw new Error('Failed to fetch tools')
+  return res.json()
+}

@@ -1,22 +1,51 @@
 @import "tailwindcss";
 
-/* Custom theme */
+/* Light-only: neutralise Tailwind's dark variant so no page follows the OS colour scheme.
+   `dark:` classes on the older eval pages now need a .dark ancestor, which never exists. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Dala design system, inverted to light - styles.refero.design/style/e5f5f8cf-e68d-4ed1-bbf5-6b67569af648
+   Kept from the reference: one accent colour, hierarchy from scale alone, no shadows, no bordered
+   cards, 24px radius. Flipped: paper is the canvas instead of the void, so ash/mist/saffron are
+   darkened to stay readable on white.
+   Tailwind's --spacing base is deliberately NOT overridden to Dala's 6px: it would rescale every
+   padding and gap utility on the older pages. The landing page uses explicit values instead. */
 @theme {
-  --color-primary-50: #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
-  --color-primary-950: #1e1b4b;
+  --color-paper: #ffffff;
+  --color-ink: #0a0a0a;
+  --color-ash: #6f6f6f;
+  --color-mist: #434343;
+  --color-iris: #8052ff;
+  --color-saffron: #a35a00;
+  --color-verdant: #15846e;
+  --color-hairline: #e6e6e6;
+  --color-well: #f4f4f4;
+
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* 6px base unit; section gaps run 60-120px, element gaps 6-18px */
+  --spacing-6: 6px;
+  --spacing-12: 12px;
+  --spacing-18: 18px;
+  --spacing-24: 24px;
+  --spacing-30: 30px;
+  --spacing-36: 36px;
+  --spacing-60: 60px;
+  --spacing-96: 96px;
+  --spacing-120: 120px;
+
+  /* buttons, cards and nav share one radius; tags are full pills */
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+}
+
+/* the spec asks for ss01; Inter's alternates are the closest stand-in for PPNeueMontreal */
+.font-display {
+  font-feature-settings: "ss01" on;
 }
 
 body {
-  @apply antialiased bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100;
+  @apply antialiased bg-gray-50 text-gray-900;
 }
 
 /* Scrollbar styling */
@@ -28,7 +57,7 @@ body {
   @apply bg-transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+  @apply bg-gray-300 rounded-full;
 }
 
 /* SSE streaming animation */
