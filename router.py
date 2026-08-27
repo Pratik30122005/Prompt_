@@ -56,8 +56,8 @@ TOOLS = {
                     "wired to the Google stack",
         "avoid": "tasks where you need the single strongest reasoning available regardless "
                  "of cost",
-        "tiers": {"lite": "gemini-2.5-flash-lite", "standard": "gemini-2.5-flash",
-                  "max": "gemini-2.5-pro with extended thinking"},
+        "tiers": {"lite": "gemini-3.5-flash-lite", "standard": "gemini-3.6-flash",
+                  "max": "gemini-3.5-pro with extended thinking"},
         "cost": "API $0.10-$10 per 1M tokens; free tier available",
     },
     "perplexity": {
@@ -243,7 +243,7 @@ def decorate(rec):
     return rec
 
 
-def recommend(task, key, model="gemini-2.5-flash"):
+def recommend(task, key, model="gemini-3.6-flash"):
     """Route one task. Returns the validated recommendation dict."""
     text, _, _ = evaluator.call(
         model, ROUTER_USER.format(task=task), key=key,

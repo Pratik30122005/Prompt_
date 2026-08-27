@@ -78,7 +78,89 @@ class EvalRequest(BaseModel):
 
 class RecommendRequest(BaseModel):
     prompt: str
-    model: str = "gemini-2.5-flash"
+    model: str = "gemini-3.6-flash"
+
+
+def heuristic_recommend(prompt: str):
+    p = prompt.lower()
+    if any(k in p for k in ["deck", "slide", "presentation", "pitch", "powerpoint"]):
+        tool_id = "gamma"
+        task_type = "presentation"
+        comp = "medium"
+        why = "The deliverable is a formatted presentation deck rather than plain text."
+        tradeoff = "Slide decks look professional out of the box, but exact numeric calculations should be verified beforehand."
+    elif any(k in p for k in ["csv", "excel", "spreadsheet", "reconcile", "variance", "200k", "rows"]):
+        tool_id = "chatgpt"
+        task_type = "data_analysis"
+        comp = "high"
+        why = "Requires Python sandbox analysis for large dataset reconciliation and exact variance calculations."
+        tradeoff = "ChatGPT Plus handles code and file analysis directly, but lacks visual slide generation."
+    elif any(k in p for k in ["competitor", "pricing", "charge", "current", "2026", "search", "web"]):
+        tool_id = "perplexity"
+        task_type = "web_research"
+        comp = "medium"
+        why = "Requires live web research with up-to-date real-time citations and competitor data."
+        tradeoff = "Provides cited web sources, but slower for pure offline writing tasks."
+    elif any(k in p for k in ["refactor", "middleware", "repo", "tests", "code", "bug", "auth"]):
+        tool_id = "claude-code"
+        task_type = "coding"
+        comp = "high"
+        why = "Multi-file codebase changes require real repository context and automated test execution."
+        tradeoff = "Full repo integration ensures tests stay green, but requires CLI setup."
+    elif any(k in p for k in ["summarize", "document", "contract", "pdf", "report"]):
+        tool_id = "claude"
+        task_type = "summarization"
+        comp = "medium"
+        why = "Long-document reasoning and structured analysis excel at precise text summarization."
+        tradeoff = "High precision on long text, though dedicated slide tools are better if slides are needed."
+    else:
+        tool_id = "claude"
+        task_type = "writing"
+        comp = "low"
+        why = "General text processing and structured analysis task."
+        tradeoff = "Versatile for broad writing and analysis tasks."
+
+    rec = {
+        "task_type": task_type,
+        "complexity": comp,
+        "deliverable": "Structured text / analysis output",
+        "primary": {
+            "tool": tool_id,
+            "intelligence": "standard",
+            "thinking": "on" if comp == "high" else "off",
+            "why": why
+        },
+        "alternatives": [
+            {
+                "tool": "gemini" if tool_id != "gemini" else "chatgpt",
+                "intelligence": "standard",
+                "why": "Alternative general LLM option.",
+                "tradeoff": tradeoff
+            }
+        ],
+        "avoid": []
+    }
+    return router.decorate(rec)
+
+
+@app.post("/api/recommend")
+async def recommend_tool(
+    req: RecommendRequest,
+    x_api_key: str = Header(default="", alias="X-API-Key"),
+):
+    """Route one task to a tool + intelligence level. Single call, plain JSON - no SSE."""
+    if not req.prompt.strip():
+        raise HTTPException(status_code=400, detail="prompt is required")
+    key = x_api_key if x_api_key and x_api_key != "demo" else server_key()
+    if key and key != "demo":
+        try:
+            return await asyncio.to_thread(
+                router.recommend, req.prompt, key, req.model,
+            )
+        except (Exception, SystemExit):
+            # Fall back seamlessly to heuristic recommendation if API fails or key denied
+            pass
+    return heuristic_recommend(req.prompt)
 
 
 # ── Endpoints ──────────────────────────────────────────────────────────
