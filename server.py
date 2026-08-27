@@ -35,6 +35,21 @@ except ImportError:
 # Import eval.py without shadowing the built-in eval()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 evaluator = importlib.import_module("eval")
+router = importlib.import_module("router")
+
+# .env is gitignored - a key here never reaches the public repo. Environment wins over the file.
+_ENV = Path(__file__).parent / ".env"
+if _ENV.exists():
+    for _line in _ENV.read_text(encoding="utf-8").splitlines():
+        _name, _, _value = _line.partition("=")
+        if _name.strip() and not _name.lstrip().startswith("#"):
+            os.environ.setdefault(_name.strip(), _value.strip())
+
+
+def server_key():
+    """The key to fall back on when a request does not carry one."""
+    return (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+            or evaluator.API_KEY.strip())
 
 app = FastAPI(title="Prompt Evaluator API", version="1.0.0")
 app.add_middleware(
@@ -59,6 +74,11 @@ class EvalRequest(BaseModel):
     judge_model: str = "gemini-3.5-flash"
     reference: str | None = None
     custom_prices: dict = {}
+
+
+class RecommendRequest(BaseModel):
+    prompt: str
+    model: str = "gemini-2.5-flash"
 
 
 # ── Endpoints ──────────────────────────────────────────────────────────
@@ -303,3 +323,35 @@ async def get_models():
         },
         "criteria": evaluator.CRITERIA,
     }
+
+
+@app.get("/api/tools")
+async def get_tools():
+    """Return the router's tool catalog, so the UI never duplicates the list."""
+    return {"tools": router.TOOLS, "task_types": router.TASK_TYPES,
+            "intelligence": router.INTELLIGENCE, "has_key": bool(server_key())}
+
+
+
+@app.post("/api/recommend")
+async def recommend_tool(
+    req: RecommendRequest,
+    x_api_key: str = Header(default="", alias="X-API-Key"),
+):
+    """Route one task to a tool + intelligence level. Single call, plain JSON - no SSE."""
+    if not req.prompt.strip():
+        raise HTTPException(status_code=400, detail="prompt is required")
+    key = x_api_key if x_api_key and x_api_key != "demo" else server_key()
+    if not key:
+        raise HTTPException(
+            status_code=503,
+            detail="No Gemini API key configured. Put GEMINI_API_KEY in .env next to server.py and restart it, or paste a key on the page.",
+        )
+    try:
+        return await asyncio.to_thread(
+            router.recommend, req.prompt, key, req.model,
+        )
+    except SystemExit as exc:  # eval.call() exits the process on an unrecoverable HTTP error
+        raise HTTPException(status_code=502, detail=str(exc))
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"router error: {exc}")

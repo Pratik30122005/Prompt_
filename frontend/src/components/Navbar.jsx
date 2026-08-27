@@ -3,10 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
   const navItems = [
-    { path: '/', label: 'Dashboard', icon: '📊' },
-    { path: '/evaluate', label: 'New Evaluation', icon: '⚡' },
-    { path: '/compare', label: 'Compare Evals', icon: '⚖️' },
-    { path: '/settings', label: 'Settings', icon: '⚙️' },
+    { path: '/', label: 'Recommend Tool', icon: '🧭' },
   ];
 
   return (
