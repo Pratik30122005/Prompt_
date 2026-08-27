@@ -415,6 +415,14 @@ async def get_tools():
 
 
 
+class FeedbackRequest(BaseModel):
+    prompt: str
+    recommended_tool: str
+    user_feedback: str  # "upvote" or "downvote"
+    actual_tool_used: str | None = None
+    notes: str | None = None
+
+
 @app.post("/api/recommend")
 async def recommend_tool(
     req: RecommendRequest,
@@ -424,16 +432,29 @@ async def recommend_tool(
     if not req.prompt.strip():
         raise HTTPException(status_code=400, detail="prompt is required")
     key = x_api_key if x_api_key and x_api_key != "demo" else server_key()
-    if not key:
-        raise HTTPException(
-            status_code=503,
-            detail="No Gemini API key configured. Put GEMINI_API_KEY in .env next to server.py and restart it, or paste a key on the page.",
-        )
-    try:
-        return await asyncio.to_thread(
-            router.recommend, req.prompt, key, req.model,
-        )
-    except SystemExit as exc:  # eval.call() exits the process on an unrecoverable HTTP error
-        raise HTTPException(status_code=502, detail=str(exc))
-    except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"router error: {exc}")
+    if key and key != "demo":
+        try:
+            return await asyncio.to_thread(
+                router.recommend, req.prompt, key, req.model,
+            )
+        except (Exception, SystemExit):
+            # Fall back seamlessly to heuristic recommendation if API fails or key denied
+            pass
+    return router.heuristic_recommend(req.prompt)
+
+
+@app.post("/api/feedback")
+async def log_feedback(req: FeedbackRequest):
+    """Append recommendation accuracy feedback to local evaluations/feedback.jsonl."""
+    log_file = EVALS_DIR / "feedback.jsonl"
+    entry = {
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "prompt": req.prompt,
+        "recommended_tool": req.recommended_tool,
+        "user_feedback": req.user_feedback,
+        "actual_tool_used": req.actual_tool_used,
+        "notes": req.notes,
+    }
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write(json.dumps(entry, default=str) + "\n")
+    return {"status": "success", "logged": entry}

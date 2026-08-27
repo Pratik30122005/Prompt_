@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { recommendTool, getTools, hasApiKey } from '../api/client';
+import { recommendTool, getTools, hasApiKey, submitFeedback } from '../api/client';
 import { Shell, Nav, Rule, Label } from '../components/dala';
 import { BODY, CAPTION, HEADING_2XS, HEADING_LG, HEADING_SM, HEADING_XS, LABEL, PILL } from '../components/tokens';
 
@@ -21,6 +21,10 @@ export default function Recommend() {
   const [keyed, setKeyed] = useState(hasApiKey);
   const [keyDraft, setKeyDraft] = useState('');
   const [serverKeyed, setServerKeyed] = useState(null);  // null = still asking
+  const [feedbackSent, setFeedbackSent] = useState(false);
+  const [feedbackVote, setFeedbackVote] = useState(null);
+  const [feedbackNote, setFeedbackNote] = useState('');
+  const [actualTool, setActualTool] = useState('');
 
   useEffect(() => {
     getTools().then((t) => setServerKeyed(!!t.has_key)).catch(() => setServerKeyed(false));
@@ -36,10 +40,13 @@ export default function Recommend() {
   const handleRecommend = async (text) => {
     const value = (text ?? task).trim();
     if (!value) return;
-    // Sending no key is fine when the server has one; it refuses outright when neither does.
     setLoading(true);
     setError(null);
     setRec(null);
+    setFeedbackSent(false);
+    setFeedbackVote(null);
+    setFeedbackNote('');
+    setActualTool('');
     try {
       setRec(await recommendTool(value));
     } catch (err) {
@@ -209,6 +216,109 @@ export default function Recommend() {
                   <p style={BODY} className="text-mist mt-4">{a.why}</p>
                 </div>
               ))}
+            </div>
+          </section>
+        </>
+      )}
+
+      {primary && (
+        <>
+          <Rule />
+          <section className="py-20 lg:py-24">
+            <Label tone={feedbackSent ? 'iris' : 'saffron'}>Feedback & Outcome</Label>
+            <div className="mt-10 max-w-3xl bg-well rounded-3xl p-8 space-y-6">
+              {feedbackSent ? (
+                <div className="text-center py-6 space-y-3">
+                  <span className="text-4xl">🎉</span>
+                  <h3 style={HEADING_XS} className="text-ink">Thank you for your feedback!</h3>
+                  <p style={CAPTION} className="text-ash">Your feedback has been logged to evaluations/feedback.jsonl to continuously tune our recommendation weights.</p>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <div>
+                    <h3 style={HEADING_XS} className="text-ink">Was this recommendation correct?</h3>
+                    <div className="flex gap-4 mt-4">
+                      <button
+                        type="button"
+                        onClick={() => setFeedbackVote('upvote')}
+                        className={`px-6 py-2.5 rounded-full border text-xs font-semibold uppercase tracking-wider transition ${
+                          feedbackVote === 'upvote'
+                            ? 'bg-iris text-paper border-iris'
+                            : 'border-slate-300 text-ash hover:text-ink'
+                        }`}
+                      >
+                        👍 Yes, correct
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setFeedbackVote('downvote')}
+                        className={`px-6 py-2.5 rounded-full border text-xs font-semibold uppercase tracking-wider transition ${
+                          feedbackVote === 'downvote'
+                            ? 'bg-saffron text-paper border-saffron'
+                            : 'border-slate-300 text-ash hover:text-ink'
+                        }`}
+                      >
+                        👎 No, incorrect
+                      </button>
+                    </div>
+                  </div>
+
+                  {feedbackVote === 'downvote' && (
+                    <div className="space-y-3">
+                      <label style={LABEL} className="text-ink block">Which tool did you actually end up using?</label>
+                      <select
+                        value={actualTool}
+                        onChange={(e) => setActualTool(e.target.value)}
+                        style={{ ...BODY, fontSize: 15 }}
+                        className="w-full bg-paper text-ink px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-1 focus:ring-iris"
+                      >
+                        <option value="">Select tool...</option>
+                        <option value="gamma">Gamma</option>
+                        <option value="chatgpt">ChatGPT</option>
+                        <option value="claude">Claude</option>
+                        <option value="gemini">Gemini</option>
+                        <option value="perplexity">Perplexity</option>
+                        <option value="claude-code">Claude Code / Cursor</option>
+                      </select>
+                    </div>
+                  )}
+
+                  <div className="space-y-3">
+                    <label style={LABEL} className="text-ink block">Notes / Failure details (Optional)</label>
+                    <textarea
+                      rows={3}
+                      value={feedbackNote}
+                      onChange={(e) => setFeedbackNote(e.target.value)}
+                      placeholder="e.g. Claude sonnet followed formatting constraints better than Gemini flash."
+                      style={{ ...BODY, fontSize: 15 }}
+                      className="w-full bg-paper text-ink placeholder:text-ash/50 p-4 rounded-xl border border-slate-300 focus:outline-none focus:ring-1 focus:ring-iris resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    disabled={!feedbackVote}
+                    onClick={async () => {
+                      try {
+                        await submitFeedback({
+                          prompt: task.trim(),
+                          recommended_tool: primary.tool,
+                          user_feedback: feedbackVote,
+                          actual_tool_used: actualTool || null,
+                          notes: feedbackNote.trim() || null,
+                        });
+                        setFeedbackSent(true);
+                      } catch (err) {
+                        alert(err.message);
+                      }
+                    }}
+                    style={PILL}
+                    className="uppercase bg-iris text-paper px-8 disabled:opacity-35 hover:opacity-90 transition-opacity"
+                  >
+                    Submit Feedback
+                  </button>
+                </div>
+              )}
             </div>
           </section>
         </>

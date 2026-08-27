@@ -115,3 +115,18 @@ export async function getTools() {
   if (!res.ok) throw new Error('Failed to fetch tools')
   return res.json()
 }
+
+/**
+ * Submit recommendation feedback.
+ */
+export async function submitFeedback(feedback) {
+  const res = await fetch(`${API_BASE}/feedback`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(feedback),
+  })
+  if (!res.ok) throw new Error('Failed to submit feedback')
+  return res.json()
+}
