@@ -78,7 +78,7 @@ TOOLS = {
         "best_for": ["summarization", "writing", "deep_reasoning", "translation", "creative_writing"],
         "avoid_for": ["presentation", "web_research"],
         "output_format_support": ["free_text", "structured_json", "markdown_report", "code_file"],
-        "tiers": {"lite": "Haiku", "standard": "Sonnet 3.7", "max": "Opus 3.7 with extended thinking"},
+        "tiers": {"lite": "Haiku", "standard": "Sonnet 3.7", "max": "Sonnet 3.7 with extended thinking"},
         "cost_tier": 0.8,
         "latency_tier": 0.8,
         "context_capacity": 200000,
@@ -121,7 +121,7 @@ TOOLS = {
         "best_for": ["coding"],
         "avoid_for": ["presentation", "writing", "creative_writing"],
         "output_format_support": ["code_file"],   # ONLY produces code files
-        "tiers": {"lite": "Haiku", "standard": "Sonnet 3.7", "max": "Opus 3.7 with extended thinking"},
+        "tiers": {"lite": "Haiku", "standard": "Sonnet 3.7", "max": "Sonnet 3.7 with extended thinking"},
         "cost_tier": 0.8,
         "latency_tier": 0.7,
         "context_capacity": 200000,
@@ -401,11 +401,14 @@ def classify_prompt(prompt: str,
     # Placed BEFORE summarization/long_context to prevent "transcript" collision.
     # COLLISION FIX: Raw language names (Spanish, French, Japanese, etc.) removed to prevent
     # collisions like "French Revolution", "Japanese Yen", and "Spanish subjunctive" in other domains.
-    # Translation remains guarded by compound phrases and explicit translation verbs.
+    # Translation is guarded by compound phrases and explicit translation verbs.
     if _has_keyword(p, ["translate", "translation", "localize", "localization",
                                "multilingual", "subtitle", "caption", "idiomatic", "cultural adaptation",
-                               "in spanish", "in french", "in german", "in japanese",
-                               "to spanish", "to french", "to german", "to japanese"]):
+                               "in spanish", "in french", "in german", "in japanese", "in mandarin", "in italian", "in portuguese", "in russian",
+                               "to spanish", "to french", "to german", "to japanese", "to mandarin", "to italian", "to portuguese", "to russian",
+                               "into spanish", "into french", "into german", "into japanese",
+                               "spanish version", "french version", "german version", "japanese version",
+                               "say this in", "say that in", "how do you say"]):
         return _build("translation", "low", "free_text", "medium", "medium", "none")
 
     # ── Rank 6: Long-Context Analysis ─────────────────────────────────────
@@ -590,9 +593,8 @@ def recommend_deterministic(prompt: str,
     # Tie-break (Δ ≤ 0.05)
     if runner_up and (top["total_score"] - runner_up["total_score"]) <= 0.05:
         # Explicit tie-break for deep_reasoning:
-        # Both ChatGPT and Claude have deep_reasoning in best_for and score identically (1.0).
-        # We tie-break to Claude (Claude 3.7 Sonnet) due to its larger context capacity (200k vs 128k)
-        # and Opus 3.7 extended thinking tier.
+        # Both ChatGPT and Claude have deep_reasoning in best_for and evaluate to identical scores (1.0).
+        # We establish Claude (Claude 3.7 Sonnet) as the deterministic default pick for reasoning tasks.
         if cls["task_type"] == "deep_reasoning" and {top["tool_id"], runner_up["tool_id"]} == {"claude", "chatgpt"}:
             if top["tool_id"] != "claude":
                 top, runner_up = runner_up, top
