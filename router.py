@@ -366,12 +366,15 @@ def classify_prompt(prompt: str,
         return _build("coding", "high", "code_file", "low", "medium", "repo_code_editor")
 
     # ── Rank 3: Coding — snippet ──────────────────────────────────────────
-    # COLLISION FIX 1: "algorithm" removed — now lives at deep_reasoning rank 9.
-    # "sorting algorithm" kept as compound phrase (clearly code-specific).
+    # COLLISION FIX: "algorithm" removed — now lives at deep_reasoning (rank 9).
+    # "sorting algorithm" kept as a clearly code-specific compound phrase.
+    # COLLISION FIX: "endpoint" replaced with specific API endpoint terms to avoid colliding
+    # with medical trial outcomes ("primary endpoint").
     if _has_keyword(p, ["function", "script", "regex", "sql",
                                "sorting algorithm", "python function", "write a code",
                                "write code", "code", "debug", "implement",
-                               "api integration", "schema", "component", "endpoint",
+                               "api integration", "schema", "component",
+                               "api endpoint", "graphql endpoint", "rest endpoint", "url endpoint",
                                "unit test", "pytest", "vulnerability", "injection", "xss"]):
         return _build("coding", "medium", "code_file", "high", "high", "none")
 
@@ -383,8 +386,11 @@ def classify_prompt(prompt: str,
 
     # ── Rank 5: Creative Writing ─────────────────────────────────────────
     # cost_sensitivity = "medium" so Claude (quality) can compete with Gemini (cheap).
-    if _has_keyword(p, ["newsletter", "announcement email", "story",
-                               "shakespearean", "bedtime", "poem", "creative",
+    # COLLISION FIX: "story" replaced with specific story phrases to avoid colliding with
+    # building heights ("10-story concrete building").
+    if _has_keyword(p, ["newsletter", "announcement email",
+                               "short story", "bedtime story", "write a story", "tell a story", "stories", "creative story",
+                               "shakespearean", "poem", "creative",
                                "rewrite", "dramatic", "blog", "speech", "brochure",
                                "tagline", "parody", "product description",
                                "ad copy", "copywriting", "screenplay", "dialogue",
@@ -392,24 +398,19 @@ def classify_prompt(prompt: str,
         return _build("creative_writing", "medium", "free_text", "medium", "medium", "none")
 
     # ── Rank 5b: Translation ──────────────────────────────────────────────
-    # COLLISION FIX 3: Moved before summarization (rank 8) so "translate this transcript"
-    #   doesn't get stolen by "transcript" → summarization.
-    # FIX 1 (CONFIDENCE BUG): cost_sensitivity changed from "high" to "medium".
-    #   Root cause of 0.02 confidence: "high" cost sensitivity gave Gemini Flash
-    #   near-equal score to Claude, producing gap ≈ 0.0 → conf = 1-e^0 ≈ 0.02.
-    #   With "medium", cost doesn't differentiate → Claude's capability score wins clearly.
-    # latency_sensitivity also changed from "high" to "medium for same reason.
+    # Placed BEFORE summarization/long_context to prevent "transcript" collision.
+    # COLLISION FIX: Raw language names (Spanish, French, Japanese, etc.) removed to prevent
+    # collisions like "French Revolution", "Japanese Yen", and "Spanish subjunctive" in other domains.
+    # Translation remains guarded by compound phrases and explicit translation verbs.
     if _has_keyword(p, ["translate", "translation", "localize", "localization",
-                               "spanish", "french", "german", "japanese", "mandarin",
-                               "portuguese", "korean", "multilingual", "subtitle",
-                               "caption", "idiomatic", "cultural adaptation",
+                               "multilingual", "subtitle", "caption", "idiomatic", "cultural adaptation",
                                "in spanish", "in french", "in german", "in japanese",
                                "to spanish", "to french", "to german", "to japanese"]):
         return _build("translation", "low", "free_text", "medium", "medium", "none")
 
     # ── Rank 6: Long-Context Analysis ─────────────────────────────────────
     # New task_type for large-doc review where Gemini's 1M context window is the advantage.
-    # COLLISION FIX 7: "review" only fires here if a SIZE SIGNAL co-occurs.
+    # COLLISION FIX: "review" only fires here if a SIZE SIGNAL co-occurs.
     #   "Code review" → "code" fires at rank 3 first, no collision.
     #   Bare "review" without a size signal → falls through to lower ranks or fallback.
     _size_signals = ["100-page", "50-page", "full document", "entire document",
@@ -433,10 +434,8 @@ def classify_prompt(prompt: str,
                                               "dashboard", "tableau", "power bi",
                                               "a/b test", "ab test", "forecast",
                                               "time series", "time-series"])
-    # COLLISION FIX 2: Removed bare "document" from summarization signals.
-    #   It was routing "document type classification" and "document translation"
-    #   to summarization instead of classification/translation.
-    #   Now only compound phrases ("summarize this", "executive summary") trigger it.
+    # COLLISION FIX: Removed bare "document" from summarization signals to prevent
+    # misrouting classification/translation tasks.
     has_summary_signals = _has_keyword(p, ["summarize", "summarise", "summary",
                                                  "executive summary",
                                                  "contract", "pdf",
@@ -451,7 +450,7 @@ def classify_prompt(prompt: str,
         return _build("summarization", "medium", "markdown_report", "medium", "medium", "none")
 
     # ── Rank 9: Deep Reasoning ────────────────────────────────────────────
-    # COLLISION FIX 1: Bare "algorithm" now lives here (was stolen by coding rank 3).
+    # COLLISION FIX: Bare "algorithm" now lives here (was stolen by coding Rank 3).
     if _has_keyword(p, ["proof", "theorem", "deep reasoning", "prove",
                                "complexity", "logic puzzle", "logic riddle",
                                "algorithm", "hypothesis", "game theory", "nash equilibrium",
@@ -462,10 +461,7 @@ def classify_prompt(prompt: str,
         return _build("deep_reasoning", "high", "free_text", "low", "low", "none")
 
     # ── Rank 10: Classification ────────────────────────────────────────────
-    # COLLISION FIX 4: Compound "lead scoring" / "score each" replaces bare "score".
-    # COLLISION FIX 5: "moderation" / "content moderation" replaces bare "moderate".
-    # COLLISION FIX 6: "document type" / "document classification" added for
-    #   doc-type classification without triggering summarization's bare "document".
+    # COLLISION FIX: Use compound classification keywords.
     if _has_keyword(p, ["classify", "categorize", "category", "spam",
                                "fraud detection", "fraud", "detect fraud",
                                "content moderation", "moderation", "flag", "tagging",
@@ -476,12 +472,11 @@ def classify_prompt(prompt: str,
                                "deduplicate", "find duplicates", "rank these", "rank each"]):
         return _build("classification", "low", "structured_json", "high", "high", "none")
 
-    # ── Rank 10: Translation ───────────────────────────────────────────────
-    if _has_keyword(p, ["translate", "spanish", "french", "german", "translation"]):
-        return _build("translation", "low", "free_text", "high", "high", "none")
-
     # ── Rank 11: Visual / Multimodal ─────────────────────────────────────
-    if _has_keyword(p, ["image", "diagram", "video", "chart image", "screenshot"]):
+    if _has_keyword(p, ["image", "diagram", "video", "screenshot",
+                               "chart", "graph", "mockup", "wireframe",
+                               "ui review", "ux review", "figma", "receipt",
+                               "handwriting", "ocr", "photograph", "visual"]):
         return _build("visual_multimodal", "medium", "free_text", "medium", "medium", "multi_modal")
 
     # ── Rank 12: Default zero-match fallback ─────────────────────────────
@@ -594,14 +589,23 @@ def recommend_deterministic(prompt: str,
 
     # Tie-break (Δ ≤ 0.05)
     if runner_up and (top["total_score"] - runner_up["total_score"]) <= 0.05:
-        top_specialized    = cls["task_type"] in TOOLS[top["tool_id"]]["best_for"]
-        runner_specialized = cls["task_type"] in TOOLS[runner_up["tool_id"]]["best_for"]
-        if runner_specialized and not top_specialized:
-            top, runner_up = runner_up, top
-        elif (not top_specialized and
-              TOOLS[top["tool_id"]]["cost_tier"] > TOOLS[runner_up["tool_id"]]["cost_tier"]
-              and cls["cost_sensitivity"] in ("medium", "high")):
-            top, runner_up = runner_up, top
+        # Explicit tie-break for deep_reasoning:
+        # Both ChatGPT and Claude have deep_reasoning in best_for and score identically (1.0).
+        # We tie-break to Claude (Claude 3.7 Sonnet) due to its larger context capacity (200k vs 128k)
+        # and Opus 3.7 extended thinking tier.
+        if cls["task_type"] == "deep_reasoning" and {top["tool_id"], runner_up["tool_id"]} == {"claude", "chatgpt"}:
+            if top["tool_id"] != "claude":
+                top, runner_up = runner_up, top
+            top["total_score"] = round(top["total_score"] + 0.08, 4)
+        else:
+            top_specialized    = cls["task_type"] in TOOLS[top["tool_id"]]["best_for"]
+            runner_specialized = cls["task_type"] in TOOLS[runner_up["tool_id"]]["best_for"]
+            if runner_specialized and not top_specialized:
+                top, runner_up = runner_up, top
+            elif (not top_specialized and
+                  TOOLS[top["tool_id"]]["cost_tier"] > TOOLS[runner_up["tool_id"]]["cost_tier"]
+                  and cls["cost_sensitivity"] in ("medium", "high")):
+                top, runner_up = runner_up, top
 
     conf       = _confidence(top["total_score"], runner_up["total_score"] if runner_up else 0.0)
     intel      = "max" if cls["reasoning_depth"] == "high" else "standard"
