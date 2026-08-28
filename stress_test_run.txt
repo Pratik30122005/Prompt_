@@ -1,0 +1,679 @@
+==========================================================================================
+FULL RESULTS TABLE (210 prompts)
+==========================================================================================
+ID     Grp  Label                            task_type            Model          Conf   Path
+--------------------------------------------------------------------------------------------------------------
+A01    A    Bug fix legacy code              coding               claude-code    0.78   keyword match → coding
+A02    A    API integration                  coding               claude-code    0.37   ⚠️ keyword match → coding
+A03    A    DB schema design                 coding               claude-code    0.37   ⚠️ keyword match → coding
+A04    A    Frontend UI component            coding               claude-code    0.37   ⚠️ priority-rank fallback (coding)
+A05    A    DevOps/CI-CD script              coding               claude-code    0.78   priority-rank fallback (coding)
+A06    A    Mobile app dev                   coding               claude-code    0.37   ⚠️ keyword match → coding
+A07    A    Code review                      coding               claude-code    0.78   priority-rank fallback (coding)
+A08    A    Algorithm design                 deep_reasoning       claude         0.33   ⚠️ priority-rank fallback (deep_reasoning)
+A09    A    Unit test generation             coding               claude-code    0.78   keyword match → coding
+A10    A    Security vulnerability scan      coding               claude-code    0.37   ⚠️ keyword match → coding
+B11    B    Excel formula fix                data_extraction      chatgpt        0.78   keyword match → data_extraction
+B12    B    SQL query writing                coding               claude-code    0.37   ⚠️ keyword match → coding
+B13    B    Data cleaning                    data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+B14    B    Statistical analysis             writing              chatgpt        0.0    ⚠️ zero-match fallback
+B15    B    Dashboard/BI report              data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+B16    B    A/B test analysis                data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+B17    B    Large CSV reconciliation         data_extraction      chatgpt        0.54   verb-intent: extraction
+B18    B    Time-series forecasting          data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+B19    B    Data visualization               visual_multimodal    gemini         0.78   keyword match → visual_multimodal
+B20    B    ETL pipeline design              coding               claude-code    0.78   priority-rank fallback (coding)
+C21    C    Competitor pricing               web_research         perplexity     0.78   keyword match → web_research
+C22    C    Industry news                    writing              chatgpt        0.0    ⚠️ zero-match fallback
+C23    C    Stock market update              web_research         perplexity     0.78   keyword match → web_research
+C24    C    Product comparison               writing              chatgpt        0.0    ⚠️ zero-match fallback
+C25    C    Regulatory/policy update         web_research         perplexity     0.78   keyword match → web_research
+C26    C    Travel destination research      web_research         perplexity     0.78   keyword match → web_research
+C27    C    Local business lookup            writing              chatgpt        0.0    ⚠️ zero-match fallback
+C28    C    Academic paper discovery         web_research         perplexity     0.78   keyword match → web_research
+C29    C    Real estate market research      web_research         perplexity     0.78   keyword match → web_research
+C30    C    Sports scores lookup             writing              chatgpt        0.0    ⚠️ zero-match fallback
+D31    D    Legal contract summary           summarization        claude         0.42   ⚠️ keyword match → summarization
+D32    D    Meeting transcript summary       summarization        claude         0.42   ⚠️ keyword match → summarization
+D33    D    Research paper summary           summarization        claude         0.42   ⚠️ keyword match → summarization
+D34    D    News article summary             summarization        claude         0.42   ⚠️ keyword match → summarization
+D35    D    Book chapter summary             summarization        claude         0.42   ⚠️ keyword match → summarization
+D36    D    Email thread summary             summarization        claude         0.42   ⚠️ keyword match → summarization
+D37    D    Customer feedback summary        summarization        claude         0.42   ⚠️ keyword match → summarization
+D38    D    Financial report summary         summarization        claude         0.42   ⚠️ keyword match → summarization
+D39    D    Podcast transcript summary       summarization        claude         0.42   ⚠️ keyword match → summarization
+D40    D    Multi-document synthesis         summarization        claude         0.42   ⚠️ priority-rank fallback (summarization)
+E41    E    Short story                      creative_writing     claude         0.42   ⚠️ keyword match → creative_writing
+E42    E    Poetry                           writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+E43    E    Marketing copy                   creative_writing     claude         0.42   ⚠️ priority-rank fallback (creative_writing)
+E44    E    Screenplay dialogue              creative_writing     claude         0.42   ⚠️ priority-rank fallback (creative_writing)
+E45    E    Blog post                        creative_writing     claude         0.42   ⚠️ priority-rank fallback (creative_writing)
+E46    E    Brand naming/slogans             writing              chatgpt        0.0    ⚠️ zero-match fallback
+E47    E    Children's story                 creative_writing     claude         0.42   ⚠️ keyword match → creative_writing
+E48    E    Speech writing                   creative_writing     claude         0.42   ⚠️ priority-rank fallback (creative_writing)
+E49    E    Parody writing                   creative_writing     claude         0.42   ⚠️ priority-rank fallback (creative_writing)
+E50    E    Product description              creative_writing     claude         0.42   ⚠️ priority-rank fallback (creative_writing)
+F51    F    Investor pitch deck              presentation         gamma          0.99   keyword match → presentation
+F52    F    Sales presentation               presentation         gamma          0.99   keyword match → presentation
+F53    F    Training/onboarding deck         presentation         gamma          0.99   keyword match → presentation
+F54    F    Conference talk slides           writing              chatgpt        0.0    ⚠️ zero-match fallback
+F55    F    Product launch deck              presentation         gamma          0.99   keyword match → presentation
+F56    F    Board meeting deck               presentation         gamma          0.99   keyword match → presentation
+F57    F    Single-slide infographic         presentation         gamma          0.99   keyword match → presentation
+F58    F    Data-heavy chart deck            presentation         gamma          0.99   keyword match → presentation
+F59    F    Executive summary deck           presentation         gamma          0.99   keyword match → presentation
+F60    F    Webinar slide deck               presentation         gamma          0.99   keyword match → presentation
+G61    G    Sentiment classification         classification       gemini         0.64   keyword match → classification
+G62    G    Support ticket categorization    classification       gemini         0.64   keyword match → classification
+G63    G    Spam/fraud detection             classification       gemini         0.64   priority-rank fallback (classification)
+G64    G    Content moderation               writing              chatgpt        0.0    ⚠️ zero-match fallback
+G65    G    Lead scoring                     classification       gemini         0.64   priority-rank fallback (classification)
+G66    G    Document type classification     summarization        claude         0.42   ⚠️ keyword match → summarization
+G67    G    Language detection               writing              chatgpt        0.0    ⚠️ zero-match fallback
+G68    G    Topic/genre classification       classification       gemini         0.64   keyword match → classification
+G69    G    Priority/urgency tagging         writing              chatgpt        0.0    ⚠️ zero-match fallback
+G70    G    Duplicate detection              classification       gemini         0.64   priority-rank fallback (classification)
+H71    H    Document translation             translation          claude         0.42   ⚠️ keyword match → translation
+H72    H    Website localization             translation          claude         0.42   ⚠️ keyword match → translation
+H73    H    Marketing translation            translation          claude         0.42   ⚠️ keyword match → translation
+H74    H    Legal doc translation            translation          claude         0.42   ⚠️ keyword match → translation
+H75    H    Real-time chat translation       translation          claude         0.42   ⚠️ keyword match → translation
+H76    H    Subtitle translation             translation          claude         0.42   ⚠️ keyword match → translation
+H77    H    Technical manual translation     translation          claude         0.42   ⚠️ keyword match → translation
+H78    H    Multilingual SEO                 web_research         perplexity     0.78   keyword match → web_research
+H79    H    Voice transcript translation     translation          claude         0.42   ⚠️ keyword match → translation
+H80    H    Idiomatic/cultural adaptation    writing              chatgpt        0.0    ⚠️ zero-match fallback
+I81    I    Mathematical proof               deep_reasoning       claude         0.33   ⚠️ keyword match → deep_reasoning
+I82    I    Logic puzzle                     deep_reasoning       claude         0.33   ⚠️ keyword match → deep_reasoning
+I83    I    Algorithm complexity             deep_reasoning       claude         0.33   ⚠️ keyword match → deep_reasoning
+I84    I    Statistical hypothesis           writing              chatgpt        0.0    ⚠️ zero-match fallback
+I85    I    Game theory                      deep_reasoning       claude         0.33   ⚠️ priority-rank fallback (deep_reasoning)
+I86    I    Multi-step word problem          writing              chatgpt        0.0    ⚠️ zero-match fallback
+I87    I    Architecture tradeoff            writing              chatgpt        0.0    ⚠️ zero-match fallback
+I88    I    Root-cause analysis              coding               claude-code    0.78   priority-rank fallback (coding)
+I89    I    Scientific hypothesis            deep_reasoning       claude         0.33   ⚠️ keyword match → deep_reasoning
+I90    I    Strategic decision analysis      writing              chatgpt        0.0    ⚠️ zero-match fallback
+J91    J    Full contract review             long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+J92    J    Codebase-wide analysis           coding               claude-code    0.78   keyword match → coding
+J93    J    Multi-year financial review      writing              chatgpt        0.0    ⚠️ zero-match fallback
+J94    J    Litigation document review       long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+J95    J    Regulatory compliance review     long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+J96    J    Manuscript analysis              long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+J97    J    Research corpus meta-analysis    summarization        claude         0.42   ⚠️ priority-rank fallback (summarization)
+J98    J    Transcript series review         long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+J99    J    Technical spec review            long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+J100   J    M&A due-diligence docs           long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+K101   K    Chart interpretation             visual_multimodal    gemini         0.78   keyword match → visual_multimodal
+K102   K    Screenshot bug diagnosis         visual_multimodal    gemini         0.78   keyword match → visual_multimodal
+K103   K    Image product cataloging         writing              chatgpt        0.0    ⚠️ zero-match fallback
+K104   K    Diagram/flowchart explanation    visual_multimodal    gemini         0.78   keyword match → visual_multimodal
+K105   K    Handwriting/OCR extraction       summarization        claude         0.42   ⚠️ priority-rank fallback (summarization)
+K106   K    Video content summary            summarization        claude         0.42   ⚠️ keyword match → summarization
+K107   K    UI/UX mockup review              classification       gemini         0.64   priority-rank fallback (classification)
+K108   K    Image description                visual_multimodal    gemini         0.78   priority-rank fallback (visual_multimodal)
+K109   K    Receipt/form data extraction     visual_multimodal    gemini         0.78   keyword match → visual_multimodal
+K110   K    Comparative image analysis       writing              chatgpt        0.0    ⚠️ zero-match fallback
+L111   L    Web + code task                  coding               claude-code    0.37   ⚠️ keyword match → coding
+L112   L    File organization                writing              chatgpt        0.0    ⚠️ zero-match fallback
+L113   L    Calendar + email coordination    writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+L114   L    Multi-API orchestration          data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+L115   L    Browser automation               data_extraction      chatgpt        0.54   keyword match → data_extraction
+L116   L    Research + report pipeline       presentation         gamma          0.99   keyword match → presentation
+L117   L    Multi-file refactor + deploy     coding               claude-code    0.78   keyword match → coding
+L118   L    Data pipeline + notification     data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+L119   L    Cross-platform sync              classification       gemini         0.64   priority-rank fallback (classification)
+L120   L    Monitoring agent                 writing              chatgpt        0.0    ⚠️ zero-match fallback
+M121   M    Contract clause drafting         writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+M122   M    NDA review                       classification       gemini         0.64   priority-rank fallback (classification)
+M123   M    Compliance checklist             writing              chatgpt        0.0    ⚠️ zero-match fallback
+M124   M    IP/trademark research            writing              chatgpt        0.0    ⚠️ zero-match fallback
+M125   M    Employment law question          summarization        claude         0.42   ⚠️ keyword match → summarization
+M126   M    Case brief summarization         summarization        claude         0.42   ⚠️ keyword match → summarization
+M127   M    Regulatory filing drafting       summarization        claude         0.42   ⚠️ keyword match → summarization
+M128   M    ToS drafting                     writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+M129   M    Litigation strategy              deep_reasoning       claude         0.33   ⚠️ priority-rank fallback (deep_reasoning)
+M130   M    Legal citation formatting        writing              chatgpt        0.0    ⚠️ zero-match fallback
+N131   N    Symptom info lookup              writing              chatgpt        0.0    ⚠️ zero-match fallback
+N132   N    Medical literature summary       summarization        claude         0.42   ⚠️ keyword match → summarization
+N133   N    Clinical trial data review       summarization        claude         0.42   ⚠️ keyword match → summarization
+N134   N    Patient education material       creative_writing     claude         0.42   ⚠️ priority-rank fallback (creative_writing)
+N135   N    Healthcare policy analysis       web_research         perplexity     0.78   keyword match → web_research
+N136   N    Medical billing question         writing              chatgpt        0.0    ⚠️ zero-match fallback
+N137   N    Public health data analysis      writing              chatgpt        0.0    ⚠️ zero-match fallback
+N138   N    Nutrition/fitness plan           writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+N139   N    Medical device documentation     writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+N140   N    Insurance claims analysis        writing              chatgpt        0.0    ⚠️ zero-match fallback
+O141   O    Budget forecasting               data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+O142   O    Tax question research            web_research         perplexity     0.78   keyword match → web_research
+O143   O    Investment portfolio analysis    writing              chatgpt        0.0    ⚠️ zero-match fallback
+O144   O    Expense reconciliation           classification       gemini         0.64   priority-rank fallback (classification)
+O145   O    Financial statement prep         writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+O146   O    Loan calculation                 writing              chatgpt        0.0    ⚠️ zero-match fallback
+O147   O    Currency conversion analysis     writing              chatgpt        0.0    ⚠️ zero-match fallback
+O148   O    Audit checklist                  writing              chatgpt        0.0    ⚠️ zero-match fallback
+O149   O    Payroll question                 writing              chatgpt        0.0    ⚠️ zero-match fallback
+O150   O    Valuation/DCF modeling           writing              chatgpt        0.0    ⚠️ zero-match fallback
+P151   P    Ad campaign copy                 creative_writing     claude         0.42   ⚠️ priority-rank fallback (creative_writing)
+P152   P    SEO keyword research             long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+P153   P    Social media content calendar    writing              chatgpt        0.0    ⚠️ zero-match fallback
+P154   P    Sales email sequences            writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+P155   P    Customer persona development     writing              chatgpt        0.0    ⚠️ zero-match fallback
+P156   P    Competitive positioning          writing              chatgpt        0.0    ⚠️ zero-match fallback
+P157   P    Brand voice guidelines           writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+P158   P    Email A/B test copy              data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+P159   P    Influencer outreach              writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+P160   P    Product launch messaging         writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+Q161   Q    Job description writing          writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+Q162   Q    Resume screening                 writing              chatgpt        0.0    ⚠️ zero-match fallback
+Q163   Q    Interview question generation    writing              chatgpt        0.0    ⚠️ zero-match fallback
+Q164   Q    Employee handbook drafting       writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+Q165   Q    Performance review writing       summarization        claude         0.42   ⚠️ keyword match → summarization
+Q166   Q    Onboarding plan creation         writing              chatgpt        0.0    ⚠️ zero-match fallback
+Q167   Q    Compensation benchmarking        web_research         perplexity     0.78   keyword match → web_research
+Q168   Q    DEI policy drafting              writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+Q169   Q    Exit interview analysis          writing              chatgpt        0.0    ⚠️ zero-match fallback
+Q170   Q    Org restructuring proposal       writing              chatgpt        0.0    ⚠️ zero-match fallback
+R171   R    Lesson plan creation             writing              chatgpt        0.0    ⚠️ zero-match fallback
+R172   R    Quiz/exam generation             writing              chatgpt        0.0    ⚠️ zero-match fallback
+R173   R    Concept explanation              writing              chatgpt        0.0    ⚠️ zero-match fallback
+R174   R    Math/science homework help       writing              chatgpt        0.0    ⚠️ zero-match fallback
+R175   R    Curriculum design                writing              chatgpt        0.0    ⚠️ zero-match fallback
+R176   R    Grading/feedback assistance      writing              chatgpt        0.0    ⚠️ zero-match fallback
+R177   R    Study guide creation             writing              chatgpt        0.0    ⚠️ zero-match fallback
+R178   R    Language learning exercises      writing              chatgpt        0.0    ⚠️ zero-match fallback
+R179   R    Research methodology teaching    writing              chatgpt        0.0    ⚠️ zero-match fallback
+R180   R    Thesis feedback                  writing              chatgpt        0.0    ⚠️ zero-match fallback
+S181   S    Physics calculation              writing              chatgpt        0.0    ⚠️ zero-match fallback
+S182   S    Chemical reaction analysis       writing              chatgpt        0.0    ⚠️ zero-match fallback
+S183   S    CAD/mechanical design            writing              chatgpt        0.0    ⚠️ zero-match fallback
+S184   S    Environmental impact analysis    writing              chatgpt        0.0    ⚠️ zero-match fallback
+S185   S    Materials science research       writing              chatgpt        0.0    ⚠️ zero-match fallback
+S186   S    Experimental design              writing              chatgpt        0.0    ⚠️ zero-match fallback
+S187   S    Simulation data modeling         deep_reasoning       claude         0.33   ⚠️ priority-rank fallback (deep_reasoning)
+S188   S    Robotics/control systems         writing              chatgpt        0.0    ⚠️ zero-match fallback
+S189   S    Renewable energy analysis        writing              chatgpt        0.0    ⚠️ zero-match fallback
+S190   S    Structural engineering review    classification       gemini         0.64   priority-rank fallback (classification)
+T191   T    Code + slide deck                presentation         gamma          0.99   keyword match → presentation
+T192   T    Summarize + translate            translation          claude         0.42   ⚠️ keyword match → translation
+T193   T    Research + writing               web_research         perplexity     0.78   keyword match → web_research
+T194   T    Classify + summarize             summarization        claude         0.42   ⚠️ keyword match → summarization
+T195   T    Data extraction + presentation   presentation         gamma          0.98   verb-intent: extraction
+T196   T    Creative + technical hybrid      coding               claude-code    0.37   ⚠️ keyword match → coding
+T197   T    Multi-domain business plan       data_extraction      chatgpt        0.78   priority-rank fallback (data_extraction)
+T198   T    Cross-functional project brief   writing              chatgpt        0.0    ⚠️ priority-rank fallback (writing)
+T199   T    Contradictory instructions       summarization        claude         0.42   ⚠️ keyword match → summarization
+T200   T    No clear deliverable             writing              chatgpt        0.0    ⚠️ zero-match fallback
+U201   U    One-word prompt                  writing              chatgpt        0.0    ⚠️ zero-match fallback
+U202   U    Extremely long rambling prompt   writing              claude         0.42   ⚠️ zero-match fallback
+U203   U    Non-English prompt               writing              chatgpt        0.0    ⚠️ zero-match fallback
+U204   U    Typo-heavy prompt                writing              chatgpt        0.0    ⚠️ zero-match fallback
+U205   U    Missing attachment reference     long_context_analysis gemini         0.42   ⚠️ priority-rank fallback (long_context_analysis)
+U206   U    Mixed languages prompt           summarization        claude         0.42   ⚠️ keyword match → summarization
+U207   U    Real-time data request           web_research         perplexity     0.78   keyword match → web_research
+U208   U    Adversarial/trick prompt         writing              chatgpt        0.0    ⚠️ zero-match fallback
+U209   U    Meta-prompt                      summarization        claude         0.42   ⚠️ keyword match → summarization
+U210   U    Novel/unprecedented task         coding               claude-code    0.78   priority-rank fallback (coding)
+
+==========================================================================================
+COVERAGE GAPS (fallback hit or task_type mismatch for A-L)
+==========================================================================================
+  [A04] Frontend UI component               → coding               [FALLBACK]  path=priority-rank fallback (coding)
+  [A05] DevOps/CI-CD script                 → coding               [FALLBACK]  path=priority-rank fallback (coding)
+  [A07] Code review                         → coding               [FALLBACK]  path=priority-rank fallback (coding)
+  [A08] Algorithm design                    → deep_reasoning       [FALLBACK]  path=priority-rank fallback (deep_reasoning)
+  [B12] SQL query writing                   → coding               [MISMATCH (expected data_extraction)]  path=keyword match → coding
+  [B13] Data cleaning                       → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [B14] Statistical analysis                → writing              [FALLBACK]  path=zero-match fallback
+  [B15] Dashboard/BI report                 → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [B16] A/B test analysis                   → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [B18] Time-series forecasting             → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [B19] Data visualization                  → visual_multimodal    [MISMATCH (expected data_extraction)]  path=keyword match → visual_multimodal
+  [B20] ETL pipeline design                 → coding               [FALLBACK]  path=priority-rank fallback (coding)
+  [C22] Industry news                       → writing              [FALLBACK]  path=zero-match fallback
+  [C24] Product comparison                  → writing              [FALLBACK]  path=zero-match fallback
+  [C27] Local business lookup               → writing              [FALLBACK]  path=zero-match fallback
+  [C30] Sports scores lookup                → writing              [FALLBACK]  path=zero-match fallback
+  [D40] Multi-document synthesis            → summarization        [FALLBACK]  path=priority-rank fallback (summarization)
+  [E42] Poetry                              → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [E43] Marketing copy                      → creative_writing     [FALLBACK]  path=priority-rank fallback (creative_writing)
+  [E44] Screenplay dialogue                 → creative_writing     [FALLBACK]  path=priority-rank fallback (creative_writing)
+  [E45] Blog post                           → creative_writing     [FALLBACK]  path=priority-rank fallback (creative_writing)
+  [E46] Brand naming/slogans                → writing              [FALLBACK]  path=zero-match fallback
+  [E48] Speech writing                      → creative_writing     [FALLBACK]  path=priority-rank fallback (creative_writing)
+  [E49] Parody writing                      → creative_writing     [FALLBACK]  path=priority-rank fallback (creative_writing)
+  [E50] Product description                 → creative_writing     [FALLBACK]  path=priority-rank fallback (creative_writing)
+  [F54] Conference talk slides              → writing              [FALLBACK]  path=zero-match fallback
+  [G63] Spam/fraud detection                → classification       [FALLBACK]  path=priority-rank fallback (classification)
+  [G64] Content moderation                  → writing              [FALLBACK]  path=zero-match fallback
+  [G65] Lead scoring                        → classification       [FALLBACK]  path=priority-rank fallback (classification)
+  [G66] Document type classification        → summarization        [MISMATCH (expected classification)]  path=keyword match → summarization
+  [G67] Language detection                  → writing              [FALLBACK]  path=zero-match fallback
+  [G69] Priority/urgency tagging            → writing              [FALLBACK]  path=zero-match fallback
+  [G70] Duplicate detection                 → classification       [FALLBACK]  path=priority-rank fallback (classification)
+  [H78] Multilingual SEO                    → web_research         [MISMATCH (expected translation)]  path=keyword match → web_research
+  [H80] Idiomatic/cultural adaptation       → writing              [FALLBACK]  path=zero-match fallback
+  [I84] Statistical hypothesis              → writing              [FALLBACK]  path=zero-match fallback
+  [I85] Game theory                         → deep_reasoning       [FALLBACK]  path=priority-rank fallback (deep_reasoning)
+  [I86] Multi-step word problem             → writing              [FALLBACK]  path=zero-match fallback
+  [I87] Architecture tradeoff               → writing              [FALLBACK]  path=zero-match fallback
+  [I88] Root-cause analysis                 → coding               [FALLBACK]  path=priority-rank fallback (coding)
+  [I90] Strategic decision analysis         → writing              [FALLBACK]  path=zero-match fallback
+  [J91] Full contract review                → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [J92] Codebase-wide analysis              → coding               [MISMATCH (expected summarization)]  path=keyword match → coding
+  [J93] Multi-year financial review         → writing              [FALLBACK]  path=zero-match fallback
+  [J94] Litigation document review          → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [J95] Regulatory compliance review        → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [J96] Manuscript analysis                 → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [J97] Research corpus meta-analysis       → summarization        [FALLBACK]  path=priority-rank fallback (summarization)
+  [J98] Transcript series review            → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [J99] Technical spec review               → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [J100] M&A due-diligence docs              → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [K103] Image product cataloging            → writing              [FALLBACK]  path=zero-match fallback
+  [K105] Handwriting/OCR extraction          → summarization        [FALLBACK]  path=priority-rank fallback (summarization)
+  [K106] Video content summary               → summarization        [MISMATCH (expected visual_multimodal)]  path=keyword match → summarization
+  [K107] UI/UX mockup review                 → classification       [FALLBACK]  path=priority-rank fallback (classification)
+  [K108] Image description                   → visual_multimodal    [FALLBACK]  path=priority-rank fallback (visual_multimodal)
+  [K110] Comparative image analysis          → writing              [FALLBACK]  path=zero-match fallback
+  [L112] File organization                   → writing              [FALLBACK]  path=zero-match fallback
+  [L113] Calendar + email coordination       → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [L114] Multi-API orchestration             → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [L115] Browser automation                  → data_extraction      [MISMATCH (expected coding)]  path=keyword match → data_extraction
+  [L116] Research + report pipeline          → presentation         [MISMATCH (expected coding)]  path=keyword match → presentation
+  [L118] Data pipeline + notification        → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [L119] Cross-platform sync                 → classification       [FALLBACK]  path=priority-rank fallback (classification)
+  [L120] Monitoring agent                    → writing              [FALLBACK]  path=zero-match fallback
+  [M121] Contract clause drafting            → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [M122] NDA review                          → classification       [FALLBACK]  path=priority-rank fallback (classification)
+  [M123] Compliance checklist                → writing              [FALLBACK]  path=zero-match fallback
+  [M124] IP/trademark research               → writing              [FALLBACK]  path=zero-match fallback
+  [M128] ToS drafting                        → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [M129] Litigation strategy                 → deep_reasoning       [FALLBACK]  path=priority-rank fallback (deep_reasoning)
+  [M130] Legal citation formatting           → writing              [FALLBACK]  path=zero-match fallback
+  [N131] Symptom info lookup                 → writing              [FALLBACK]  path=zero-match fallback
+  [N134] Patient education material          → creative_writing     [FALLBACK]  path=priority-rank fallback (creative_writing)
+  [N136] Medical billing question            → writing              [FALLBACK]  path=zero-match fallback
+  [N137] Public health data analysis         → writing              [FALLBACK]  path=zero-match fallback
+  [N138] Nutrition/fitness plan              → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [N139] Medical device documentation        → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [N140] Insurance claims analysis           → writing              [FALLBACK]  path=zero-match fallback
+  [O141] Budget forecasting                  → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [O143] Investment portfolio analysis       → writing              [FALLBACK]  path=zero-match fallback
+  [O144] Expense reconciliation              → classification       [FALLBACK]  path=priority-rank fallback (classification)
+  [O145] Financial statement prep            → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [O146] Loan calculation                    → writing              [FALLBACK]  path=zero-match fallback
+  [O147] Currency conversion analysis        → writing              [FALLBACK]  path=zero-match fallback
+  [O148] Audit checklist                     → writing              [FALLBACK]  path=zero-match fallback
+  [O149] Payroll question                    → writing              [FALLBACK]  path=zero-match fallback
+  [O150] Valuation/DCF modeling              → writing              [FALLBACK]  path=zero-match fallback
+  [P151] Ad campaign copy                    → creative_writing     [FALLBACK]  path=priority-rank fallback (creative_writing)
+  [P152] SEO keyword research                → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [P153] Social media content calendar       → writing              [FALLBACK]  path=zero-match fallback
+  [P154] Sales email sequences               → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [P155] Customer persona development        → writing              [FALLBACK]  path=zero-match fallback
+  [P156] Competitive positioning             → writing              [FALLBACK]  path=zero-match fallback
+  [P157] Brand voice guidelines              → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [P158] Email A/B test copy                 → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [P159] Influencer outreach                 → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [P160] Product launch messaging            → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [Q161] Job description writing             → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [Q162] Resume screening                    → writing              [FALLBACK]  path=zero-match fallback
+  [Q163] Interview question generation       → writing              [FALLBACK]  path=zero-match fallback
+  [Q164] Employee handbook drafting          → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [Q166] Onboarding plan creation            → writing              [FALLBACK]  path=zero-match fallback
+  [Q168] DEI policy drafting                 → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [Q169] Exit interview analysis             → writing              [FALLBACK]  path=zero-match fallback
+  [Q170] Org restructuring proposal          → writing              [FALLBACK]  path=zero-match fallback
+  [R171] Lesson plan creation                → writing              [FALLBACK]  path=zero-match fallback
+  [R172] Quiz/exam generation                → writing              [FALLBACK]  path=zero-match fallback
+  [R173] Concept explanation                 → writing              [FALLBACK]  path=zero-match fallback
+  [R174] Math/science homework help          → writing              [FALLBACK]  path=zero-match fallback
+  [R175] Curriculum design                   → writing              [FALLBACK]  path=zero-match fallback
+  [R176] Grading/feedback assistance         → writing              [FALLBACK]  path=zero-match fallback
+  [R177] Study guide creation                → writing              [FALLBACK]  path=zero-match fallback
+  [R178] Language learning exercises         → writing              [FALLBACK]  path=zero-match fallback
+  [R179] Research methodology teaching       → writing              [FALLBACK]  path=zero-match fallback
+  [R180] Thesis feedback                     → writing              [FALLBACK]  path=zero-match fallback
+  [S181] Physics calculation                 → writing              [FALLBACK]  path=zero-match fallback
+  [S182] Chemical reaction analysis          → writing              [FALLBACK]  path=zero-match fallback
+  [S183] CAD/mechanical design               → writing              [FALLBACK]  path=zero-match fallback
+  [S184] Environmental impact analysis       → writing              [FALLBACK]  path=zero-match fallback
+  [S185] Materials science research          → writing              [FALLBACK]  path=zero-match fallback
+  [S186] Experimental design                 → writing              [FALLBACK]  path=zero-match fallback
+  [S187] Simulation data modeling            → deep_reasoning       [FALLBACK]  path=priority-rank fallback (deep_reasoning)
+  [S188] Robotics/control systems            → writing              [FALLBACK]  path=zero-match fallback
+  [S189] Renewable energy analysis           → writing              [FALLBACK]  path=zero-match fallback
+  [S190] Structural engineering review       → classification       [FALLBACK]  path=priority-rank fallback (classification)
+  [T197] Multi-domain business plan          → data_extraction      [FALLBACK]  path=priority-rank fallback (data_extraction)
+  [T198] Cross-functional project brief      → writing              [FALLBACK]  path=priority-rank fallback (writing)
+  [T200] No clear deliverable                → writing              [FALLBACK]  path=zero-match fallback
+  [U201] One-word prompt                     → writing              [FALLBACK]  path=zero-match fallback
+  [U202] Extremely long rambling prompt      → writing              [FALLBACK]  path=zero-match fallback
+  [U203] Non-English prompt                  → writing              [FALLBACK]  path=zero-match fallback
+  [U204] Typo-heavy prompt                   → writing              [FALLBACK]  path=zero-match fallback
+  [U205] Missing attachment reference        → long_context_analysis [FALLBACK]  path=priority-rank fallback (long_context_analysis)
+  [U208] Adversarial/trick prompt            → writing              [FALLBACK]  path=zero-match fallback
+  [U210] Novel/unprecedented task            → coding               [FALLBACK]  path=priority-rank fallback (coding)
+
+==========================================================================================
+LOW-CONFIDENCE RESULTS (< 0.5) BY GROUP
+==========================================================================================
+
+  Group A (6 low-confidence):
+    [A02] API integration                     conf=0.37  model=claude-code
+    [A03] DB schema design                    conf=0.37  model=claude-code
+    [A04] Frontend UI component               conf=0.37  model=claude-code
+    [A06] Mobile app dev                      conf=0.37  model=claude-code
+    [A08] Algorithm design                    conf=0.33  model=claude
+    [A10] Security vulnerability scan         conf=0.37  model=claude-code
+
+  Group B (2 low-confidence):
+    [B12] SQL query writing                   conf=0.37  model=claude-code
+    [B14] Statistical analysis                conf=0.0  model=chatgpt
+
+  Group C (4 low-confidence):
+    [C22] Industry news                       conf=0.0  model=chatgpt
+    [C24] Product comparison                  conf=0.0  model=chatgpt
+    [C27] Local business lookup               conf=0.0  model=chatgpt
+    [C30] Sports scores lookup                conf=0.0  model=chatgpt
+
+  Group D (10 low-confidence):
+    [D31] Legal contract summary              conf=0.42  model=claude
+    [D32] Meeting transcript summary          conf=0.42  model=claude
+    [D33] Research paper summary              conf=0.42  model=claude
+    [D34] News article summary                conf=0.42  model=claude
+    [D35] Book chapter summary                conf=0.42  model=claude
+    [D36] Email thread summary                conf=0.42  model=claude
+    [D37] Customer feedback summary           conf=0.42  model=claude
+    [D38] Financial report summary            conf=0.42  model=claude
+    [D39] Podcast transcript summary          conf=0.42  model=claude
+    [D40] Multi-document synthesis            conf=0.42  model=claude
+
+  Group E (10 low-confidence):
+    [E41] Short story                         conf=0.42  model=claude
+    [E42] Poetry                              conf=0.0  model=chatgpt
+    [E43] Marketing copy                      conf=0.42  model=claude
+    [E44] Screenplay dialogue                 conf=0.42  model=claude
+    [E45] Blog post                           conf=0.42  model=claude
+    [E46] Brand naming/slogans                conf=0.0  model=chatgpt
+    [E47] Children's story                    conf=0.42  model=claude
+    [E48] Speech writing                      conf=0.42  model=claude
+    [E49] Parody writing                      conf=0.42  model=claude
+    [E50] Product description                 conf=0.42  model=claude
+
+  Group F (1 low-confidence):
+    [F54] Conference talk slides              conf=0.0  model=chatgpt
+
+  Group G (4 low-confidence):
+    [G64] Content moderation                  conf=0.0  model=chatgpt
+    [G66] Document type classification        conf=0.42  model=claude
+    [G67] Language detection                  conf=0.0  model=chatgpt
+    [G69] Priority/urgency tagging            conf=0.0  model=chatgpt
+
+  Group H (9 low-confidence):
+    [H71] Document translation                conf=0.42  model=claude
+    [H72] Website localization                conf=0.42  model=claude
+    [H73] Marketing translation               conf=0.42  model=claude
+    [H74] Legal doc translation               conf=0.42  model=claude
+    [H75] Real-time chat translation          conf=0.42  model=claude
+    [H76] Subtitle translation                conf=0.42  model=claude
+    [H77] Technical manual translation        conf=0.42  model=claude
+    [H79] Voice transcript translation        conf=0.42  model=claude
+    [H80] Idiomatic/cultural adaptation       conf=0.0  model=chatgpt
+
+  Group I (9 low-confidence):
+    [I81] Mathematical proof                  conf=0.33  model=claude
+    [I82] Logic puzzle                        conf=0.33  model=claude
+    [I83] Algorithm complexity                conf=0.33  model=claude
+    [I84] Statistical hypothesis              conf=0.0  model=chatgpt
+    [I85] Game theory                         conf=0.33  model=claude
+    [I86] Multi-step word problem             conf=0.0  model=chatgpt
+    [I87] Architecture tradeoff               conf=0.0  model=chatgpt
+    [I89] Scientific hypothesis               conf=0.33  model=claude
+    [I90] Strategic decision analysis         conf=0.0  model=chatgpt
+
+  Group J (9 low-confidence):
+    [J91] Full contract review                conf=0.42  model=gemini
+    [J93] Multi-year financial review         conf=0.0  model=chatgpt
+    [J94] Litigation document review          conf=0.42  model=gemini
+    [J95] Regulatory compliance review        conf=0.42  model=gemini
+    [J96] Manuscript analysis                 conf=0.42  model=gemini
+    [J97] Research corpus meta-analysis       conf=0.42  model=claude
+    [J98] Transcript series review            conf=0.42  model=gemini
+    [J99] Technical spec review               conf=0.42  model=gemini
+    [J100] M&A due-diligence docs              conf=0.42  model=gemini
+
+  Group K (4 low-confidence):
+    [K103] Image product cataloging            conf=0.0  model=chatgpt
+    [K105] Handwriting/OCR extraction          conf=0.42  model=claude
+    [K106] Video content summary               conf=0.42  model=claude
+    [K110] Comparative image analysis          conf=0.0  model=chatgpt
+
+  Group L (4 low-confidence):
+    [L111] Web + code task                     conf=0.37  model=claude-code
+    [L112] File organization                   conf=0.0  model=chatgpt
+    [L113] Calendar + email coordination       conf=0.0  model=chatgpt
+    [L120] Monitoring agent                    conf=0.0  model=chatgpt
+
+  Group M (9 low-confidence):
+    [M121] Contract clause drafting            conf=0.0  model=chatgpt
+    [M123] Compliance checklist                conf=0.0  model=chatgpt
+    [M124] IP/trademark research               conf=0.0  model=chatgpt
+    [M125] Employment law question             conf=0.42  model=claude
+    [M126] Case brief summarization            conf=0.42  model=claude
+    [M127] Regulatory filing drafting          conf=0.42  model=claude
+    [M128] ToS drafting                        conf=0.0  model=chatgpt
+    [M129] Litigation strategy                 conf=0.33  model=claude
+    [M130] Legal citation formatting           conf=0.0  model=chatgpt
+
+  Group N (9 low-confidence):
+    [N131] Symptom info lookup                 conf=0.0  model=chatgpt
+    [N132] Medical literature summary          conf=0.42  model=claude
+    [N133] Clinical trial data review          conf=0.42  model=claude
+    [N134] Patient education material          conf=0.42  model=claude
+    [N136] Medical billing question            conf=0.0  model=chatgpt
+    [N137] Public health data analysis         conf=0.0  model=chatgpt
+    [N138] Nutrition/fitness plan              conf=0.0  model=chatgpt
+    [N139] Medical device documentation        conf=0.0  model=chatgpt
+    [N140] Insurance claims analysis           conf=0.0  model=chatgpt
+
+  Group O (7 low-confidence):
+    [O143] Investment portfolio analysis       conf=0.0  model=chatgpt
+    [O145] Financial statement prep            conf=0.0  model=chatgpt
+    [O146] Loan calculation                    conf=0.0  model=chatgpt
+    [O147] Currency conversion analysis        conf=0.0  model=chatgpt
+    [O148] Audit checklist                     conf=0.0  model=chatgpt
+    [O149] Payroll question                    conf=0.0  model=chatgpt
+    [O150] Valuation/DCF modeling              conf=0.0  model=chatgpt
+
+  Group P (9 low-confidence):
+    [P151] Ad campaign copy                    conf=0.42  model=claude
+    [P152] SEO keyword research                conf=0.42  model=gemini
+    [P153] Social media content calendar       conf=0.0  model=chatgpt
+    [P154] Sales email sequences               conf=0.0  model=chatgpt
+    [P155] Customer persona development        conf=0.0  model=chatgpt
+    [P156] Competitive positioning             conf=0.0  model=chatgpt
+    [P157] Brand voice guidelines              conf=0.0  model=chatgpt
+    [P159] Influencer outreach                 conf=0.0  model=chatgpt
+    [P160] Product launch messaging            conf=0.0  model=chatgpt
+
+  Group Q (9 low-confidence):
+    [Q161] Job description writing             conf=0.0  model=chatgpt
+    [Q162] Resume screening                    conf=0.0  model=chatgpt
+    [Q163] Interview question generation       conf=0.0  model=chatgpt
+    [Q164] Employee handbook drafting          conf=0.0  model=chatgpt
+    [Q165] Performance review writing          conf=0.42  model=claude
+    [Q166] Onboarding plan creation            conf=0.0  model=chatgpt
+    [Q168] DEI policy drafting                 conf=0.0  model=chatgpt
+    [Q169] Exit interview analysis             conf=0.0  model=chatgpt
+    [Q170] Org restructuring proposal          conf=0.0  model=chatgpt
+
+  Group R (10 low-confidence):
+    [R171] Lesson plan creation                conf=0.0  model=chatgpt
+    [R172] Quiz/exam generation                conf=0.0  model=chatgpt
+    [R173] Concept explanation                 conf=0.0  model=chatgpt
+    [R174] Math/science homework help          conf=0.0  model=chatgpt
+    [R175] Curriculum design                   conf=0.0  model=chatgpt
+    [R176] Grading/feedback assistance         conf=0.0  model=chatgpt
+    [R177] Study guide creation                conf=0.0  model=chatgpt
+    [R178] Language learning exercises         conf=0.0  model=chatgpt
+    [R179] Research methodology teaching       conf=0.0  model=chatgpt
+    [R180] Thesis feedback                     conf=0.0  model=chatgpt
+
+  Group S (9 low-confidence):
+    [S181] Physics calculation                 conf=0.0  model=chatgpt
+    [S182] Chemical reaction analysis          conf=0.0  model=chatgpt
+    [S183] CAD/mechanical design               conf=0.0  model=chatgpt
+    [S184] Environmental impact analysis       conf=0.0  model=chatgpt
+    [S185] Materials science research          conf=0.0  model=chatgpt
+    [S186] Experimental design                 conf=0.0  model=chatgpt
+    [S187] Simulation data modeling            conf=0.33  model=claude
+    [S188] Robotics/control systems            conf=0.0  model=chatgpt
+    [S189] Renewable energy analysis           conf=0.0  model=chatgpt
+
+  Group T (6 low-confidence):
+    [T192] Summarize + translate               conf=0.42  model=claude
+    [T194] Classify + summarize                conf=0.42  model=claude
+    [T196] Creative + technical hybrid         conf=0.37  model=claude-code
+    [T198] Cross-functional project brief      conf=0.0  model=chatgpt
+    [T199] Contradictory instructions          conf=0.42  model=claude
+    [T200] No clear deliverable                conf=0.0  model=chatgpt
+
+  Group U (8 low-confidence):
+    [U201] One-word prompt                     conf=0.0  model=chatgpt
+    [U202] Extremely long rambling prompt      conf=0.42  model=claude
+    [U203] Non-English prompt                  conf=0.0  model=chatgpt
+    [U204] Typo-heavy prompt                   conf=0.0  model=chatgpt
+    [U205] Missing attachment reference        conf=0.42  model=gemini
+    [U206] Mixed languages prompt              conf=0.42  model=claude
+    [U208] Adversarial/trick prompt            conf=0.0  model=chatgpt
+    [U209] Meta-prompt                         conf=0.42  model=claude
+
+==========================================================================================
+UNVALIDATED NEW-DOMAIN CLUSTERS (M–U) — CURRENT OUTPUT ONLY
+==========================================================================================
+
+  Group M: 10 prompts | 9 low-conf | 7 fallbacks
+    [M121] Contract clause drafting            → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [M122] NDA review                          → classification     conf=0.64 ⬇️ FALLBACK
+    [M123] Compliance checklist                → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [M124] IP/trademark research               → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [M125] Employment law question             → summarization      conf=0.42 ⚠️ LOW-CONF
+    [M126] Case brief summarization            → summarization      conf=0.42 ⚠️ LOW-CONF
+    [M127] Regulatory filing drafting          → summarization      conf=0.42 ⚠️ LOW-CONF
+    [M128] ToS drafting                        → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [M129] Litigation strategy                 → deep_reasoning     conf=0.33 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [M130] Legal citation formatting           → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+
+  Group N: 10 prompts | 9 low-conf | 7 fallbacks
+    [N131] Symptom info lookup                 → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [N132] Medical literature summary          → summarization      conf=0.42 ⚠️ LOW-CONF
+    [N133] Clinical trial data review          → summarization      conf=0.42 ⚠️ LOW-CONF
+    [N134] Patient education material          → creative_writing   conf=0.42 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [N135] Healthcare policy analysis          → web_research       conf=0.78
+    [N136] Medical billing question            → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [N137] Public health data analysis         → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [N138] Nutrition/fitness plan              → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [N139] Medical device documentation        → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [N140] Insurance claims analysis           → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+
+  Group O: 10 prompts | 7 low-conf | 9 fallbacks
+    [O141] Budget forecasting                  → data_extraction    conf=0.78 ⬇️ FALLBACK
+    [O142] Tax question research               → web_research       conf=0.78
+    [O143] Investment portfolio analysis       → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [O144] Expense reconciliation              → classification     conf=0.64 ⬇️ FALLBACK
+    [O145] Financial statement prep            → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [O146] Loan calculation                    → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [O147] Currency conversion analysis        → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [O148] Audit checklist                     → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [O149] Payroll question                    → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [O150] Valuation/DCF modeling              → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+
+  Group P: 10 prompts | 9 low-conf | 10 fallbacks
+    [P151] Ad campaign copy                    → creative_writing   conf=0.42 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [P152] SEO keyword research                → long_context_analysis conf=0.42 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [P153] Social media content calendar       → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [P154] Sales email sequences               → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [P155] Customer persona development        → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [P156] Competitive positioning             → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [P157] Brand voice guidelines              → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [P158] Email A/B test copy                 → data_extraction    conf=0.78 ⬇️ FALLBACK
+    [P159] Influencer outreach                 → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [P160] Product launch messaging            → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+
+  Group Q: 10 prompts | 9 low-conf | 8 fallbacks
+    [Q161] Job description writing             → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [Q162] Resume screening                    → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [Q163] Interview question generation       → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [Q164] Employee handbook drafting          → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [Q165] Performance review writing          → summarization      conf=0.42 ⚠️ LOW-CONF
+    [Q166] Onboarding plan creation            → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [Q167] Compensation benchmarking           → web_research       conf=0.78
+    [Q168] DEI policy drafting                 → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [Q169] Exit interview analysis             → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [Q170] Org restructuring proposal          → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+
+  Group R: 10 prompts | 10 low-conf | 10 fallbacks
+    [R171] Lesson plan creation                → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R172] Quiz/exam generation                → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R173] Concept explanation                 → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R174] Math/science homework help          → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R175] Curriculum design                   → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R176] Grading/feedback assistance         → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R177] Study guide creation                → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R178] Language learning exercises         → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R179] Research methodology teaching       → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [R180] Thesis feedback                     → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+
+  Group S: 10 prompts | 9 low-conf | 10 fallbacks
+    [S181] Physics calculation                 → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S182] Chemical reaction analysis          → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S183] CAD/mechanical design               → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S184] Environmental impact analysis       → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S185] Materials science research          → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S186] Experimental design                 → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S187] Simulation data modeling            → deep_reasoning     conf=0.33 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S188] Robotics/control systems            → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S189] Renewable energy analysis           → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [S190] Structural engineering review       → classification     conf=0.64 ⬇️ FALLBACK
+
+  Group T: 10 prompts | 6 low-conf | 3 fallbacks
+    [T191] Code + slide deck                   → presentation       conf=0.99
+    [T192] Summarize + translate               → translation        conf=0.42 ⚠️ LOW-CONF
+    [T193] Research + writing                  → web_research       conf=0.78
+    [T194] Classify + summarize                → summarization      conf=0.42 ⚠️ LOW-CONF
+    [T195] Data extraction + presentation      → presentation       conf=0.98
+    [T196] Creative + technical hybrid         → coding             conf=0.37 ⚠️ LOW-CONF
+    [T197] Multi-domain business plan          → data_extraction    conf=0.78 ⬇️ FALLBACK
+    [T198] Cross-functional project brief      → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [T199] Contradictory instructions          → summarization      conf=0.42 ⚠️ LOW-CONF
+    [T200] No clear deliverable                → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+
+  Group U: 10 prompts | 8 low-conf | 7 fallbacks
+    [U201] One-word prompt                     → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [U202] Extremely long rambling prompt      → writing            conf=0.42 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [U203] Non-English prompt                  → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [U204] Typo-heavy prompt                   → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [U205] Missing attachment reference        → long_context_analysis conf=0.42 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [U206] Mixed languages prompt              → summarization      conf=0.42 ⚠️ LOW-CONF
+    [U207] Real-time data request              → web_research       conf=0.78
+    [U208] Adversarial/trick prompt            → writing            conf=0.0 ⚠️ LOW-CONF ⬇️ FALLBACK
+    [U209] Meta-prompt                         → summarization      conf=0.42 ⚠️ LOW-CONF
+    [U210] Novel/unprecedented task            → coding             conf=0.78 ⬇️ FALLBACK
+
+==========================================================================================
+TOP 10 CATEGORIES MOST WORTH ADDING REAL RULES FOR
+==========================================================================================
+  Category                                 Score (fallback×3 + low-conf×2/1)
+  ------------------------------------------------------------
+  Statistical analysis                     5
+  Industry news                            5
+  Product comparison                       5
+  Local business lookup                    5
+  Sports scores lookup                     5
+  Poetry                                   5
+  Brand naming/slogans                     5
+  Conference talk slides                   5
+  Content moderation                       5
+  Language detection                       5
+
+Done. Total prompts tested: 210
