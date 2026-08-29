@@ -11,3 +11,4 @@ __pycache__/
 weights.json.bak
 scratch/
 .pytest_cache/
+.vercel

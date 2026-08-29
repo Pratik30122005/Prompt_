@@ -59,8 +59,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-EVALS_DIR = Path(__file__).parent / "evaluations"
-EVALS_DIR.mkdir(exist_ok=True)
+# Fallback to /tmp in read-only serverless environments like Vercel
+if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+    EVALS_DIR = Path("/tmp/evaluations")
+else:
+    EVALS_DIR = Path(__file__).parent / "evaluations"
+
+try:
+    EVALS_DIR.mkdir(parents=True, exist_ok=True)
+except (OSError, PermissionError):
+    EVALS_DIR = Path("/tmp/evaluations")
+    EVALS_DIR.mkdir(parents=True, exist_ok=True)
+
 
 
 # ── Request / Response models ──────────────────────────────────────────
@@ -463,7 +473,7 @@ async def log_feedback(req: FeedbackRequest):
 @app.get("/report", response_class=StreamingResponse)
 async def view_report():
     """Render the full executive report with a copy-to-clipboard button and markdown viewer."""
-    report_file = Path("/Users/pratikyadav/.gemini/antigravity/brain/f55094e7-66a4-488a-ac85-519916088cda/executive_project_report.md")
+    report_file = Path(__file__).parent / "executive_project_report.md"
     content = report_file.read_text(encoding="utf-8") if report_file.exists() else "Report not found."
     
     html = f"""<!DOCTYPE html>
@@ -602,6 +612,7 @@ async def view_report():
 async def view_report_raw():
     """Return raw markdown text for simple Ctrl+A copy-pasting."""
     from fastapi.responses import PlainTextResponse
-    report_file = Path("/Users/pratikyadav/.gemini/antigravity/brain/f55094e7-66a4-488a-ac85-519916088cda/executive_project_report.md")
+    report_file = Path(__file__).parent / "executive_project_report.md"
     content = report_file.read_text(encoding="utf-8") if report_file.exists() else "Report not found."
     return PlainTextResponse(content=content)
+
