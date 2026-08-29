@@ -56,8 +56,8 @@ export default function Recommend() {
     }
   };
 
-  // Nothing runs without a real key - no demo, no fabricated recommendation.
-  const canRun = keyed || serverKeyed !== false;
+  // The routing engine works 100% deterministically offline and online.
+  const canRun = true;
 
   const primary = rec?.primary;
   const isMax = primary?.intelligence === 'max';
