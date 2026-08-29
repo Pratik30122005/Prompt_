@@ -458,3 +458,150 @@ async def log_feedback(req: FeedbackRequest):
     with open(log_file, "a", encoding="utf-8") as f:
         f.write(json.dumps(entry, default=str) + "\n")
     return {"status": "success", "logged": entry}
+
+
+@app.get("/report", response_class=StreamingResponse)
+async def view_report():
+    """Render the full executive report with a copy-to-clipboard button and markdown viewer."""
+    report_file = Path("/Users/pratikyadav/.gemini/antigravity/brain/f55094e7-66a4-488a-ac85-519916088cda/executive_project_report.md")
+    content = report_file.read_text(encoding="utf-8") if report_file.exists() else "Report not found."
+    
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Project Report: Smart AI Model Router</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.0/github-markdown.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {{
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+        }}
+        .container {{
+            max-width: 960px;
+            width: 100%;
+            background: #161b22;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }}
+        .header-bar {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #30363d;
+        }}
+        .btn {{
+            background: #238636;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }}
+        .btn:hover {{
+            background: #2ea043;
+            transform: translateY(-1px);
+        }}
+        .btn:active {{
+            transform: translateY(1px);
+        }}
+        .btn-outline {{
+            background: transparent;
+            border: 1px solid #30363d;
+            color: #58a6ff;
+            margin-right: 8px;
+        }}
+        .btn-outline:hover {{
+            background: #21262d;
+            border-color: #8b949e;
+        }}
+        .markdown-body {{
+            background: transparent !important;
+            color: #c9d1d9 !important;
+        }}
+        .markdown-body table {{
+            background: transparent !important;
+        }}
+        .markdown-body tr, .markdown-body th, .markdown-body td {{
+            background: transparent !important;
+            border-color: #30363d !important;
+        }}
+        .markdown-body pre {{
+            background-color: #0d1117 !important;
+            border: 1px solid #30363d;
+        }}
+        .toast {{
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #238636;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }}
+        .toast.show {{
+            opacity: 1;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-bar">
+            <div>
+                <h2 style="margin: 0; color: #58a6ff;">Executive Project Report</h2>
+                <small style="color: #8b949e;">Ready for presentation and copy-pasting</small>
+            </div>
+            <div>
+                <a href="/report/raw" class="btn btn-outline" target="_blank" style="text-decoration: none;">View Raw Text</a>
+                <button class="btn" onclick="copyReport()">📋 Copy Full Report</button>
+            </div>
+        </div>
+        <div id="content" class="markdown-body"></div>
+    </div>
+    <div id="toast" class="toast">✅ Copied report to clipboard!</div>
+
+    <textarea id="rawContent" style="display: none;">{content}</textarea>
+
+    <script>
+        const raw = document.getElementById('rawContent').value;
+        document.getElementById('content').innerHTML = marked.parse(raw);
+
+        function copyReport() {{
+            navigator.clipboard.writeText(raw).then(() => {{
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2500);
+            }});
+        }}
+    </script>
+</body>
+</html>"""
+    from fastapi.responses import HTMLResponse
+    return HTMLResponse(content=html)
+
+
+@app.get("/report/raw")
+async def view_report_raw():
+    """Return raw markdown text for simple Ctrl+A copy-pasting."""
+    from fastapi.responses import PlainTextResponse
+    report_file = Path("/Users/pratikyadav/.gemini/antigravity/brain/f55094e7-66a4-488a-ac85-519916088cda/executive_project_report.md")
+    content = report_file.read_text(encoding="utf-8") if report_file.exists() else "Report not found."
+    return PlainTextResponse(content=content)

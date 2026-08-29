@@ -267,3 +267,22 @@ accuracy, execution time and overall cost.
 
 `eval.py` covers items 1, 4 and 5 directly, and implements the response-quality half of item 2.
 Business Alignment and Safety are not yet scored, and item 3 (AI Skills) is not yet started.
+
+
+## Continuous Sync (Auto-Sync)
+
+This repository includes a background synchronization script (`scripts/auto_sync.py`) to automatically track, commit, and push changes to a dedicated working branch (`auto-sync`).
+
+**How it works:**
+1. The script polls for file changes every 30 seconds.
+2. When changes are detected, it stages them.
+3. It generates a descriptive commit message listing the files that were Added, Modified, or Deleted.
+4. It pushes the new commit to the `auto-sync` branch on the remote repository.
+
+**Why `auto-sync` instead of `main`?**
+To protect the `main` branch from half-finished work or breaking changes, the script isolates all live synchronization to the `auto-sync` branch. When you are ready to finalize a feature, simply open a Pull Request from `auto-sync` to `main` and merge it.
+
+**To run the sync manually:**
+```bash
+python3 scripts/auto_sync.py
+```

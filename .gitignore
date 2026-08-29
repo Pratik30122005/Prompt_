@@ -2,3 +2,12 @@ __pycache__/
 *.pyc
 evaluations/
 .env
+
+.env
+.env.local
+node_modules/
+__pycache__/
+*.bak
+weights.json.bak
+scratch/
+.pytest_cache/
