@@ -1,3 +1,5 @@
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://prompt-router-nu.vercel.app)
+
 # Prompt_
 
 A prompt evaluation framework. `eval.py` runs the **same prompt across different Gemini
