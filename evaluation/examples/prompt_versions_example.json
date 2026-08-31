@@ -1,0 +1,22 @@
+[
+  {
+    "label": "v1 - bare instruction",
+    "prompt": "Summarize this: {input}"
+  },
+  {
+    "label": "v2 + audience/length/tone",
+    "prompt": "Summarize this for a board of directors in under 150 words, formal tone: {input}"
+  },
+  {
+    "label": "v3 + explicit constraints",
+    "prompt": "Summarize this for a board of directors in under 150 words, formal tone. You must call out revenue and churn explicitly, must not speculate beyond what the data shows, and must flag any missing data points instead of guessing: {input}"
+  },
+  {
+    "label": "v4 + output format",
+    "prompt": "Summarize this for a board of directors in under 150 words, formal tone. You must call out revenue and churn explicitly, must not speculate beyond what the data shows, and must flag any missing data points instead of guessing. Respond in exactly three sections with these headers: Highlights, Risks, Next Steps: {input}"
+  },
+  {
+    "label": "v5 + few-shot example",
+    "prompt": "Summarize this for a board of directors in under 150 words, formal tone. You must call out revenue and churn explicitly, must not speculate beyond what the data shows, and must flag any missing data points instead of guessing. Respond in exactly three sections with these headers: Highlights, Risks, Next Steps.\n\nExample:\nInput: Q1 report, revenue $2M (+5%), churn 3%, no support-ticket data available.\nOutput:\nHighlights: Revenue grew 5% to $2M.\nRisks: Churn holding at 3%; support-ticket volume unavailable this quarter, so satisfaction trend cannot be confirmed.\nNext Steps: Restore support-ticket reporting before next board cycle.\n\nNow do the same for:\n{input}"
+  }
+]

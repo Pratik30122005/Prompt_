@@ -1,0 +1,17 @@
+[
+  {
+    "label": "easy - reformat list",
+    "difficulty": "easy",
+    "prompt": "Reformat this comma-separated list into a numbered list, one item per line: apples, bananas, oranges, grapes, pears"
+  },
+  {
+    "label": "medium - summarize tradeoffs",
+    "difficulty": "medium",
+    "prompt": "In under 120 words, summarize the tradeoffs between a monolithic architecture and a microservices architecture for a 5-person startup building their first product."
+  },
+  {
+    "label": "hard - architecture decision",
+    "difficulty": "hard",
+    "prompt": "A team of 30 engineers is deciding whether to migrate a 6-year-old monolith to microservices while also needing to ship a major customer commitment in 4 months. Walk through the key decision factors, identify what could go wrong with each option, and give a concrete recommendation with your reasoning."
+  }
+]
