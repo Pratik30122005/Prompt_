@@ -4,7 +4,7 @@ difficulty level where the quality gain stops justifying the extra cost/latency.
 
 Usage:
   export GEMINI_API_KEY=...
-  python evaluation/thinking_roi.py tasks.json --model gemini-2.5-pro --budgets 0,4096
+  python evaluation/thinking_roi.py tasks.json --model gemini-3.1-pro-preview --budgets 0,4096
 
 tasks.json format (deliberately spans easy -> hard so the crossover point is visible):
 [
@@ -83,8 +83,8 @@ def _headline(avg_score):
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("tasks_file", nargs="?", help="JSON file of {label, prompt, difficulty, reference?}")
-    p.add_argument("-m", "--model", default="gemini-2.5-pro", help="Must support thinkingConfig")
-    p.add_argument("--judge-model", default="gemini-2.5-pro")
+    p.add_argument("-m", "--model", default="gemini-3.1-pro-preview", help="Must support thinkingConfig")
+    p.add_argument("--judge-model", default="gemini-3.1-pro-preview")
     p.add_argument("--budgets", default="0,4096", help="Comma-separated thinking budgets to compare, "
                    "first one treated as the baseline")
     p.add_argument("-n", type=int, default=1)

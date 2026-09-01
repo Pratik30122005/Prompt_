@@ -7,7 +7,7 @@ technique at a time, so any score movement is attributable to that one change.
 
 Usage:
   export GEMINI_API_KEY=...
-  python evaluation/prompt_iteration.py versions.json --model gemini-2.5-flash --judge-model gemini-2.5-pro
+  python evaluation/prompt_iteration.py versions.json --model gemini-3.6-flash --judge-model gemini-3.1-pro-preview
 
 versions.json format:
 [
@@ -78,8 +78,8 @@ def main():
     p.add_argument("versions_file", nargs="?", help="JSON file of {label, prompt, reference?} objects")
     p.add_argument("--input", default="", help="Fixed underlying content/data, substituted into "
                    "any version's prompt that contains {input}")
-    p.add_argument("-m", "--model", default="gemini-2.5-flash")
-    p.add_argument("--judge-model", default="gemini-2.5-pro")
+    p.add_argument("-m", "--model", default="gemini-3.6-flash")
+    p.add_argument("--judge-model", default="gemini-3.1-pro-preview")
     p.add_argument("-n", type=int, default=1, help="Repeats per version (>1 also shows variance)")
     p.add_argument("--selftest", action="store_true")
     args = p.parse_args()

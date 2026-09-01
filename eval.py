@@ -15,10 +15,18 @@ API_KEY = ""
 
 # USD per 1M tokens (input, output). Goes stale every time Google ships a model - unpriced
 # models report cost "?"; override or extend at the CLI with --price MODEL=IN/OUT.
+# NOTE: gemini-2.5-pro/flash were deprecated for new API keys in Aug 2026 (HTTP 404 on new
+# projects) in favor of the 3.x line below. Old entries are kept so existing keys/scripts that
+# still have 2.5 access don't break; new work should default to the 3.x model names.
 PRICES = {
     "gemini-2.5-pro": (1.25, 10.00),
     "gemini-2.5-flash": (0.30, 2.50),
     "gemini-2.5-flash-lite": (0.10, 0.40),
+    "gemini-3.1-pro-preview": (2.00, 12.00),
+    "gemini-3.6-flash": (0.75, 3.75),  # introductory rate through 2026-12-31; rises to 1.50/7.50 after
+    "gemini-3.1-flash-lite-preview": (0.25, 1.50),
+    "gemini-3.5-flash": (1.50, 9.00),
+    "gemini-3.5-flash-lite": (0.30, 2.50),
 }
 
 CRITERIA = ["accuracy", "completeness", "relevance", "instruction_following",
