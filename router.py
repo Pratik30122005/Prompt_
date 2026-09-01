@@ -130,6 +130,28 @@ TOOLS = {
         "params": {"temperature": 0.1, "repo_context": True},
         "citation": "Anthropic Claude Code CLI Specs (2026)",
     },
+    "deepseek": {
+        "name": "DeepSeek V4 (Flash / Pro)",
+        "best_for": ["coding", "deep_reasoning", "data_extraction"],
+        "avoid_for": ["presentation", "web_research", "visual_multimodal"],
+        "output_format_support": ["free_text", "structured_json", "markdown_report", "code_file"],
+        "tiers": {"lite": "deepseek-v4-flash", "standard": "deepseek-v4-flash (thinking on)",
+                  "max": "deepseek-v4-pro (thinking on)"},
+        # Dramatically cheaper than every other model here - lowest cost_tier by a wide margin,
+        # which is the main reason to pick it once task_type/format checks pass.
+        "cost_tier": 0.1,
+        "latency_tier": 0.75,
+        "context_capacity": 1000000,
+        "supported_tools": ["none"],
+        "cost_desc": "~$0.22 in / $0.66 out per 1M tokens (V4-Flash, off-peak) - DeepSeek runs "
+                      "time-of-day peak pricing; verify current rate at api-docs.deepseek.com "
+                      "before treating this as exact",
+        "params": {"temperature": 0.2},
+        "citation": "DeepSeek Official API Pricing Docs (api-docs.deepseek.com, checked Aug 2026) "
+                     "- exact model ID string and thinking-mode parameter name should be "
+                     "reconfirmed against live docs before production use; pricing here is a "
+                     "snapshot, not a guarantee",
+    },
 }
 
 TASK_TYPES = [
@@ -211,7 +233,8 @@ def infer_reasoning_depth(base_depth: str, p: str) -> str:
             return "high"
     # Regex check
     for pattern in _HIGH_REASONING_REGEX:
-        if pattern.search(p):
+        pattern_match = pattern.search(p)
+        if pattern_match:
             return "high"
     return base_depth
 
@@ -338,7 +361,7 @@ def classify_prompt(prompt: str,
 
     def _build(task_type, base_reasoning, output_format,
                latency_sens, cost_sens, tool_use):
-        depth = infer_reasoning_depth(base_reasoning, p)
+        depth = infer_reasoning_depth(base_depth=base_reasoning, p=p)
         return {
             "task_type":          task_type,
             "reasoning_depth":    depth,
@@ -857,5 +880,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# Auto-sync test marker: 2026-08-29

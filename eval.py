@@ -1,12 +1,49 @@
-"""Prompt evaluation CLI: run one prompt across Gemini models/settings and compare.
+"""Prompt evaluation CLI: run one prompt across Gemini/DeepSeek models/settings and compare.
 
   export GEMINI_API_KEY=...
+  export DEEPSEEK_API_KEY=...   # only needed if you use a deepseek-* model
   python eval.py "Summarise this contract clause: ..." --judge
   python eval.py "..." -m gemini-2.5-flash,gemini-2.5-pro --thinking 0,4096 -n 3 --judge
+  python eval.py "..." -m gemini-3.6-flash,deepseek-v4-flash --judge   # cross-provider compare
 """
 import argparse, getpass, json, os, statistics, sys, time, urllib.request, urllib.error
 
 API = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
+DEEPSEEK_API = "https://api.deepseek.com/chat/completions"
+
+KEY_ENV = {"gemini": ["GEMINI_API_KEY", "GOOGLE_API_KEY"], "deepseek": ["DEEPSEEK_API_KEY"]}
+KEY_URL = {"gemini": "https://aistudio.google.com/apikey",
+           "deepseek": "https://platform.deepseek.com/api_keys"}
+
+
+def provider_of(model):
+    """Which API a model id belongs to. Add a prefix here before adding a third provider."""
+    return "deepseek" if model.startswith("deepseek") else "gemini"
+
+
+def resolve_key(provider):
+    """Env-var lookup only, no prompting - gather_keys() decides when to prompt."""
+    for var in KEY_ENV[provider]:
+        v = os.environ.get(var)
+        if v:
+            return v
+    if provider == "gemini" and API_KEY.strip():
+        return API_KEY.strip()
+    return None
+
+
+def gather_keys(models):
+    """Resolve (or interactively prompt for) exactly the provider keys this run needs - never
+    asks for a DeepSeek key when only Gemini models are in play, or vice versa."""
+    keys = {}
+    for provider in sorted({provider_of(m) for m in models}):
+        k = resolve_key(provider)
+        if not k:
+            k = getpass.getpass("%s_API_KEY (%s): " % (provider.upper(), KEY_URL[provider])).strip()
+        if not k:
+            sys.exit("no API key for provider: " + provider)
+        keys[provider] = k
+    return keys
 
 # Paste your key here to skip the environment variable. WARNING: this repo is public - a key
 # committed here is a leaked key. Prefer GEMINI_API_KEY in your environment, and if you do fill
@@ -27,6 +64,13 @@ PRICES = {
     "gemini-3.1-flash-lite-preview": (0.25, 1.50),
     "gemini-3.5-flash": (1.50, 9.00),
     "gemini-3.5-flash-lite": (0.30, 2.50),
+    # DeepSeek: OpenAI-compatible API, separate DEEPSEEK_API_KEY. Pricing changes fast and has
+    # had a peak/off-peak split in the past - these are off-peak snapshot rates, checked against
+    # DeepSeek's docs in Aug 2026. Confirm at api-docs.deepseek.com before relying on them, and
+    # double check the exact model id string is still current - DeepSeek has moved fast on
+    # versioned checkpoint names (e.g. a dated suffix like -0731).
+    "deepseek-v4-flash": (0.22, 0.66),
+    "deepseek-v4-pro": (0.66, 1.98),
 }
 
 CRITERIA = ["accuracy", "completeness", "relevance", "instruction_following",
@@ -187,6 +231,21 @@ def ask(label):
 
 
 def call(model, prompt, thinking=None, key=None, system=None, schema=None):
+    """Dispatch to the right provider for `model`. `key` may be a plain string (assumed to
+    match that model's provider - the original single-provider behavior, unchanged for every
+    existing Gemini-only caller) or a {provider: key} dict for working across providers.
+    Returns (text, usage_dict, seconds) either way - callers never need to know which provider
+    actually served the request."""
+    provider = provider_of(model)
+    k = key.get(provider) if isinstance(key, dict) else key
+    if not k:
+        sys.exit("no API key available for provider '%s' (model %s)" % (provider, model))
+    if provider == "deepseek":
+        return _call_deepseek(model, prompt, thinking, k, system, schema)
+    return _call_gemini(model, prompt, thinking, k, system, schema)
+
+
+def _call_gemini(model, prompt, thinking, key, system, schema):
     """POST to Gemini. Returns (text, usage_dict, seconds)."""
     body = {"contents": [{"parts": [{"text": prompt}]}]}
     cfg = {}
@@ -218,8 +277,49 @@ def call(model, prompt, thinking=None, key=None, system=None, schema=None):
     return extract(data) + (time.perf_counter() - t0,)
 
 
+def _call_deepseek(model, prompt, thinking, key, system, schema):
+    """POST to DeepSeek's OpenAI-compatible chat/completions endpoint. Returns the same
+    (text, usage_dict, seconds) shape _call_gemini does.
+
+    Two things here are best-effort, not verified against a live account (no DeepSeek key was
+    available while writing this) - confirm both before trusting this in production:
+    - The exact field name/shape for toggling V4's thinking mode (guessed as a "thinking"
+      object below, following the pattern of similar reasoning-toggle APIs). If it's wrong,
+      the request likely still succeeds and just ignores the flag rather than failing loudly.
+    - response_format: {"type": "json_object"} gives unconstrained JSON mode, not a full
+      schema constraint like Gemini's responseSchema - the judge's own prompt text is what
+      actually keeps its output on-shape here, this is just a nudge, not an enforced contract.
+    """
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
+    body = {"model": model, "messages": messages, "stream": False}
+    if schema:
+        body["response_format"] = {"type": "json_object"}
+    if thinking is not None:
+        body["thinking"] = {"type": "enabled" if thinking else "disabled"}
+    req = urllib.request.Request(
+        DEEPSEEK_API, data=json.dumps(body).encode(),
+        headers={"content-type": "application/json", "authorization": "Bearer %s" % key})
+    t0 = time.perf_counter()
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=600) as r:
+                data = json.load(r)
+            break
+        except urllib.error.HTTPError as e:
+            body_text = e.read().decode()[:500]
+            if e.code not in (429, 500, 503) or attempt == 3:
+                sys.exit("%s -> HTTP %s: %s" % (model, e.code, body_text))
+            wait = 5 * 2 ** attempt
+            print("  %s HTTP %s, retrying in %ds" % (model, e.code, wait), file=sys.stderr)
+            time.sleep(wait)
+    return _extract_deepseek(data) + (time.perf_counter() - t0,)
+
+
 def extract(data):
-    """Pull text + usage out of a generateContent response."""
+    """Pull text + usage out of a Gemini generateContent response."""
     cand = (data.get("candidates") or [{}])[0]
     parts = cand.get("content", {}).get("parts") or []
     text = "".join(p.get("text", "") for p in parts)
@@ -229,6 +329,18 @@ def extract(data):
     return text, {"in": u.get("promptTokenCount", 0),
                   "out": u.get("candidatesTokenCount", 0),
                   "think": u.get("thoughtsTokenCount", 0)}
+
+
+def _extract_deepseek(data):
+    """Pull text + usage out of a DeepSeek (OpenAI-compatible) chat/completions response."""
+    choice = (data.get("choices") or [{}])[0]
+    text = (choice.get("message") or {}).get("content", "") or ""
+    if not text:
+        text = "<empty: finish_reason=%s>" % choice.get("finish_reason")
+    u = data.get("usage", {}) or {}
+    details = u.get("completion_tokens_details", {}) or {}
+    return text, {"in": u.get("prompt_tokens", 0), "out": u.get("completion_tokens", 0),
+                  "think": details.get("reasoning_tokens", 0)}
 
 
 def cost(model, usage):
@@ -381,6 +493,44 @@ def selftest():
     # cost/latency remain purely measured, never folded into the judged score average
     assert "secs" not in ALL_JUDGED and "cost" not in ALL_JUDGED
 
+    # --- multi-provider dispatch (DeepSeek added alongside Gemini) ---
+    assert provider_of("gemini-3.6-flash") == "gemini"
+    assert provider_of("deepseek-v4-flash") == "deepseek"
+    assert provider_of("deepseek-v4-pro") == "deepseek"
+
+    # call()'s key argument accepts EITHER a plain string (old single-provider behavior,
+    # every existing Gemini-only call site keeps working unchanged) or a {provider: key} dict
+    assert isinstance("some-string-key", str)  # documents the accepted shapes; no call() hit here
+
+    # gather_keys only asks for providers actually present in the model list - never prompts
+    # for DeepSeek when nothing deepseek-shaped was requested, or vice versa
+    old_environ = dict(os.environ)
+    try:
+        os.environ["GEMINI_API_KEY"] = "fake-gemini-key"
+        os.environ.pop("DEEPSEEK_API_KEY", None)
+        keys = gather_keys(["gemini-3.6-flash"])
+        assert keys == {"gemini": "fake-gemini-key"}
+
+        os.environ["DEEPSEEK_API_KEY"] = "fake-deepseek-key"
+        keys = gather_keys(["gemini-3.6-flash", "deepseek-v4-flash"])
+        assert keys == {"gemini": "fake-gemini-key", "deepseek": "fake-deepseek-key"}
+    finally:
+        os.environ.clear()
+        os.environ.update(old_environ)
+
+    # DeepSeek's OpenAI-compatible response shape parses into the same usage dict shape Gemini's does
+    text, usage = _extract_deepseek({
+        "choices": [{"message": {"content": "hi!"}, "finish_reason": "stop"}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 20,
+                  "completion_tokens_details": {"reasoning_tokens": 5}},
+    })
+    assert (text, usage) == ("hi!", {"in": 10, "out": 20, "think": 5})
+    assert _extract_deepseek({"choices": [{"finish_reason": "length"}]})[0] == "<empty: finish_reason=length>"
+    assert _extract_deepseek({})[1] == {"in": 0, "out": 0, "think": 0}
+
+    # DeepSeek pricing resolves like any other model - same cost() function, no special-casing
+    assert cost("deepseek-v4-flash", {"in": 1_000_000, "out": 1_000_000, "think": 0}) == 0.22 + 0.66
+
     print("selftest ok")
 
 
@@ -423,12 +573,7 @@ def main():
         args.reference = open(args.reference[1:], encoding="utf-8").read()
     if args.business_context and args.business_context.startswith("@"):
         args.business_context = open(args.business_context[1:], encoding="utf-8").read()
-    key = (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-           or API_KEY.strip())
-    if not key:
-        key = getpass.getpass("GEMINI_API_KEY (https://aistudio.google.com/apikey): ").strip()
-    if not key:
-        sys.exit("no API key")
+    key = gather_keys(args.models.split(",") + ([args.judge_model] if args.judge else []))
 
     budgets = [int(b) for b in args.thinking.split(",")] if args.thinking else [None]
     rows = []

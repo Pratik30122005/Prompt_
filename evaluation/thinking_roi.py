@@ -4,7 +4,7 @@ difficulty level where the quality gain stops justifying the extra cost/latency.
 
 Usage:
   export GEMINI_API_KEY=...
-  python evaluation/thinking_roi.py tasks.json --model gemini-3.1-pro-preview --budgets 0,4096
+  python evaluation/thinking_roi.py tasks.json --model gemini-3.5-flash --budgets 0,4096
 
 tasks.json format (deliberately spans easy -> hard so the crossover point is visible):
 [
@@ -20,6 +20,11 @@ import eval as e  # reuse call(), judge(), cost() - thinking tokens already bill
 
 
 def run_budgets(tasks, model, judge_model, budgets, key, n):
+    """NOTE: --budgets values are literal token budgets for Gemini (thinkingConfig.thinkingBudget)
+    but only boolean on/off for DeepSeek (0 = disabled, any nonzero = enabled) - DeepSeek's API
+    doesn't expose a numeric thinking budget as far as could be confirmed. Comparing budgets
+    like 0,4096,8192 against a DeepSeek model will only ever show two distinct behaviors, not
+    three - keep that in mind reading the table if you mix providers in one run."""
     rows = []
     for t in tasks:
         for b in budgets:
@@ -83,8 +88,11 @@ def _headline(avg_score):
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("tasks_file", nargs="?", help="JSON file of {label, prompt, difficulty, reference?}")
-    p.add_argument("-m", "--model", default="gemini-3.1-pro-preview", help="Must support thinkingConfig")
-    p.add_argument("--judge-model", default="gemini-3.1-pro-preview")
+    p.add_argument("-m", "--model", default="gemini-3.5-flash",
+                   help="Must support thinkingConfig. Kept off Pro models by default - they "
+                        "have had no free-tier quota at all since Apr 2026. Flash models "
+                        "support a thinking budget too; override if you have a paid project.")
+    p.add_argument("--judge-model", default="gemini-3.5-flash")
     p.add_argument("--budgets", default="0,4096", help="Comma-separated thinking budgets to compare, "
                    "first one treated as the baseline")
     p.add_argument("-n", type=int, default=1)
@@ -98,12 +106,8 @@ def main():
     if not args.tasks_file:
         p.error("tasks_file is required unless --selftest")
 
-    key = (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY") or e.API_KEY.strip())
-    if not key:
-        key = e.ask("GEMINI_API_KEY")
-    if not key:
-        sys.exit("no API key")
     tasks = json.load(open(args.tasks_file, encoding="utf-8"))
+    key = e.gather_keys([args.model, args.judge_model])
     budgets = [int(b) for b in args.budgets.split(",")]
     rows = run_budgets(tasks, args.model, args.judge_model, budgets, key, args.n)
     roi_table(rows)

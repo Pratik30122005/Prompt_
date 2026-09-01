@@ -7,7 +7,7 @@ technique at a time, so any score movement is attributable to that one change.
 
 Usage:
   export GEMINI_API_KEY=...
-  python evaluation/prompt_iteration.py versions.json --model gemini-3.6-flash --judge-model gemini-3.1-pro-preview
+  python evaluation/prompt_iteration.py versions.json --model gemini-3.6-flash --judge-model gemini-3.5-flash
 
 versions.json format:
 [
@@ -79,7 +79,10 @@ def main():
     p.add_argument("--input", default="", help="Fixed underlying content/data, substituted into "
                    "any version's prompt that contains {input}")
     p.add_argument("-m", "--model", default="gemini-3.6-flash")
-    p.add_argument("--judge-model", default="gemini-3.1-pro-preview")
+    p.add_argument("--judge-model", default="gemini-3.5-flash",
+                   help="Free tier only covers Flash/Flash-Lite - Pro models require billing "
+                        "and have no free quota at all as of Apr 2026. Override if you have a "
+                        "paid project.")
     p.add_argument("-n", type=int, default=1, help="Repeats per version (>1 also shows variance)")
     p.add_argument("--selftest", action="store_true")
     args = p.parse_args()
@@ -91,12 +94,8 @@ def main():
     if not args.versions_file:
         p.error("versions_file is required unless --selftest")
 
-    key = (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY") or e.API_KEY.strip())
-    if not key:
-        key = e.ask("GEMINI_API_KEY")
-    if not key:
-        sys.exit("no API key")
     versions = json.load(open(args.versions_file, encoding="utf-8"))
+    key = e.gather_keys([args.model, args.judge_model])
     rows = run_versions(versions, args.model, args.judge_model, key, args.input, args.n)
     report(rows)
 
