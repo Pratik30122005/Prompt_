@@ -71,7 +71,7 @@ def run_versions(versions, model, judge_model, key, task_input, n, shared_refere
     return rows
 
 
-def report(rows, show_verdicts=True):
+def report(rows, show_verdicts=True, show_text=False):
     if rows and not any(r["graded_against_shared_ref"] for r in rows):
         print("\n*** WARNING: no shared reference was supplied - every version was graded "
               "against its OWN stated requirements, not one fixed bar. A vaguer prompt gets an "
@@ -102,10 +102,20 @@ def report(rows, show_verdicts=True):
               "That's a sign the judge isn't discriminating between versions - not a sign every "
               "version is equally good. Check the reference/rubric before trusting this. ***")
 
-    if show_verdicts:
-        print("\njudge verdicts (first run of each version):")
+    if show_verdicts and not show_text:
+        print("\njudge verdicts (first run of each version, truncated to 100 chars):")
         for r in rows:
             print("  %-32s %s" % (r["label"], r["runs"][0].get("verdict", "")[:100]))
+
+    if show_text:
+        print("\n" + "=" * 70)
+        print("FULL PROMPT / RESPONSE / VERDICT PER VERSION (first run of each)")
+        print("=" * 70)
+        for r in rows:
+            print("\n--- %s ---" % r["label"])
+            print("\n[PROMPT SENT]\n" + r["prompt"])
+            print("\n[FULL RESPONSE]\n" + r["runs"][0].get("text", "<no text captured>"))
+            print("\n[FULL JUDGE VERDICT]\n" + r["runs"][0].get("verdict", "<no verdict captured>"))
 
     fails = {f for r in rows for run in r["runs"] for f in run["critical_failures"]}
     if fails:
@@ -132,6 +142,9 @@ def main():
                         "and have no free quota at all as of Apr 2026. Override if you have a "
                         "paid project.")
     p.add_argument("-n", type=int, default=1, help="Repeats per version (>1 also shows variance)")
+    p.add_argument("--show-text", action="store_true",
+                   help="Print the full prompt, full response, and full (untruncated) judge "
+                        "verdict for every version - not just the score table.")
     p.add_argument("--selftest", action="store_true")
     args = p.parse_args()
 
@@ -147,7 +160,7 @@ def main():
     key = e.gather_keys([args.model, args.judge_model])
     rows = run_versions(versions, args.model, args.judge_model, key, args.input, args.n,
                          shared_reference)
-    report(rows)
+    report(rows, show_text=args.show_text)
 
 
 def selftest():
@@ -223,6 +236,19 @@ def selftest():
         report(fake_rows, show_verdicts=False)
     assert "no shared reference" not in buf3.getvalue()
     assert "scored EXACTLY the same" not in buf3.getvalue()
+
+    # --show-text prints the full prompt, full response, and full (untruncated) verdict -
+    # not just a 100-char-truncated verdict line
+    text_rows = [{**fake_rows[0], "prompt": "FULL PROMPT TEXT HERE"}]
+    text_rows[0]["runs"][0]["text"] = "FULL RESPONSE TEXT HERE, arbitrarily long"
+    text_rows[0]["runs"][0]["verdict"] = "A" * 150  # longer than the old 100-char truncation
+    buf4 = io.StringIO()
+    with contextlib.redirect_stdout(buf4):
+        report(text_rows, show_text=True)
+    out4 = buf4.getvalue()
+    assert "FULL PROMPT TEXT HERE" in out4
+    assert "FULL RESPONSE TEXT HERE, arbitrarily long" in out4
+    assert "A" * 150 in out4  # the full, untruncated verdict is present, not cut at 100 chars
 
     print("prompt_iteration selftest ok")
 
