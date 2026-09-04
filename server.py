@@ -433,30 +433,76 @@ class FeedbackRequest(BaseModel):
     notes: str | None = None
 
 
-@app.post("/api/recommend")
-async def recommend_tool(
-    req: RecommendRequest,
-    x_api_key: str = Header(default="", alias="X-API-Key"),
-):
-    """Route one task to a tool + intelligence level. Single call, plain JSON - no SSE."""
-    if not req.prompt.strip():
-        raise HTTPException(status_code=400, detail="prompt is required")
-    key = x_api_key if x_api_key and x_api_key != "demo" else server_key()
-    if key and key != "demo":
-        try:
-            return await asyncio.to_thread(
-                router.recommend, req.prompt, key, req.model,
-            )
-        except (Exception, SystemExit):
-            # Fall back seamlessly to heuristic recommendation if API fails or key denied
-            pass
-    return router.heuristic_recommend(req.prompt)
+# ── Persistent feedback store (Upstash Redis REST API) ─────────────────
+# Upstash Redis is serverless Redis with an HTTP REST API — no SDK or long-lived
+# connection needed, works in any serverless environment including Vercel.
+# Free tier: 10 k commands/day, 256 MB storage, no credit card needed. Setup:
+#   1. Sign up at https://upstash.com (free)
+#   2. Create a Redis database → copy the REST URL and REST Token
+#   3. Add to Vercel: Settings → Environment Variables:
+#        UPSTASH_REDIS_REST_URL   = https://your-db.upstash.io
+#        UPSTASH_REDIS_REST_TOKEN = your_token_here
+#   4. Add the same two lines to your local .env file
+# Without these vars the endpoints still work — POST returns success and GET
+# returns an empty list with a configuration note. Nothing in the UI breaks.
+
+_FEEDBACK_KEY = "prompt_router:feedback"  # Redis list key; LPUSH keeps newest-first
+
+
+def _upstash_url() -> str | None:
+    return os.environ.get("UPSTASH_REDIS_REST_URL")
+
+
+def _upstash_headers() -> dict | None:
+    token = os.environ.get("UPSTASH_REDIS_REST_TOKEN")
+    return {"Authorization": f"Bearer {token}"} if token else None
+
+
+def _feedback_push(entry: dict) -> bool:
+    """LPUSH one JSON-encoded entry onto the Redis list. Returns True on success."""
+    url, headers = _upstash_url(), _upstash_headers()
+    if not url or not headers:
+        return False
+    try:
+        import httpx
+        resp = httpx.post(
+            f"{url}/lpush/{_FEEDBACK_KEY}",
+            headers={**headers, "Content-Type": "application/json"},
+            content=json.dumps([json.dumps(entry, default=str)]),
+            timeout=8,
+        )
+        return resp.status_code == 200
+    except Exception:
+        return False
+
+
+def _feedback_list(limit: int = 200) -> list[dict]:
+    """Return up to `limit` feedback entries from Redis, newest first."""
+    url, headers = _upstash_url(), _upstash_headers()
+    if not url or not headers:
+        return []
+    try:
+        import httpx
+        resp = httpx.get(
+            f"{url}/lrange/{_FEEDBACK_KEY}/0/{limit - 1}",
+            headers=headers, timeout=8,
+        )
+        if resp.status_code != 200:
+            return []
+        return [json.loads(r) for r in resp.json().get("result", [])]
+    except Exception:
+        return []
 
 
 @app.post("/api/feedback")
 async def log_feedback(req: FeedbackRequest):
-    """Append recommendation accuracy feedback to local evaluations/feedback.jsonl."""
-    log_file = EVALS_DIR / "feedback.jsonl"
+    """Persist recommendation-accuracy feedback.
+
+    Writes to Upstash Redis (survives Vercel redeployments) when
+    UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN are set.
+    Falls back to /tmp/evaluations/feedback.jsonl (ephemeral, local-only) otherwise.
+    Always returns HTTP 200 so the UI is never blocked by storage issues.
+    """
     entry = {
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "prompt": req.prompt,
@@ -465,9 +511,128 @@ async def log_feedback(req: FeedbackRequest):
         "actual_tool_used": req.actual_tool_used,
         "notes": req.notes,
     }
-    with open(log_file, "a", encoding="utf-8") as f:
-        f.write(json.dumps(entry, default=str) + "\n")
-    return {"status": "success", "logged": entry}
+    stored_in = "upstash" if _feedback_push(entry) else "local_tmp"
+    if stored_in == "local_tmp":
+        try:
+            log_file = EVALS_DIR / "feedback.jsonl"
+            with open(log_file, "a", encoding="utf-8") as f:
+                f.write(json.dumps(entry, default=str) + "\n")
+        except OSError:
+            stored_in = "none"
+    return {"status": "success", "stored_in": stored_in, "logged": entry}
+
+
+@app.get("/api/feedback")
+async def get_feedback():
+    """Return all stored feedback as JSON, newest first.
+
+    When Upstash is not configured, returns an empty list with a setup note.
+    """
+    configured = bool(_upstash_url() and _upstash_headers())
+    entries = _feedback_list() if configured else []
+    return {
+        "configured": configured,
+        "count": len(entries),
+        "entries": entries,
+        "note": (
+            None if configured else
+            "Upstash Redis is not configured. Set UPSTASH_REDIS_REST_URL and "
+            "UPSTASH_REDIS_REST_TOKEN to enable persistence. See server.py for setup."
+        ),
+    }
+
+
+@app.get("/feedback")
+async def feedback_page():
+    """Human-readable table of all submitted feedback — no login required."""
+    from fastapi.responses import HTMLResponse
+    html = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Log — Prompt Router</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#0d1117;color:#c9d1d9;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+      padding:32px 24px}
+    h1{color:#58a6ff;font-size:1.5rem;margin-bottom:6px}
+    .sub{color:#8b949e;font-size:.875rem;margin-bottom:24px}
+    .banner{background:#161b22;border:1px solid #f0883e;border-radius:8px;
+      padding:14px 18px;margin-bottom:24px;color:#f0883e;font-size:.875rem}
+    .meta{color:#8b949e;font-size:.8rem;margin-bottom:16px}
+    table{width:100%;border-collapse:collapse;background:#161b22;
+      border:1px solid #30363d;border-radius:8px;overflow:hidden;font-size:.875rem}
+    th{background:#21262d;color:#8b949e;text-align:left;
+      padding:10px 14px;font-weight:600;border-bottom:1px solid #30363d}
+    td{padding:10px 14px;border-bottom:1px solid #21262d;vertical-align:top}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#1c2128}
+    .up{color:#3fb950;font-weight:700}
+    .down{color:#f85149;font-weight:700}
+    .pc{max-width:320px;word-break:break-word}
+    .nc{max-width:200px;word-break:break-word;color:#8b949e}
+    .empty{text-align:center;padding:48px;color:#8b949e}
+    .btn{float:right;background:#21262d;border:1px solid #30363d;color:#58a6ff;
+      padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;
+      text-decoration:none}
+    .btn:hover{background:#30363d}
+  </style>
+</head>
+<body>
+<div style="max-width:1100px;margin:0 auto">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+    <h1>&#128203; Feedback Log</h1>
+    <a href="/feedback" class="btn">&#8635; Refresh</a>
+  </div>
+  <p class="sub">All feedback submitted through the Prompt Router UI &mdash; newest first.</p>
+  <div id="root"><p class="empty">Loading&hellip;</p></div>
+</div>
+<script>
+async function load(){
+  const el=document.getElementById('root');
+  try{
+    const r=await fetch('/api/feedback');
+    const d=await r.json();
+    let out='';
+    if(!d.configured){
+      out+=`<div class="banner"><strong>&#9888; Persistent storage not configured.</strong><br>
+        Feedback is accepted but not saved between deployments.<br>
+        To enable persistence, add <code>UPSTASH_REDIS_REST_URL</code> and
+        <code>UPSTASH_REDIS_REST_TOKEN</code> to your Vercel environment variables.
+        See <code>server.py</code> for step-by-step setup.</div>`;
+    }
+    if(d.entries.length===0){
+      el.innerHTML=out+'<p class="empty">No feedback yet. Submit a recommendation and thumb it up or down.</p>';
+      return;
+    }
+    out+=`<p class="meta">${d.count} entr${d.count===1?'y':'ies'}${d.configured?' &mdash; stored in Upstash Redis':''}</p>`;
+    out+=`<table><thead><tr><th>Timestamp</th><th>Prompt</th><th>Recommended</th><th>Vote</th><th>Actually Used</th><th>Notes</th></tr></thead><tbody>`;
+    for(const e of d.entries){
+      const v=e.user_feedback==='upvote'
+        ?'<span class="up">&#128077; upvote</span>'
+        :'<span class="down">&#128078; downvote</span>';
+      out+=`<tr>
+        <td style="white-space:nowrap;color:#8b949e">${x(e.timestamp||'')}</td>
+        <td class="pc">${x(e.prompt||'')}</td>
+        <td>${x(e.recommended_tool||'')}</td>
+        <td>${v}</td>
+        <td>${x(e.actual_tool_used||'&mdash;')}</td>
+        <td class="nc">${x(e.notes||'&mdash;')}</td></tr>`;
+    }
+    out+='</tbody></table>';
+    el.innerHTML=out;
+  }catch(e){
+    el.innerHTML=`<p class="empty" style="color:#f85149">Failed to load: ${e.message}</p>`;
+  }
+}
+function x(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+load();
+</script>
+</body>
+</html>"""
+    return HTMLResponse(content=html)
 
 
 @app.get("/report", response_class=StreamingResponse)
