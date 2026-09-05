@@ -6,7 +6,7 @@
   python eval.py "..." -m gemini-2.5-flash,gemini-2.5-pro --thinking 0,4096 -n 3 --judge
   python eval.py "..." -m gemini-3.6-flash,deepseek-v4-flash --judge   # cross-provider compare
 """
-import argparse, getpass, json, os, statistics, sys, time, urllib.request, urllib.error
+import argparse, getpass, json, os, re, statistics, sys, time, urllib.request, urllib.error
 
 API = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
 DEEPSEEK_API = "https://api.deepseek.com/chat/completions"
@@ -64,6 +64,8 @@ PRICES = {
     "gemini-3.1-flash-lite-preview": (0.25, 1.50),
     "gemini-3.5-flash": (1.50, 9.00),
     "gemini-3.5-flash-lite": (0.30, 2.50),
+    "gemini-3.7-flash": (0.75, 3.75),
+    "gemini-3.1-flash-lite": (0.25, 1.50),
     # DeepSeek: OpenAI-compatible API, separate DEEPSEEK_API_KEY. Pricing changes fast and has
     # had a peak/off-peak split in the past - these are off-peak snapshot rates, checked against
     # DeepSeek's docs in Aug 2026. Confirm at api-docs.deepseek.com before relying on them, and
@@ -262,17 +264,21 @@ def _call_gemini(model, prompt, thinking, key, system, schema):
         API.format(model), data=json.dumps(body).encode(),
         headers={"content-type": "application/json", "x-goog-api-key": key})
     t0 = time.perf_counter()
-    for attempt in range(4):
+    for attempt in range(8):
         try:
             with urllib.request.urlopen(req, timeout=600) as r:
                 data = json.load(r)
             break
         except urllib.error.HTTPError as e:
             body = e.read().decode()[:500]
-            if e.code not in (429, 500, 503) or attempt == 3:
+            if e.code not in (429, 500, 503) or attempt == 7:
                 sys.exit("%s -> HTTP %s: %s" % (model, e.code, body))
-            wait = 5 * 2 ** attempt  # rate limit / overload: back off and retry
-            print("  %s HTTP %s, retrying in %ds" % (model, e.code, wait), file=sys.stderr)
+            m = re.search(r'retry in ([0-9.]+)s', body, re.I)
+            if m:
+                wait = float(m.group(1)) + 2.0
+            else:
+                wait = (30 * (attempt + 1)) if e.code == 429 else (5 * 2 ** min(attempt, 4))
+            print("  %s HTTP %s, retrying in %.1fs" % (model, e.code, wait), file=sys.stderr)
             time.sleep(wait)
     return extract(data) + (time.perf_counter() - t0,)
 

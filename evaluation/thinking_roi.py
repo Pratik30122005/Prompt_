@@ -13,7 +13,7 @@ tasks.json format (deliberately spans easy -> hard so the crossover point is vis
   {"label": "hard - multi-step architecture decision", "prompt": "...", "difficulty": "hard"}
 ]
 """
-import argparse, json, os, sys
+import argparse, json, os, sys, time
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import eval as e  # reuse call(), judge(), cost() - thinking tokens already billed as output there
@@ -31,23 +31,27 @@ def run_budgets(tasks, model, judge_model, budgets, key, n):
             runs = []
             for i in range(n):
                 text, usage, secs = e.call(model, t["prompt"], thinking=b, key=key)
+                time.sleep(3)
                 j = e.judge(judge_model, t["prompt"], text, key, t.get("reference"))
+                time.sleep(3)
                 runs.append({
                     "text": text, "usage": usage, "secs": secs,
                     "cost": e.cost(model, usage), "scores": j.get("scores", {}),
+                    "verdict": j.get("verdict", ""),
                 })
                 print("  %s thinking=%s run %d/%d %.1fs" % (t["label"], b, i + 1, n, secs),
                       file=sys.stderr)
             rows.append({
-                "label": t["label"], "difficulty": t.get("difficulty", "?"), "thinking": b,
+                "label": t["label"], "prompt": t["prompt"], "difficulty": t.get("difficulty", "?"), "thinking": b,
                 "secs": sum(r["secs"] for r in runs) / len(runs),
                 "cost": None if runs[0]["cost"] is None else sum(r["cost"] for r in runs) / len(runs),
                 "avg_score": e.avg_scores(runs),
+                "runs": runs,
             })
     return rows
 
 
-def roi_table(rows):
+def roi_table(rows, show_text=False):
     """Group by task, pair thinking-off against each thinking-on budget, compute score delta,
     cost delta, and score-gained-per-dollar - the actual ROI number, not a vibe."""
     by_label = {}
@@ -77,6 +81,25 @@ def roi_table(rows):
                     "-" if d_score is None else "%.1f" % d_score,
                     "-" if roi is None else "%.0f" % roi))
 
+    if show_text:
+        print("\n" + "=" * 70)
+        print("FULL TASK / RESPONSE / METRICS PER BUDGET (first run of each)")
+        print("=" * 70)
+        for r in rows:
+            run0 = r["runs"][0] if r.get("runs") else {}
+            score = _headline(r["avg_score"])
+            score_str = "-" if score is None else "%.1f" % score
+            cost_str = "?" if r["cost"] is None else "$%.5f" % r["cost"]
+            print("\n--- %s (thinking=%s) ---" % (r["label"], r["thinking"]))
+            print("\n[TASK]\n" + r.get("prompt", ""))
+            print("\n[FULL RESPONSE]\n" + run0.get("text", "<no text captured>"))
+            print("\n[METRICS]")
+            print("Quality Score: %s" % score_str)
+            print("Cost: %s" % cost_str)
+            print("Response Time: %.2fs" % r["secs"])
+            if run0.get("verdict"):
+                print("Judge Verdict: %s" % run0.get("verdict"))
+
 
 def _headline(avg_score):
     """One summary number per row: mean of accuracy + reasoning_quality, the two dimensions
@@ -88,14 +111,17 @@ def _headline(avg_score):
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("tasks_file", nargs="?", help="JSON file of {label, prompt, difficulty, reference?}")
-    p.add_argument("-m", "--model", default="gemini-3.5-flash",
+    p.add_argument("-m", "--model", default="gemini-3.7-flash",
                    help="Must support thinkingConfig. Kept off Pro models by default - they "
                         "have had no free-tier quota at all since Apr 2026. Flash models "
                         "support a thinking budget too; override if you have a paid project.")
-    p.add_argument("--judge-model", default="gemini-3.5-flash")
+    p.add_argument("--judge-model", default="gemini-3.1-flash-lite")
     p.add_argument("--budgets", default="0,4096", help="Comma-separated thinking budgets to compare, "
                    "first one treated as the baseline")
     p.add_argument("-n", type=int, default=1)
+    p.add_argument("--show-text", action="store_true",
+                   help="Print the full task, full model response, quality score, cost, "
+                        "and response time for every budget tested.")
     p.add_argument("--selftest", action="store_true")
     args = p.parse_args()
 
@@ -110,7 +136,7 @@ def main():
     key = e.gather_keys([args.model, args.judge_model])
     budgets = [int(b) for b in args.budgets.split(",")]
     rows = run_budgets(tasks, args.model, args.judge_model, budgets, key, args.n)
-    roi_table(rows)
+    roi_table(rows, show_text=args.show_text)
 
 
 def selftest():
@@ -121,11 +147,13 @@ def selftest():
     assert _headline(avg_on) == 5
     assert _headline({}) is None
 
+    fake_runs_off = [{"text": "response off", "verdict": "verdict off"}]
+    fake_runs_on = [{"text": "response on", "verdict": "verdict on"}]
     rows = [
-        {"label": "easy", "difficulty": "easy", "thinking": 0, "secs": 1.0, "cost": 0.001,
-         "avg_score": avg_off},
-        {"label": "easy", "difficulty": "easy", "thinking": 4096, "secs": 3.0, "cost": 0.004,
-         "avg_score": avg_on},
+        {"label": "easy", "prompt": "reformat list", "difficulty": "easy", "thinking": 0, "secs": 1.0, "cost": 0.001,
+         "avg_score": avg_off, "runs": fake_runs_off},
+        {"label": "easy", "prompt": "reformat list", "difficulty": "easy", "thinking": 4096, "secs": 3.0, "cost": 0.004,
+         "avg_score": avg_on, "runs": fake_runs_on},
     ]
     # sanity: baseline is the lower/zero thinking budget, appears first after sort
     rows_sorted = sorted(rows, key=lambda r: (r["thinking"] is None, r["thinking"]))
@@ -138,6 +166,22 @@ def selftest():
     assert abs(d_cost - 0.003) < 1e-9
     roi = d_score / d_cost
     assert abs(roi - 666.666) < 1
+
+    # --show-text output test
+    import io, contextlib
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        roi_table(rows, show_text=True)
+    out = buf.getvalue()
+    assert "[TASK]" in out
+    assert "reformat list" in out
+    assert "[FULL RESPONSE]" in out
+    assert "response off" in out
+    assert "response on" in out
+    assert "[METRICS]" in out
+    assert "Quality Score: 3.0" in out
+    assert "Cost: $0.00100" in out
+    assert "Response Time: 1.00s" in out
 
     print("thinking_roi selftest ok")
 
