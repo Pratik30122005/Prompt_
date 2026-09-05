@@ -43,6 +43,7 @@ def run_budgets(tasks, model, judge_model, budgets, key, n):
                       file=sys.stderr)
             rows.append({
                 "label": t["label"], "prompt": t["prompt"], "difficulty": t.get("difficulty", "?"), "thinking": b,
+                "reference": t.get("reference"), "has_reference": t.get("reference") is not None,
                 "secs": sum(r["secs"] for r in runs) / len(runs),
                 "cost": None if runs[0]["cost"] is None else sum(r["cost"] for r in runs) / len(runs),
                 "avg_score": e.avg_scores(runs),
@@ -54,6 +55,12 @@ def run_budgets(tasks, model, judge_model, budgets, key, n):
 def roi_table(rows, show_text=False):
     """Group by task, pair thinking-off against each thinking-on budget, compute score delta,
     cost delta, and score-gained-per-dollar - the actual ROI number, not a vibe."""
+    if rows and not all(r.get("has_reference", False) for r in rows):
+        print("\n*** WARNING: some tasks have no reference - responses are graded only "
+              "against the prompt text, which typically produces misleadingly flat/high "
+              "scores across budgets. Add a \"reference\" field to each task in your tasks "
+              "JSON and re-run before trusting this table. ***")
+
     by_label = {}
     for r in rows:
         by_label.setdefault(r["label"], []).append(r)
@@ -92,6 +99,8 @@ def roi_table(rows, show_text=False):
             cost_str = "?" if r["cost"] is None else "$%.5f" % r["cost"]
             print("\n--- %s (thinking=%s) ---" % (r["label"], r["thinking"]))
             print("\n[TASK]\n" + r.get("prompt", ""))
+            if r.get("reference"):
+                print("\n[REFERENCE / QUALITY BAR]\n" + r["reference"])
             print("\n[FULL RESPONSE]\n" + run0.get("text", "<no text captured>"))
             print("\n[METRICS]")
             print("Quality Score: %s" % score_str)
@@ -150,9 +159,11 @@ def selftest():
     fake_runs_off = [{"text": "response off", "verdict": "verdict off"}]
     fake_runs_on = [{"text": "response on", "verdict": "verdict on"}]
     rows = [
-        {"label": "easy", "prompt": "reformat list", "difficulty": "easy", "thinking": 0, "secs": 1.0, "cost": 0.001,
+        {"label": "easy", "prompt": "reformat list", "reference": "ideal list", "has_reference": True,
+         "difficulty": "easy", "thinking": 0, "secs": 1.0, "cost": 0.001,
          "avg_score": avg_off, "runs": fake_runs_off},
-        {"label": "easy", "prompt": "reformat list", "difficulty": "easy", "thinking": 4096, "secs": 3.0, "cost": 0.004,
+        {"label": "easy", "prompt": "reformat list", "reference": "ideal list", "has_reference": True,
+         "difficulty": "easy", "thinking": 4096, "secs": 3.0, "cost": 0.004,
          "avg_score": avg_on, "runs": fake_runs_on},
     ]
     # sanity: baseline is the lower/zero thinking budget, appears first after sort
@@ -167,14 +178,43 @@ def selftest():
     roi = d_score / d_cost
     assert abs(roi - 666.666) < 1
 
-    # --show-text output test
+    # Task reference handling checks
+    task_no_ref = {"label": "t1", "prompt": "format"}
+    task_with_ref = {"label": "t2", "prompt": "format", "reference": "ideal standard"}
+    assert task_no_ref.get("reference") is None
+    assert task_with_ref.get("reference") == "ideal standard"
+
+    # Confirm eval.py judge prompt format includes GROUND TRUTH when reference given
+    p_text = "Task prompt"
+    r_text = "Candidate response"
+    judge_prompt_with_ref = f"TASK:\n{p_text}\n\nRESPONSE TO EVALUATE:\n{r_text}\n\nGROUND TRUTH / REFERENCE ANSWER:\n{task_with_ref['reference']}"
+    judge_prompt_no_ref = f"TASK:\n{p_text}\n\nRESPONSE TO EVALUATE:\n{r_text}"
+    assert "GROUND TRUTH / REFERENCE ANSWER:\nideal standard" in judge_prompt_with_ref
+    assert "GROUND TRUTH / REFERENCE ANSWER" not in judge_prompt_no_ref
+
+    # Warning triggered when has_reference is False
     import io, contextlib
     buf = io.StringIO()
+    no_ref_rows = [{**rows[0], "has_reference": False}]
     with contextlib.redirect_stdout(buf):
+        roi_table(no_ref_rows, show_text=False)
+    assert "some tasks have no reference" in buf.getvalue()
+
+    # Warning suppressed when all tasks have references
+    buf2 = io.StringIO()
+    with contextlib.redirect_stdout(buf2):
+        roi_table(rows, show_text=False)
+    assert "some tasks have no reference" not in buf2.getvalue()
+
+    # --show-text output test
+    buf3 = io.StringIO()
+    with contextlib.redirect_stdout(buf3):
         roi_table(rows, show_text=True)
-    out = buf.getvalue()
+    out = buf3.getvalue()
     assert "[TASK]" in out
     assert "reformat list" in out
+    assert "[REFERENCE / QUALITY BAR]" in out
+    assert "ideal list" in out
     assert "[FULL RESPONSE]" in out
     assert "response off" in out
     assert "response on" in out

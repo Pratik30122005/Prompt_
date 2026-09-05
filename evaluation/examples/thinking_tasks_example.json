@@ -2,16 +2,19 @@
   {
     "label": "easy - reformat list",
     "difficulty": "easy",
-    "prompt": "Reformat this comma-separated list into a numbered list, one item per line: apples, bananas, oranges, grapes, pears"
+    "prompt": "Reformat this comma-separated list into a numbered list, one item per line: apples, bananas, oranges, grapes, pears",
+    "reference": "An ideal response formats the five items as a numbered list starting at 1 through 5, in the exact order provided, with one fruit per line:\n1. apples\n2. bananas\n3. oranges\n4. grapes\n5. pears\nIt does not add conversational filler, preamble, commentary, or extra items."
   },
   {
     "label": "medium - summarize tradeoffs",
     "difficulty": "medium",
-    "prompt": "In under 120 words, summarize the tradeoffs between a monolithic architecture and a microservices architecture for a 5-person startup building their first product."
+    "prompt": "In under 120 words, summarize the tradeoffs between a monolithic architecture and a microservices architecture for a 5-person startup building their first product.",
+    "reference": "An ideal response must be strictly under 120 words. It explicitly identifies that for a 5-person startup, a monolith maximizes speed to market, minimizes operational/DevOps complexity, and provides simple end-to-end debugging and deployment. It identifies that microservices introduce distributed-system overhead (network latency, data consistency across services, service coordination, and infrastructure cost) that a 5-person team cannot afford, even though microservices offer independent scaling and modularity. It must conclude with a direct recommendation appropriate for a team of this size (recommending a monolith or modular monolith first). Responses exceeding 120 words or failing to address team size fit and operational overhead are deficient."
   },
   {
     "label": "hard - architecture decision",
     "difficulty": "hard",
-    "prompt": "A team of 30 engineers is deciding whether to migrate a 6-year-old monolith to microservices while also needing to ship a major customer commitment in 4 months. Walk through the key decision factors, identify what could go wrong with each option, and give a concrete recommendation with your reasoning."
+    "prompt": "A team of 30 engineers is deciding whether to migrate a 6-year-old monolith to microservices while also needing to ship a major customer commitment in 4 months. Walk through the key decision factors, identify what could go wrong with each option, and give a concrete recommendation with your reasoning.",
+    "reference": "An ideal response provides a rigorous, senior-level architectural decision analysis. It must explicitly weigh the hard 4-month customer deadline against long-term technical debt. It must name specific concrete failure modes for BOTH options: for migrating now (distracted focus leading to a missed 4-month deadline, distributed data consistency issues, dual-write complexities, premature service boundaries resulting in a distributed monolith, and operational blind spots without mature tracing/observability); for staying in the monolith (merge contention across 30 devs, deployment bottlenecks, risk of regression across legacy modules, and accumulating tight coupling). It must give a decisive, actionable recommendation (not an indecisive 'it depends')—specifically recommending delivering the 4-month commitment first inside the monolith or as an isolated modular monolith/strangler pattern with strict interface boundaries, deferring any distributed service decomposition until after the commitment ships safely. The reasoning must explicitly justify why business survival and customer delivery risk strictly override architectural refactoring on a 4-month horizon."
   }
 ]
