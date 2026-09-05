@@ -556,44 +556,6 @@ async def _blob_list() -> list[dict]:
 
 
 
-@app.get("/api/debug-blob")
-async def debug_blob():
-    """Temporary debug endpoint: shows blob token presence and raw API response."""
-    import httpx
-    token = _blob_token()
-    if not token:
-        return {"token_present": False, "token_prefix": None}
-    token_prefix = token[:20] + "…"
-    # Try a test write
-    ts = "debug-test"
-    test_entry = {"debug": True, "ts": ts}
-    pathname = f"feedback/debug-{ts}.json"
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "content-type": "application/json",
-        "x-vercel-blob-access": "private",
-    }
-    try:
-        put_resp = httpx.put(
-            f"{_BLOB_BASE}/{pathname}",
-            headers=headers,
-            content=json.dumps(test_entry).encode(),
-            timeout=10,
-        )
-        return {
-            "token_present": True,
-            "token_prefix": token_prefix,
-            "put_status": put_resp.status_code,
-            "put_body": put_resp.text[:500],
-        }
-    except Exception as e:
-        return {
-            "token_present": True,
-            "token_prefix": token_prefix,
-            "put_error": str(e),
-        }
-
-
 @app.post("/api/feedback")
 async def log_feedback(req: FeedbackRequest):
     """Persist recommendation-accuracy feedback.
