@@ -510,7 +510,7 @@ async def _blob_put(entry: dict) -> bool:
         headers = {
             "Authorization": f"Bearer {token}",
             "content-type": "application/json",
-            "x-vercel-blob-access": "public",  # public makes downloadUrl work without extra auth
+            "x-vercel-blob-access": "private",
         }
         resp = httpx.put(
             f"{_BLOB_BASE}/{pathname}",
@@ -543,7 +543,7 @@ async def _blob_list() -> list[dict]:
             dl = blob.get("downloadUrl") or blob.get("url")
             if not dl:
                 continue
-            r = httpx.get(dl, timeout=10)
+            r = httpx.get(dl, headers={"Authorization": f"Bearer {token}"}, timeout=10)
             if r.status_code == 200:
                 try:
                     entries.append(json.loads(r.text))
@@ -571,7 +571,7 @@ async def debug_blob():
     headers = {
         "Authorization": f"Bearer {token}",
         "content-type": "application/json",
-        "x-vercel-blob-access": "public",
+        "x-vercel-blob-access": "private",
     }
     try:
         put_resp = httpx.put(
