@@ -452,11 +452,9 @@ _FEEDBACK_KEY = "prompt_router:feedback"  # Redis list key; LPUSH keeps newest-f
 def _upstash_url() -> str | None:
     return os.environ.get("UPSTASH_REDIS_REST_URL")
 
-
 def _upstash_headers() -> dict | None:
     token = os.environ.get("UPSTASH_REDIS_REST_TOKEN")
     return {"Authorization": f"Bearer {token}"} if token else None
-
 
 def _feedback_push(entry: dict) -> bool:
     """LPUSH one JSON-encoded entry onto the Redis list. Returns True on success."""
@@ -475,7 +473,6 @@ def _feedback_push(entry: dict) -> bool:
     except Exception:
         return False
 
-
 def _feedback_list(limit: int = 200) -> list[dict]:
     """Return up to `limit` feedback entries from Redis, newest first."""
     url, headers = _upstash_url(), _upstash_headers()
@@ -492,6 +489,71 @@ def _feedback_list(limit: int = 200) -> list[dict]:
         return [json.loads(r) for r in resp.json().get("result", [])]
     except Exception:
         return []
+
+# Vercel Blob storage helpers
+_BLOB_BASE = "https://blob.vercel-storage.com"
+
+def _blob_token() -> str | None:
+    """Return the Vercel Blob read‑write token if configured."""
+    return os.getenv("BLOB_READ_WRITE_TOKEN")
+
+async def _blob_put(entry: dict) -> bool:
+    """Upload a feedback entry as a private blob. Returns True on success."""
+    token = _blob_token()
+    if not token:
+        return False
+    try:
+        import httpx
+        # Make timestamp filename-safe (replace colons)
+        ts = (entry.get("timestamp") or str(int(time.time() * 1000))).replace(":", "-")
+        pathname = f"feedback/{ts}.json"
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "content-type": "application/json",
+            "x-vercel-blob-access": "public",  # public makes downloadUrl work without extra auth
+        }
+        resp = httpx.put(
+            f"{_BLOB_BASE}/{pathname}",
+            headers=headers,
+            content=json.dumps(entry).encode(),
+            timeout=10,
+        )
+        return resp.status_code in (200, 201)
+    except Exception:
+        return False
+
+async def _blob_list() -> list[dict]:
+    """Retrieve all feedback blobs (newest first)."""
+    token = _blob_token()
+    if not token:
+        return []
+    try:
+        import httpx
+        resp = httpx.get(
+            f"{_BLOB_BASE}",
+            params={"prefix": "feedback/", "token": token},
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=10,
+        )
+        if resp.status_code != 200:
+            return []
+        data = resp.json()
+        entries: list[dict] = []
+        for blob in data.get("blobs", []):
+            dl = blob.get("downloadUrl") or blob.get("url")
+            if not dl:
+                continue
+            r = httpx.get(dl, timeout=10)
+            if r.status_code == 200:
+                try:
+                    entries.append(json.loads(r.text))
+                except Exception:
+                    pass
+        entries.sort(key=lambda e: e.get("timestamp", ""), reverse=True)
+        return entries
+    except Exception:
+        return []
+
 
 
 @app.post("/api/feedback")
@@ -511,7 +573,8 @@ async def log_feedback(req: FeedbackRequest):
         "actual_tool_used": req.actual_tool_used,
         "notes": req.notes,
     }
-    stored_in = "upstash" if _feedback_push(entry) else "local_tmp"
+    # Try Vercel Blob storage first, then Upstash, then local fallback
+    stored_in = "blob" if await _blob_put(entry) else ("upstash" if _feedback_push(entry) else "local_tmp")
     if stored_in == "local_tmp":
         try:
             log_file = EVALS_DIR / "feedback.jsonl"
@@ -528,8 +591,14 @@ async def get_feedback():
 
     When Upstash is not configured, returns an empty list with a setup note.
     """
-    configured = bool(_upstash_url() and _upstash_headers())
-    entries = _feedback_list() if configured else []
+    # Determine which storage backend is configured
+    blob_token = _blob_token()
+    upstash_configured = bool(_upstash_url() and _upstash_headers())
+    configured = bool(blob_token or upstash_configured)
+    if blob_token:
+        entries = await _blob_list()
+    else:
+        entries = _feedback_list() if upstash_configured else []
     return {
         "configured": configured,
         "count": len(entries),

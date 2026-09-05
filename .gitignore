@@ -12,3 +12,4 @@ weights.json.bak
 scratch/
 .pytest_cache/
 .vercel
+.env*
