@@ -1,5 +1,23 @@
 # Extended Thinking ROI Evaluation
 
+## Experiment Setup
+
+| Setting | Value |
+|---|---|
+| Model under test | `gemini-3.7-flash` |
+| Judge model | `gemini-3.1-flash-lite` |
+| Thinking budgets compared | `0` (thinking off) vs `4096` tokens |
+| Tasks file | `evaluation/examples/thinking_tasks_example.json` (3 tasks: easy / medium / hard) |
+| Runs per config | 1 |
+
+**Exact command run:**
+```
+python3 evaluation/thinking_roi.py evaluation/examples/thinking_tasks_example.json --budgets 0,4096 --show-text
+```
+
+---
+
+## Summary Results
 
 | TASK | THINK | SCORE | COST$ | SEC | d SCORE | SCORE/$ |
 |---|---|---|---|---|---|---|
@@ -261,3 +279,19 @@ Quality Score: 5.0
 Cost: $0.00841
 Response Time: 9.49s
 Judge Verdict: The response provides a rigorous, senior-level analysis that fully addresses all constraints, including the deadline risk and specific failure modes for each architectural choice.
+
+---
+
+## Overall Conclusion
+
+All three tasks — easy, medium, and hard — scored an identical **5.0 / 5.0** whether thinking was turned off (`budget=0`) or enabled (`budget=4096`). Thinking added **zero measurable quality gain** across the board.
+
+Cost, however, increased in every case:
+
+| Task | Cost (thinking=0) | Cost (thinking=4096) | Increase |
+|---|---|---|---|
+| easy — reformat list | \$0.00009 | \$0.00071 | **+7.9×** |
+| medium — summarize tradeoffs | \$0.00278 | \$0.00486 | **+1.7×** |
+| hard — architecture decision | \$0.00319 | \$0.00841 | **+2.6×** |
+
+**Practical recommendation:** For well-defined tasks at the difficulty levels tested here, extended thinking is not worth the extra cost — the base Flash model already produces maximal-quality answers without it. Reserve thinking budgets for genuinely open-ended reasoning tasks where the model demonstrably struggles without them.
