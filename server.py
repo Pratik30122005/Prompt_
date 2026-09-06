@@ -591,22 +591,28 @@ async def get_feedback():
 
     When Upstash is not configured, returns an empty list with a setup note.
     """
-    # Determine which storage backend is configured
+    # Determine which storage backend is configured, and read from it
     blob_token = _blob_token()
     upstash_configured = bool(_upstash_url() and _upstash_headers())
     configured = bool(blob_token or upstash_configured)
     if blob_token:
         entries = await _blob_list()
+        source = "blob"
+    elif upstash_configured:
+        entries = _feedback_list()
+        source = "upstash"
     else:
-        entries = _feedback_list() if upstash_configured else []
+        entries = []
+        source = "none"
     return {
         "configured": configured,
         "count": len(entries),
         "entries": entries,
+        "source": source,  # which backend actually served this response
         "note": (
             None if configured else
-            "Upstash Redis is not configured. Set UPSTASH_REDIS_REST_URL and "
-            "UPSTASH_REDIS_REST_TOKEN to enable persistence. See server.py for setup."
+            "No persistent storage configured. Set BLOB_READ_WRITE_TOKEN (Vercel Blob) "
+            "or UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN to enable persistence."
         ),
     }
 
@@ -676,7 +682,7 @@ async function load(){
       el.innerHTML=out+'<p class="empty">No feedback yet. Submit a recommendation and thumb it up or down.</p>';
       return;
     }
-    out+=`<p class="meta">${d.count} entr${d.count===1?'y':'ies'}${d.configured?' &mdash; stored in Upstash Redis':''}</p>`;
+    out+=`<p class="meta">${d.count} entr${d.count===1?'y':'ies'}${d.configured?' &mdash; stored in '+(d.source==='blob'?'Vercel Blob':d.source==='upstash'?'Upstash Redis':d.source):''}</p>`;
     out+=`<table><thead><tr><th>Timestamp</th><th>Prompt</th><th>Recommended</th><th>Vote</th><th>Actually Used</th><th>Notes</th></tr></thead><tbody>`;
     for(const e of d.entries){
       const v=e.user_feedback==='upvote'
