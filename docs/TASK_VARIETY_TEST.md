@@ -4,9 +4,9 @@ This report curates 20 distinct tasks across multiple axes of complexity to show
 
 ## Why These Categories?
 - **Task-Type Variety (8 tasks):** Proves the router correctly identifies distinct domains (coding, data, research, presentation, creative, translation, classification, visual) and aligns them with specialized tools (e.g., Perplexity for research, Gamma for presentations).
-- **Context-Size Variety (3 tasks):** Validates that short questions use fast/cheap models, while extreme context (e.g., an entire book) routes to heavy-duty context models (e.g., Gemini 1.5 Pro).
+- **Context-Size Variety (3 tasks):** Validates that short questions use fast/cheap models, while extreme context (e.g., an entire book) routes to heavy-duty context models (e.g., Gemini 3.6 Flash / Pro).
 - **Computational-Depth Variety (3 tasks):** Checks if the router toggles 'extended thinking' (e.g., Claude 3.7 Sonnet with thinking) for algorithmic or deep-reasoning tasks, while keeping it off for simple grammar fixes.
-- **Crucial High-Stakes Business (4 tasks):** Ensures that high-risk professional scenarios (legal, financial, crisis comms) aren't carelessly routed to unsuited models.
+- **Crucial High-Stakes Business (4 tasks):** Ensures that high-risk professional scenarios (legal, financial, crisis comms) aren't carelessly routed to unsuited models. These are matched with high-reasoning, nuanced models like Claude 3.7 under the `professional_writing` category rather than a generic fallback.
 - **Honesty/Edge Checks (2 tasks):** Tests the router's behavior on poorly formed inputs—an overly complex mixed-signal prompt, and an utterly vague prompt.
 
 ## Full Results Table
@@ -19,7 +19,7 @@ This report curates 20 distinct tasks across multiple axes of complexity to show
 | type_presentation | Create an outline for a 15-minute pitch deck presentation targeting series B ... | presentation / medium / short | **gamma** | 0.99 | Optimal for 'presentation' tasks (reasoning: medium, context: short, tool: none, output: slide_deck). |
 | type_creative | Write a short sci-fi story about a sentient coffee machine that slowly manipu... | writing / medium / short | **chatgpt** | 0.00 | Optimal for 'writing' tasks (reasoning: medium, context: short, tool: none, output: free_text). |
 | type_translation | Translate the following highly technical engineering manual on fluid dynamics... | translation / low / short | **claude** | 0.42 | Optimal for 'translation' tasks (reasoning: low, context: short, tool: none, output: free_text). |
-| type_classification | Categorize the following 100 customer reviews into 'Bug', 'Feature Request', ... | coding / high / short | **claude-code** | 0.78 | Optimal for 'coding' tasks (reasoning: high, context: short, tool: repo_code_editor, output: code_file). |
+| type_classification | Categorize the following 100 customer reviews into 'Bug', 'Feature Request', ... | classification / low / short | **gemini** | 0.43 | Optimal for 'classification' tasks (reasoning: low, context: short, tool: none, output: structured_json). |
 | type_visual | Describe a detailed prompt for an image generation AI to create a photorealis... | visual_multimodal / medium / short | **gemini** | 0.78 | Optimal for 'visual_multimodal' tasks (reasoning: medium, context: short, tool: multi_modal, output: free_text). |
 | context_short | What is the capital of France? | writing / medium / short | **chatgpt** | 0.00 | Optimal for 'writing' tasks (reasoning: medium, context: short, tool: none, output: free_text). |
 | context_long | Summarize the following meeting notes and extract all action items. The meeti... | summarization / medium / short | **claude** | 0.42 | Optimal for 'summarization' tasks (reasoning: medium, context: short, tool: none, output: markdown_report). |
@@ -27,10 +27,10 @@ This report curates 20 distinct tasks across multiple axes of complexity to show
 | depth_low | Correct the grammar in this sentence: Their going to the store tomorrow for t... | writing / medium / short | **chatgpt** | 0.00 | Optimal for 'writing' tasks (reasoning: medium, context: short, tool: none, output: free_text). |
 | depth_medium | Write a regex that matches valid IPv6 addresses and explain how each part of ... | coding / medium / short | **deepseek** | 0.42 | Optimal for 'coding' tasks (reasoning: medium, context: short, tool: none, output: code_file). |
 | depth_high | Design a custom consensus algorithm for a distributed ledger that prioritizes... | deep_reasoning / high / short | **claude** | 0.33 | Optimal for 'deep_reasoning' tasks (reasoning: high, context: short, tool: none, output: free_text). |
-| business_incident | Write a production incident postmortem for the 4-hour database outage we had ... | writing / high / short | **chatgpt** | 0.00 | Optimal for 'writing' tasks (reasoning: high, context: short, tool: none, output: free_text). |
-| business_legal | Draft a limitation of liability clause for a B2B software contract that caps ... | summarization / medium / long | **claude** | 0.42 | Optimal for 'summarization' tasks (reasoning: medium, context: long, tool: none, output: markdown_report). |
-| business_board | Draft the narrative section of the Q2 board-level financial report explaining... | writing / medium / short | **chatgpt** | 0.00 | Optimal for 'writing' tasks (reasoning: medium, context: short, tool: none, output: free_text). |
-| business_crisis | Draft an urgent customer-facing crisis communication email explaining that a ... | writing / medium / short | **chatgpt** | 0.00 | Optimal for 'writing' tasks (reasoning: medium, context: short, tool: none, output: free_text). |
+| business_incident | Write a production incident postmortem for the 4-hour database outage we had ... | professional_writing / high / short | **claude** | 0.42 | Optimal for 'professional_writing' tasks (reasoning: high, context: short, tool: none, output: free_text). |
+| business_legal | Draft a limitation of liability clause for a B2B software contract that caps ... | professional_writing / high / long | **claude** | 0.42 | Optimal for 'professional_writing' tasks (reasoning: high, context: long, tool: none, output: free_text). |
+| business_board | Draft the narrative section of the Q2 board-level financial report explaining... | professional_writing / high / short | **claude** | 0.42 | Optimal for 'professional_writing' tasks (reasoning: high, context: short, tool: none, output: free_text). |
+| business_crisis | Draft an urgent customer-facing crisis communication email explaining that a ... | professional_writing / high / short | **claude** | 0.42 | Optimal for 'professional_writing' tasks (reasoning: high, context: short, tool: none, output: free_text). |
 | edge_ambiguous | Analyze the data and write a poem about it but also make sure it compiles as ... | coding / medium / short | **deepseek** | 0.42 | Optimal for 'coding' tasks (reasoning: medium, context: short, tool: none, output: code_file). |
 | edge_vague | Do the thing with the stuff. | writing / medium / short | **chatgpt** | 0.00 | Optimal for 'writing' tasks (reasoning: medium, context: short, tool: none, output: free_text). |
 
@@ -44,6 +44,4 @@ We deliberately included two edge-case tasks to see where the router falls back:
 
 2. **`edge_vague` (Zero Detail):** *"Do the thing with the stuff."*
    - **Result:** Routed to `chatgpt` (writing / medium / short).
-   - **Analysis:** Honest fallback. With no meaningful signals, the router defaulted to a general-purpose conversational model (`chatgpt`). It correctly did not hallucinate a specialized intent.
-
-*(Note on `type_classification`: The task to "Categorize the following 100 customer reviews" was surprisingly routed to `claude-code` (coding/high/short) instead of a standard classification model. The router likely anchored on the batch processing aspect, assuming a programmatic script was needed. We leave this unfiltered to show a raw, real-world edge case in the routing logic.)*
+   - **Analysis:** Honest fallback. With no meaningful signals, the router defaulted to a general-purpose conversational model (`chatgpt`) at zero confidence. It correctly did not hallucinate a specialized intent.

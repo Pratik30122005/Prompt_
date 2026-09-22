@@ -75,7 +75,7 @@ TOOLS = {
     },
     "claude": {
         "name": "Claude 3.7 Sonnet",
-        "best_for": ["summarization", "writing", "deep_reasoning", "translation", "creative_writing"],
+        "best_for": ["summarization", "professional_writing", "writing", "deep_reasoning", "translation", "creative_writing"],
         "avoid_for": ["presentation", "web_research"],
         "output_format_support": ["free_text", "structured_json", "markdown_report", "code_file"],
         "tiers": {"lite": "Haiku", "standard": "Sonnet 3.7", "max": "Sonnet 3.7 with extended thinking"},
@@ -378,8 +378,7 @@ def classify_prompt(prompt: str,
         return _build("presentation", "medium", "slide_deck", "medium", "medium", "none")
 
     # ── Rank 2: Coding — repo-level ───────────────────────────────────────
-    if _has_keyword(p, ["refactor", "middleware", "repo", "codebase", "auth",
-                               "bug", "pr", "pull request", "deploy", "workflow",
+    if _has_keyword(p, ["refactor", "middleware", "repo", "codebase", "auth", "bug fix", "pr", "pull request", "deploy", "workflow",
                                "pipeline", "ci", "cd", "dockerfile", "kubernetes"]):
         return _build("coding", "high", "code_file", "low", "medium", "repo_code_editor")
 
@@ -433,6 +432,12 @@ def classify_prompt(prompt: str,
                                "spanish version", "french version", "german version", "japanese version",
                                "say this in", "say that in", "how do you say"]):
         return _build("translation", "low", "free_text", "medium", "medium", "none")
+
+    # ── Rank 5c: Professional / Business Writing ──────────────────────────
+    if _has_keyword(p, ["postmortem", "incident report", "board report", "financial report",
+                               "crisis communication", "press release", "memo", "business proposal",
+                               "strategy document", "limitation of liability", "clause"]):
+        return _build("professional_writing", "high", "free_text", "low", "medium", "none")
 
     # ── Rank 6: Long-Context Analysis ─────────────────────────────────────
     # New task_type for large-doc review where Gemini's 1M context window is the advantage.

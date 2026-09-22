@@ -62,12 +62,12 @@
   {
     "label": "type_classification",
     "prompt": "Categorize the following 100 customer reviews into 'Bug', 'Feature Request', 'Billing Issue', or 'Praise'.",
-    "task_type": "coding",
-    "reasoning": "high",
+    "task_type": "classification",
+    "reasoning": "low",
     "context": "short",
-    "model": "claude-code",
-    "confidence": 0.78,
-    "reason": "Optimal for 'coding' tasks (reasoning: high, context: short, tool: repo_code_editor, output: code_file)."
+    "model": "gemini",
+    "confidence": 0.43,
+    "reason": "Optimal for 'classification' tasks (reasoning: low, context: short, tool: none, output: structured_json)."
   },
   {
     "label": "type_visual",
@@ -142,42 +142,42 @@
   {
     "label": "business_incident",
     "prompt": "Write a production incident postmortem for the 4-hour database outage we had yesterday. Outline the timeline, root cause (misconfigured connection pool), and action items to prevent recurrence.",
-    "task_type": "writing",
+    "task_type": "professional_writing",
     "reasoning": "high",
     "context": "short",
-    "model": "chatgpt",
-    "confidence": 0.0,
-    "reason": "Optimal for 'writing' tasks (reasoning: high, context: short, tool: none, output: free_text)."
+    "model": "claude",
+    "confidence": 0.42,
+    "reason": "Optimal for 'professional_writing' tasks (reasoning: high, context: short, tool: none, output: free_text)."
   },
   {
     "label": "business_legal",
     "prompt": "Draft a limitation of liability clause for a B2B software contract that caps damages at 12 months of fees, explicitly excluding gross negligence and intentional misconduct.",
-    "task_type": "summarization",
-    "reasoning": "medium",
+    "task_type": "professional_writing",
+    "reasoning": "high",
     "context": "long",
     "model": "claude",
     "confidence": 0.42,
-    "reason": "Optimal for 'summarization' tasks (reasoning: medium, context: long, tool: none, output: markdown_report)."
+    "reason": "Optimal for 'professional_writing' tasks (reasoning: high, context: long, tool: none, output: free_text)."
   },
   {
     "label": "business_board",
     "prompt": "Draft the narrative section of the Q2 board-level financial report explaining why customer acquisition cost (CAC) rose by 15% but lifetime value (LTV) remained flat.",
-    "task_type": "writing",
-    "reasoning": "medium",
+    "task_type": "professional_writing",
+    "reasoning": "high",
     "context": "short",
-    "model": "chatgpt",
-    "confidence": 0.0,
-    "reason": "Optimal for 'writing' tasks (reasoning: medium, context: short, tool: none, output: free_text)."
+    "model": "claude",
+    "confidence": 0.42,
+    "reason": "Optimal for 'professional_writing' tasks (reasoning: high, context: short, tool: none, output: free_text)."
   },
   {
     "label": "business_crisis",
     "prompt": "Draft an urgent customer-facing crisis communication email explaining that a data breach exposed their email addresses, detailing what we are doing to fix it and offering 1 year of credit monitoring.",
-    "task_type": "writing",
-    "reasoning": "medium",
+    "task_type": "professional_writing",
+    "reasoning": "high",
     "context": "short",
-    "model": "chatgpt",
-    "confidence": 0.0,
-    "reason": "Optimal for 'writing' tasks (reasoning: medium, context: short, tool: none, output: free_text)."
+    "model": "claude",
+    "confidence": 0.42,
+    "reason": "Optimal for 'professional_writing' tasks (reasoning: high, context: short, tool: none, output: free_text)."
   },
   {
     "label": "edge_ambiguous",

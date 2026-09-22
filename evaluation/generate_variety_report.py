@@ -8,9 +8,9 @@ md += "This report curates 20 distinct tasks across multiple axes of complexity 
 
 md += "## Why These Categories?\n"
 md += "- **Task-Type Variety (8 tasks):** Proves the router correctly identifies distinct domains (coding, data, research, presentation, creative, translation, classification, visual) and aligns them with specialized tools (e.g., Perplexity for research, Gamma for presentations).\n"
-md += "- **Context-Size Variety (3 tasks):** Validates that short questions use fast/cheap models, while extreme context (e.g., an entire book) routes to heavy-duty context models (e.g., Gemini 1.5 Pro).\n"
+md += "- **Context-Size Variety (3 tasks):** Validates that short questions use fast/cheap models, while extreme context (e.g., an entire book) routes to heavy-duty context models (e.g., Gemini 3.6 Flash / Pro).\n"
 md += "- **Computational-Depth Variety (3 tasks):** Checks if the router toggles 'extended thinking' (e.g., Claude 3.7 Sonnet with thinking) for algorithmic or deep-reasoning tasks, while keeping it off for simple grammar fixes.\n"
-md += "- **Crucial High-Stakes Business (4 tasks):** Ensures that high-risk professional scenarios (legal, financial, crisis comms) aren't carelessly routed to unsuited models.\n"
+md += "- **Crucial High-Stakes Business (4 tasks):** Ensures that high-risk professional scenarios (legal, financial, crisis comms) aren't carelessly routed to unsuited models. These are matched with high-reasoning, nuanced models like Claude 3.7 under the `professional_writing` category rather than a generic fallback.\n"
 md += "- **Honesty/Edge Checks (2 tasks):** Tests the router's behavior on poorly formed inputs—an overly complex mixed-signal prompt, and an utterly vague prompt.\n\n"
 
 md += "## Full Results Table\n\n"
@@ -33,9 +33,7 @@ md += "   - **Analysis:** Sensible resolution. The presence of \"compiles as C++
 
 md += "2. **`edge_vague` (Zero Detail):** *\"Do the thing with the stuff.\"*\n"
 md += "   - **Result:** Routed to `chatgpt` (writing / medium / short).\n"
-md += "   - **Analysis:** Honest fallback. With no meaningful signals, the router defaulted to a general-purpose conversational model (`chatgpt`). It correctly did not hallucinate a specialized intent.\n\n"
-
-md += "*(Note on `type_classification`: The task to \"Categorize the following 100 customer reviews\" was surprisingly routed to `claude-code` (coding/high/short) instead of a standard classification model. The router likely anchored on the batch processing aspect, assuming a programmatic script was needed. We leave this unfiltered to show a raw, real-world edge case in the routing logic.)*\n"
+md += "   - **Analysis:** Honest fallback. With no meaningful signals, the router defaulted to a general-purpose conversational model (`chatgpt`) at zero confidence. It correctly did not hallucinate a specialized intent.\n"
 
 with open("docs/TASK_VARIETY_TEST.md", "w") as f:
     f.write(md)
