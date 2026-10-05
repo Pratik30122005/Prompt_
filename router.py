@@ -603,6 +603,65 @@ def _confidence(score_top: float, score_runner: float) -> float:
 
 # ── Recommendation Engine ────────────────────────────────────────────────
 
+
+def predict_tokens(prompt: str, task_type: str, output_format: str, reasoning_depth: str) -> dict:
+    """Predict input tokens, thinking tokens, output tokens (min/exp/max), and total tokens pre-execution."""
+    import re
+    # 1. Exact Input Tokens (approx 1.3 tokens per word + punctuation)
+    words = re.findall(r"\b\w+\b", prompt)
+    in_tokens = max(1, int(len(words) * 1.3) + len(re.findall(r"[^\w\s]", prompt)))
+
+    # 2. Extract explicit constraints from prompt text
+    p_lower = prompt.lower()
+    word_match = re.search(r'(\d+)\s*[-_]?\s*word', p_lower)
+    bullet_match = re.search(r'(\d+)\s*bullet', p_lower)
+    slide_match = re.search(r'(\d+)\s*slide', p_lower)
+
+    if word_match:
+        target_words = int(word_match.group(1))
+        exp_out = int(target_words * 1.33)
+        min_out, max_out = int(exp_out * 0.8), int(exp_out * 1.25)
+    elif bullet_match:
+        bullets = int(bullet_match.group(1))
+        exp_out = bullets * 35
+        min_out, max_out = bullets * 20, bullets * 50
+    elif slide_match:
+        slides = int(slide_match.group(1))
+        exp_out = slides * 90
+        min_out, max_out = slides * 60, slides * 120
+    else:
+        # Categorical Envelopes
+        envelopes = {
+            "structured_json": (120, 250, 450),
+            "code_file":       (350, 650, 1400),
+            "markdown_report": (400, 850, 2200),
+            "slide_deck":      (600, 950, 1600),
+            "free_text":       (100, 350, 850),
+        }
+        min_out, exp_out, max_out = envelopes.get(output_format, (100, 350, 850))
+
+    # 3. Thinking Budget by reasoning depth
+    think_budget = {
+        "low": 0,
+        "medium": 1024,
+        "high": 4096
+    }.get(reasoning_depth, 0)
+
+    return {
+        "input": in_tokens,
+        "thinking": think_budget,
+        "output": {
+            "min": min_out,
+            "expected": exp_out,
+            "max": max_out
+        },
+        "total": {
+            "min": in_tokens + min_out + think_budget,
+            "expected": in_tokens + exp_out + think_budget,
+            "max": in_tokens + max_out + think_budget
+        }
+    }
+
 def recommend_deterministic(prompt: str,
                               attached_content_size_hint: str | None = None) -> dict:
     cls = classify_prompt(prompt, attached_content_size_hint)
@@ -641,36 +700,40 @@ def recommend_deterministic(prompt: str,
     intel      = "max" if cls["reasoning_depth"] == "high" else "standard"
     prim_info  = TOOLS[top["tool_id"]]
 
+    pred_tokens = predict_tokens(prompt, cls["task_type"], cls["output_format"], cls["reasoning_depth"])
+    thinking_status = "on" if cls["reasoning_depth"] in ("medium", "high") else "off"
+    effort_level = cls["reasoning_depth"]
+
     alternatives = []
     for cand in scores[1:3]:
         c_info = TOOLS[cand["tool_id"]]
         alternatives.append({
-            "tool": cand["tool_id"], "display": c_info["name"],
-            "intelligence": "standard",
-            "why": f"Alternative (score: {cand['total_score']}).",
-            "tradeoff": c_info["cost_desc"],
+            "tool": cand["tool_id"],
+            "display": c_info["name"],
+            "tier": c_info["tiers"].get(intel, c_info["tiers"].get("standard", "")),
+            "extended_thinking": thinking_status,
+            "effort_level": effort_level,
+            "tokens": pred_tokens,
+            "why": f"Alternative recommendation for '{cls['task_type']}' tasks.",
         })
 
     return {
-        "classification":  cls,
-        "eligible_models": list(eligible.keys()),   # shows which models were pre-filtered
-        "score_breakdown": [{"tool": s["tool_id"], "score": s["total_score"],
-                              "breakdown": s["breakdown"]} for s in scores[:3]],
+        "classification": cls,
+        "eligible_models": list(eligible.keys()),
         "primary": {
             "tool":             top["tool_id"],
             "display":          prim_info["name"],
             "intelligence":     intel,
-            "thinking":         "on" if cls["reasoning_depth"] == "high" else "off",
+            "extended_thinking": thinking_status,
+            "effort_level":     effort_level,
             "tier":             prim_info["tiers"].get(intel),
-            "cost":             prim_info["cost_desc"],
             "confidence_score": conf,
+            "tokens":           pred_tokens,
             "parameters":       prim_info["params"],
             "why": (
                 f"Optimal for '{cls['task_type']}' tasks "
-                f"(reasoning: {cls['reasoning_depth']}, "
-                f"context: {cls['context_length_req']}, "
-                f"tool: {cls['tool_use_needed']}, "
-                f"output: {cls['output_format']})."
+                f"(effort: {effort_level}, thinking: {thinking_status}, "
+                f"predicted tokens: ~{pred_tokens['total']['expected']})."
             ),
         },
         "alternatives": alternatives,

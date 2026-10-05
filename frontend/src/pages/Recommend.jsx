@@ -140,9 +140,14 @@ export default function Recommend() {
         <>
           <Rule />
           <section className="py-20 lg:py-28">
-            <Label tone={isMax ? 'saffron' : 'iris'}>
-              {primary.intelligence} intelligence · {primary.thinking} thinking
-            </Label>
+            <div className="flex flex-wrap items-center gap-3">
+              <Label tone={isMax ? 'saffron' : 'iris'}>
+                Extended Thinking: {(primary.extended_thinking || primary.thinking || 'off').toUpperCase()}
+              </Label>
+              <Label tone="ash">
+                Effort Level: {(primary.effort_level || 'medium').toUpperCase()}
+              </Label>
+            </div>
             <h2 style={HEADING_LG} className="mt-6">
               {primary.display}
             </h2>
@@ -153,27 +158,25 @@ export default function Recommend() {
             )}
             <p style={BODY} className="text-mist mt-9 max-w-3xl">{primary.why}</p>
 
-            <div className="flex flex-wrap gap-x-14 gap-y-4 mt-12" style={CAPTION}>
-              <span className="text-ash">
-                Task <span className="text-ink">{rec.task_type?.replace('_', ' ')}</span>
-              </span>
-              <span className="text-ash">
-                Complexity <span className="text-ink">{rec.complexity}</span>
-              </span>
-              {primary.cost && (
-                <span className="text-ash">Cost <span className="text-ink">{primary.cost}</span></span>
-              )}
-              {rec.deliverable && (
-                <span className="text-ash">
-                  Deliverable <span className="text-ink">{rec.deliverable}</span>
-                </span>
-              )}
-            </div>
-
-            {primary.unknown_tool && (
-              <p style={BODY} className="text-saffron mt-10">
-                This tool is not in the catalog — its tier and cost could not be verified.
-              </p>
+            {primary.tokens && (
+              <div className="mt-10 max-w-3xl grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 bg-well rounded-2xl border border-ash/10">
+                <div>
+                  <span style={CAPTION} className="text-ash block uppercase">Input Tokens</span>
+                  <span style={HEADING_SM} className="text-ink">{primary.tokens.input.toLocaleString()}</span>
+                </div>
+                <div>
+                  <span style={CAPTION} className="text-ash block uppercase">Thinking Tokens</span>
+                  <span style={HEADING_SM} className="text-iris">{primary.tokens.thinking.toLocaleString()}</span>
+                </div>
+                <div>
+                  <span style={CAPTION} className="text-ash block uppercase">Output Tokens</span>
+                  <span style={HEADING_SM} className="text-ink">~{primary.tokens.output.expected.toLocaleString()} <span className="text-xs text-ash">({primary.tokens.output.min}-{primary.tokens.output.max})</span></span>
+                </div>
+                <div>
+                  <span style={CAPTION} className="text-ash block uppercase">Total Tokens</span>
+                  <span style={HEADING_SM} className="text-saffron">~{primary.tokens.total.expected.toLocaleString()} <span className="text-xs text-ash">({primary.tokens.total.min}-{primary.tokens.total.max})</span></span>
+                </div>
+              </div>
             )}
           </section>
         </>
@@ -187,14 +190,40 @@ export default function Recommend() {
             <div className="mt-10 space-y-14">
               {rec.alternatives.map((a) => (
                 <div key={a.tool} className="max-w-3xl">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <span style={CAPTION} className="px-3 py-1 bg-well rounded-full text-iris uppercase font-semibold">
+                      Thinking: {(a.extended_thinking || 'off').toUpperCase()}
+                    </span>
+                    <span style={CAPTION} className="px-3 py-1 bg-well rounded-full text-ash uppercase font-semibold">
+                      Effort: {(a.effort_level || 'medium').toUpperCase()}
+                    </span>
+                  </div>
                   <h3 style={HEADING_SM}>
                     {a.display}
                     {a.tier && <span className="text-ash"> · {a.tier}</span>}
                   </h3>
-                  <p style={BODY} className="text-mist mt-5">{a.why}</p>
-                  <p style={CAPTION} className="text-ash mt-3">
-                    Pick it instead if: {a.tradeoff}
-                  </p>
+                  <p style={BODY} className="text-mist mt-3">{a.why}</p>
+
+                  {a.tokens && (
+                    <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 bg-well/60 rounded-xl border border-ash/10">
+                      <div>
+                        <span style={CAPTION} className="text-ash block uppercase">Input Tokens</span>
+                        <span style={HEADING_XS} className="text-ink">{a.tokens.input.toLocaleString()}</span>
+                      </div>
+                      <div>
+                        <span style={CAPTION} className="text-ash block uppercase">Thinking Tokens</span>
+                        <span style={HEADING_XS} className="text-iris">{a.tokens.thinking.toLocaleString()}</span>
+                      </div>
+                      <div>
+                        <span style={CAPTION} className="text-ash block uppercase">Output (Expected)</span>
+                        <span style={HEADING_XS} className="text-ink">~{a.tokens.output.expected.toLocaleString()}</span>
+                      </div>
+                      <div>
+                        <span style={CAPTION} className="text-ash block uppercase">Total Predicted</span>
+                        <span style={HEADING_XS} className="text-saffron">~{a.tokens.total.expected.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
