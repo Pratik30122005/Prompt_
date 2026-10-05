@@ -1,0 +1,77 @@
+[
+  {
+    "id": "TASK-1",
+    "category": "Coding & Automation",
+    "prompt": "Write a Python script to parse a 10GB JSON file asynchronously and stream results to PostgreSQL.",
+    "task_type": "coding",
+    "suggested_model": "DeepSeek V4 (Flash / Pro)",
+    "effort_level": "medium",
+    "extended_thinking": "on",
+    "predicted_tokens": {
+      "input": 21,
+      "thinking": 1024,
+      "output": { "min": 350, "expected": 650, "max": 1400 },
+      "total": { "min": 1395, "expected": 1695, "max": 2445 }
+    }
+  },
+  {
+    "id": "TASK-2",
+    "category": "Summarization (Constraint)",
+    "prompt": "Summarize the key points of the 2026 EU AI Act compliance guidelines in 4 concise bullet points.",
+    "task_type": "web_research",
+    "suggested_model": "Perplexity Pro",
+    "effort_level": "medium",
+    "extended_thinking": "on",
+    "predicted_tokens": {
+      "input": 23,
+      "thinking": 1024,
+      "output": { "min": 400, "expected": 850, "max": 2200 },
+      "total": { "min": 1447, "expected": 1897, "max": 3247 }
+    }
+  },
+  {
+    "id": "TASK-3",
+    "category": "Web Research & Analysis",
+    "prompt": "What are the latest developments in generative AI hardware architecture in 2026?",
+    "task_type": "web_research",
+    "suggested_model": "Perplexity Pro",
+    "effort_level": "medium",
+    "extended_thinking": "on",
+    "predicted_tokens": {
+      "input": 16,
+      "thinking": 1024,
+      "output": { "min": 400, "expected": 850, "max": 2200 },
+      "total": { "min": 1440, "expected": 1890, "max": 3240 }
+    }
+  },
+  {
+    "id": "TASK-4",
+    "category": "Math & Computation",
+    "prompt": "Calculate the compound interest on $50,000 at 7.2% annual rate compounded monthly for 15 years.",
+    "task_type": "writing",
+    "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
+    "effort_level": "medium",
+    "extended_thinking": "on",
+    "predicted_tokens": {
+      "input": 27,
+      "thinking": 1024,
+      "output": { "min": 100, "expected": 350, "max": 850 },
+      "total": { "min": 1151, "expected": 1401, "max": 1901 }
+    }
+  },
+  {
+    "id": "TASK-5",
+    "category": "Creative Writing (Constraint)",
+    "prompt": "Write a 300-word bedtime story about a friendly dragon who is afraid of the dark.",
+    "task_type": "creative_writing",
+    "suggested_model": "Claude 3.7 Sonnet",
+    "effort_level": "medium",
+    "extended_thinking": "on",
+    "predicted_tokens": {
+      "input": 22,
+      "thinking": 1024,
+      "output": { "min": 319, "expected": 399, "max": 498 },
+      "total": { "min": 1365, "expected": 1445, "max": 1544 }
+    }
+  }
+]
