@@ -1,6 +1,6 @@
 [
   {
-    "id": "CVT-A01",
+    "id": "TASK-6",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Basic arithmetic",
@@ -25,7 +25,7 @@
     }
   },
   {
-    "id": "CVT-A02",
+    "id": "TASK-7",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Matrix operations",
@@ -50,7 +50,7 @@
     }
   },
   {
-    "id": "CVT-A03",
+    "id": "TASK-8",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Statistical computation",
@@ -75,11 +75,11 @@
     }
   },
   {
-    "id": "CVT-A04",
+    "id": "TASK-9",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Optimization problem",
-    "prompt": "Solve this linear programming problem: maximize 3x + 5y subject to x + 2y \u2264 14, 3x + y \u2264 14, x \u2265 0, y \u2265 0.",
+    "prompt": "Solve this linear programming problem: maximize 3x + 5y subject to x + 2y ≤ 14, 3x + y ≤ 14, x ≥ 0, y ≥ 0.",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -100,11 +100,11 @@
     }
   },
   {
-    "id": "CVT-A05",
+    "id": "TASK-10",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Calculus",
-    "prompt": "Find the definite integral of sin(x\u00b2) from 0 to \u03c0 using numerical integration and explain the method.",
+    "prompt": "Find the definite integral of sin(x²) from 0 to π using numerical integration and explain the method.",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -125,7 +125,7 @@
     }
   },
   {
-    "id": "CVT-A06",
+    "id": "TASK-11",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Probability calculation",
@@ -150,11 +150,11 @@
     }
   },
   {
-    "id": "CVT-A07",
+    "id": "TASK-12",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Physics computation",
-    "prompt": "Calculate the escape velocity from Mars given its mass (6.39\u00d710\u00b2\u00b3 kg) and radius (3,389.5 km).",
+    "prompt": "Calculate the escape velocity from Mars given its mass (6.39×10²³ kg) and radius (3,389.5 km).",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -175,7 +175,7 @@
     }
   },
   {
-    "id": "CVT-A08",
+    "id": "TASK-13",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Financial modeling",
@@ -200,7 +200,7 @@
     }
   },
   {
-    "id": "CVT-A09",
+    "id": "TASK-14",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Combinatorics",
@@ -225,7 +225,7 @@
     }
   },
   {
-    "id": "CVT-A10",
+    "id": "TASK-15",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "A",
     "label": "Differential equations",
@@ -250,7 +250,7 @@
     }
   },
   {
-    "id": "CVT-B01",
+    "id": "TASK-16",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "Python function",
@@ -275,7 +275,7 @@
     }
   },
   {
-    "id": "CVT-B02",
+    "id": "TASK-17",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "SQL query",
@@ -300,7 +300,7 @@
     }
   },
   {
-    "id": "CVT-B03",
+    "id": "TASK-18",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "JavaScript async",
@@ -325,7 +325,7 @@
     }
   },
   {
-    "id": "CVT-B04",
+    "id": "TASK-19",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "Rust systems code",
@@ -350,7 +350,7 @@
     }
   },
   {
-    "id": "CVT-B05",
+    "id": "TASK-20",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "React component",
@@ -375,7 +375,7 @@
     }
   },
   {
-    "id": "CVT-B06",
+    "id": "TASK-21",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "Bash automation",
@@ -400,7 +400,7 @@
     }
   },
   {
-    "id": "CVT-B07",
+    "id": "TASK-22",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "API endpoint",
@@ -425,7 +425,7 @@
     }
   },
   {
-    "id": "CVT-B08",
+    "id": "TASK-23",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "Database migration",
@@ -450,7 +450,7 @@
     }
   },
   {
-    "id": "CVT-B09",
+    "id": "TASK-24",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "Unit tests",
@@ -475,7 +475,7 @@
     }
   },
   {
-    "id": "CVT-B10",
+    "id": "TASK-25",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "B",
     "label": "Regex pattern",
@@ -500,7 +500,7 @@
     }
   },
   {
-    "id": "CVT-C01",
+    "id": "TASK-26",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Grammar correction",
@@ -525,7 +525,7 @@
     }
   },
   {
-    "id": "CVT-C02",
+    "id": "TASK-27",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Sentence completion",
@@ -550,7 +550,7 @@
     }
   },
   {
-    "id": "CVT-C03",
+    "id": "TASK-28",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Tone adjustment",
@@ -575,7 +575,7 @@
     }
   },
   {
-    "id": "CVT-C04",
+    "id": "TASK-29",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Text expansion",
@@ -600,7 +600,7 @@
     }
   },
   {
-    "id": "CVT-C05",
+    "id": "TASK-30",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Text simplification",
@@ -625,7 +625,7 @@
     }
   },
   {
-    "id": "CVT-C06",
+    "id": "TASK-31",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Formal rewriting",
@@ -650,7 +650,7 @@
     }
   },
   {
-    "id": "CVT-C07",
+    "id": "TASK-32",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Proofreading",
@@ -675,7 +675,7 @@
     }
   },
   {
-    "id": "CVT-C08",
+    "id": "TASK-33",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Headline generation",
@@ -700,7 +700,7 @@
     }
   },
   {
-    "id": "CVT-C09",
+    "id": "TASK-34",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Fill-in template",
@@ -725,7 +725,7 @@
     }
   },
   {
-    "id": "CVT-C10",
+    "id": "TASK-35",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "C",
     "label": "Style transfer",
@@ -750,7 +750,7 @@
     }
   },
   {
-    "id": "CVT-D01",
+    "id": "TASK-36",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Incident postmortem",
@@ -775,7 +775,7 @@
     }
   },
   {
-    "id": "CVT-D02",
+    "id": "TASK-37",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Board memo",
@@ -800,7 +800,7 @@
     }
   },
   {
-    "id": "CVT-D03",
+    "id": "TASK-38",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Crisis communication",
@@ -825,7 +825,7 @@
     }
   },
   {
-    "id": "CVT-D04",
+    "id": "TASK-39",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Legal clause",
@@ -850,7 +850,7 @@
     }
   },
   {
-    "id": "CVT-D05",
+    "id": "TASK-40",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "RFP response",
@@ -875,7 +875,7 @@
     }
   },
   {
-    "id": "CVT-D06",
+    "id": "TASK-41",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Business proposal",
@@ -900,7 +900,7 @@
     }
   },
   {
-    "id": "CVT-D07",
+    "id": "TASK-42",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Press release",
@@ -925,7 +925,7 @@
     }
   },
   {
-    "id": "CVT-D08",
+    "id": "TASK-43",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Policy document",
@@ -950,7 +950,7 @@
     }
   },
   {
-    "id": "CVT-D09",
+    "id": "TASK-44",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Meeting minutes",
@@ -975,7 +975,7 @@
     }
   },
   {
-    "id": "CVT-D10",
+    "id": "TASK-45",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "D",
     "label": "Strategy document",
@@ -1000,7 +1000,7 @@
     }
   },
   {
-    "id": "CVT-E01",
+    "id": "TASK-46",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "CSV reconciliation",
@@ -1025,7 +1025,7 @@
     }
   },
   {
-    "id": "CVT-E02",
+    "id": "TASK-47",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "Dashboard design",
@@ -1050,7 +1050,7 @@
     }
   },
   {
-    "id": "CVT-E03",
+    "id": "TASK-48",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "A/B test analysis",
@@ -1075,7 +1075,7 @@
     }
   },
   {
-    "id": "CVT-E04",
+    "id": "TASK-49",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "ETL pipeline",
@@ -1100,7 +1100,7 @@
     }
   },
   {
-    "id": "CVT-E05",
+    "id": "TASK-50",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "Invoice extraction",
@@ -1125,7 +1125,7 @@
     }
   },
   {
-    "id": "CVT-E06",
+    "id": "TASK-51",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "Time series forecast",
@@ -1150,11 +1150,11 @@
     }
   },
   {
-    "id": "CVT-E07",
+    "id": "TASK-52",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "Data cleaning",
-    "prompt": "Clean and deduplicate this customer database of 80,000 records \u2014 standardize addresses, merge duplicate entries, and flag suspicious records.",
+    "prompt": "Clean and deduplicate this customer database of 80,000 records — standardize addresses, merge duplicate entries, and flag suspicious records.",
     "task_type": "data_extraction",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "high",
@@ -1175,7 +1175,7 @@
     }
   },
   {
-    "id": "CVT-E08",
+    "id": "TASK-53",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "Log analysis",
@@ -1200,7 +1200,7 @@
     }
   },
   {
-    "id": "CVT-E09",
+    "id": "TASK-54",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "Survey analysis",
@@ -1225,7 +1225,7 @@
     }
   },
   {
-    "id": "CVT-E10",
+    "id": "TASK-55",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "E",
     "label": "Financial data extraction",
@@ -1250,7 +1250,7 @@
     }
   },
   {
-    "id": "CVT-F01",
+    "id": "TASK-56",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Competitor analysis",
@@ -1275,7 +1275,7 @@
     }
   },
   {
-    "id": "CVT-F02",
+    "id": "TASK-57",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Regulatory research",
@@ -1300,7 +1300,7 @@
     }
   },
   {
-    "id": "CVT-F03",
+    "id": "TASK-58",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Market sizing",
@@ -1325,7 +1325,7 @@
     }
   },
   {
-    "id": "CVT-F04",
+    "id": "TASK-59",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Academic literature",
@@ -1350,7 +1350,7 @@
     }
   },
   {
-    "id": "CVT-F05",
+    "id": "TASK-60",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Patent search",
@@ -1375,7 +1375,7 @@
     }
   },
   {
-    "id": "CVT-F06",
+    "id": "TASK-61",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Technology comparison",
@@ -1400,7 +1400,7 @@
     }
   },
   {
-    "id": "CVT-F07",
+    "id": "TASK-62",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Industry benchmarks",
@@ -1425,7 +1425,7 @@
     }
   },
   {
-    "id": "CVT-F08",
+    "id": "TASK-63",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Hiring market research",
@@ -1450,7 +1450,7 @@
     }
   },
   {
-    "id": "CVT-F09",
+    "id": "TASK-64",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Product recall lookup",
@@ -1475,7 +1475,7 @@
     }
   },
   {
-    "id": "CVT-F10",
+    "id": "TASK-65",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "F",
     "label": "Standards lookup",
@@ -1500,7 +1500,7 @@
     }
   },
   {
-    "id": "CVT-G01",
+    "id": "TASK-66",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Legal contract summary",
@@ -1525,7 +1525,7 @@
     }
   },
   {
-    "id": "CVT-G02",
+    "id": "TASK-67",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Meeting notes summary",
@@ -1550,7 +1550,7 @@
     }
   },
   {
-    "id": "CVT-G03",
+    "id": "TASK-68",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Research paper summary",
@@ -1575,7 +1575,7 @@
     }
   },
   {
-    "id": "CVT-G04",
+    "id": "TASK-69",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Multi-doc synthesis",
@@ -1600,7 +1600,7 @@
     }
   },
   {
-    "id": "CVT-G05",
+    "id": "TASK-70",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Email thread summary",
@@ -1625,7 +1625,7 @@
     }
   },
   {
-    "id": "CVT-G06",
+    "id": "TASK-71",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Earnings call summary",
@@ -1650,7 +1650,7 @@
     }
   },
   {
-    "id": "CVT-G07",
+    "id": "TASK-72",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Book chapter summary",
@@ -1675,7 +1675,7 @@
     }
   },
   {
-    "id": "CVT-G08",
+    "id": "TASK-73",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Regulatory filing summary",
@@ -1700,7 +1700,7 @@
     }
   },
   {
-    "id": "CVT-G09",
+    "id": "TASK-74",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Customer feedback synthesis",
@@ -1725,7 +1725,7 @@
     }
   },
   {
-    "id": "CVT-G10",
+    "id": "TASK-75",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "G",
     "label": "Technical spec summary",
@@ -1750,7 +1750,7 @@
     }
   },
   {
-    "id": "CVT-H01",
+    "id": "TASK-76",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Short story",
@@ -1775,7 +1775,7 @@
     }
   },
   {
-    "id": "CVT-H02",
+    "id": "TASK-77",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Marketing copy",
@@ -1800,7 +1800,7 @@
     }
   },
   {
-    "id": "CVT-H03",
+    "id": "TASK-78",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Speech writing",
@@ -1825,7 +1825,7 @@
     }
   },
   {
-    "id": "CVT-H04",
+    "id": "TASK-79",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Blog post",
@@ -1850,7 +1850,7 @@
     }
   },
   {
-    "id": "CVT-H05",
+    "id": "TASK-80",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Ad copy variants",
@@ -1875,7 +1875,7 @@
     }
   },
   {
-    "id": "CVT-H06",
+    "id": "TASK-81",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Product descriptions",
@@ -1900,7 +1900,7 @@
     }
   },
   {
-    "id": "CVT-H07",
+    "id": "TASK-82",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Newsletter",
@@ -1925,7 +1925,7 @@
     }
   },
   {
-    "id": "CVT-H08",
+    "id": "TASK-83",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Screenplay dialogue",
@@ -1950,7 +1950,7 @@
     }
   },
   {
-    "id": "CVT-H09",
+    "id": "TASK-84",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Poetry",
@@ -1975,7 +1975,7 @@
     }
   },
   {
-    "id": "CVT-H10",
+    "id": "TASK-85",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "H",
     "label": "Children's story",
@@ -2000,7 +2000,7 @@
     }
   },
   {
-    "id": "CVT-I01",
+    "id": "TASK-86",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Technical manual translation",
@@ -2025,11 +2025,11 @@
     }
   },
   {
-    "id": "CVT-I02",
+    "id": "TASK-87",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Marketing localization",
-    "prompt": "Localize our product landing page content for the German market \u2014 adapt copy, currency, and cultural references.",
+    "prompt": "Localize our product landing page content for the German market — adapt copy, currency, and cultural references.",
     "task_type": "translation",
     "suggested_model": "Claude 3.7 Sonnet",
     "effort_level": "low",
@@ -2050,7 +2050,7 @@
     }
   },
   {
-    "id": "CVT-I03",
+    "id": "TASK-88",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Legal translation",
@@ -2075,7 +2075,7 @@
     }
   },
   {
-    "id": "CVT-I04",
+    "id": "TASK-89",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Subtitle translation",
@@ -2100,7 +2100,7 @@
     }
   },
   {
-    "id": "CVT-I05",
+    "id": "TASK-90",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Website localization",
@@ -2125,7 +2125,7 @@
     }
   },
   {
-    "id": "CVT-I06",
+    "id": "TASK-91",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Medical translation",
@@ -2150,7 +2150,7 @@
     }
   },
   {
-    "id": "CVT-I07",
+    "id": "TASK-92",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Multilingual SEO",
@@ -2175,7 +2175,7 @@
     }
   },
   {
-    "id": "CVT-I08",
+    "id": "TASK-93",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Cultural adaptation",
@@ -2200,7 +2200,7 @@
     }
   },
   {
-    "id": "CVT-I09",
+    "id": "TASK-94",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Real-time translation",
@@ -2225,7 +2225,7 @@
     }
   },
   {
-    "id": "CVT-I10",
+    "id": "TASK-95",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "I",
     "label": "Patent translation",
@@ -2250,7 +2250,7 @@
     }
   },
   {
-    "id": "CVT-J01",
+    "id": "TASK-96",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Sentiment analysis",
@@ -2275,7 +2275,7 @@
     }
   },
   {
-    "id": "CVT-J02",
+    "id": "TASK-97",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Support ticket routing",
@@ -2300,7 +2300,7 @@
     }
   },
   {
-    "id": "CVT-J03",
+    "id": "TASK-98",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Fraud detection",
@@ -2325,7 +2325,7 @@
     }
   },
   {
-    "id": "CVT-J04",
+    "id": "TASK-99",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Content moderation",
@@ -2350,7 +2350,7 @@
     }
   },
   {
-    "id": "CVT-J05",
+    "id": "TASK-100",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Lead scoring",
@@ -2375,7 +2375,7 @@
     }
   },
   {
-    "id": "CVT-J06",
+    "id": "TASK-101",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Email categorization",
@@ -2400,7 +2400,7 @@
     }
   },
   {
-    "id": "CVT-J07",
+    "id": "TASK-102",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Document classification",
@@ -2425,7 +2425,7 @@
     }
   },
   {
-    "id": "CVT-J08",
+    "id": "TASK-103",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Intent detection",
@@ -2450,7 +2450,7 @@
     }
   },
   {
-    "id": "CVT-J09",
+    "id": "TASK-104",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Priority tagging",
@@ -2475,7 +2475,7 @@
     }
   },
   {
-    "id": "CVT-J10",
+    "id": "TASK-105",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "J",
     "label": "Duplicate detection",
@@ -2500,7 +2500,7 @@
     }
   },
   {
-    "id": "CVT-K01",
+    "id": "TASK-106",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Chart interpretation",
@@ -2525,7 +2525,7 @@
     }
   },
   {
-    "id": "CVT-K02",
+    "id": "TASK-107",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Screenshot debugging",
@@ -2550,7 +2550,7 @@
     }
   },
   {
-    "id": "CVT-K03",
+    "id": "TASK-108",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Architecture diagram review",
@@ -2575,7 +2575,7 @@
     }
   },
   {
-    "id": "CVT-K04",
+    "id": "TASK-109",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Image cataloging",
@@ -2600,7 +2600,7 @@
     }
   },
   {
-    "id": "CVT-K05",
+    "id": "TASK-110",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Handwriting OCR",
@@ -2625,7 +2625,7 @@
     }
   },
   {
-    "id": "CVT-K06",
+    "id": "TASK-111",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "UI mockup review",
@@ -2650,7 +2650,7 @@
     }
   },
   {
-    "id": "CVT-K07",
+    "id": "TASK-112",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Video summary",
@@ -2675,7 +2675,7 @@
     }
   },
   {
-    "id": "CVT-K08",
+    "id": "TASK-113",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Receipt extraction",
@@ -2700,7 +2700,7 @@
     }
   },
   {
-    "id": "CVT-K09",
+    "id": "TASK-114",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Before/after comparison",
@@ -2725,7 +2725,7 @@
     }
   },
   {
-    "id": "CVT-K10",
+    "id": "TASK-115",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "K",
     "label": "Wireframe to code",
@@ -2750,7 +2750,7 @@
     }
   },
   {
-    "id": "CVT-L01",
+    "id": "TASK-116",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Mathematical proof",
@@ -2775,7 +2775,7 @@
     }
   },
   {
-    "id": "CVT-L02",
+    "id": "TASK-117",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Algorithm correctness",
@@ -2800,7 +2800,7 @@
     }
   },
   {
-    "id": "CVT-L03",
+    "id": "TASK-118",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Logic puzzle",
@@ -2825,7 +2825,7 @@
     }
   },
   {
-    "id": "CVT-L04",
+    "id": "TASK-119",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Strategic tradeoff analysis",
@@ -2850,7 +2850,7 @@
     }
   },
   {
-    "id": "CVT-L05",
+    "id": "TASK-120",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Causal inference",
@@ -2875,7 +2875,7 @@
     }
   },
   {
-    "id": "CVT-L06",
+    "id": "TASK-121",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Game theory problem",
@@ -2900,7 +2900,7 @@
     }
   },
   {
-    "id": "CVT-L07",
+    "id": "TASK-122",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Root cause analysis",
@@ -2925,7 +2925,7 @@
     }
   },
   {
-    "id": "CVT-L08",
+    "id": "TASK-123",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Formal verification",
@@ -2950,7 +2950,7 @@
     }
   },
   {
-    "id": "CVT-L09",
+    "id": "TASK-124",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Paradox analysis",
@@ -2975,11 +2975,11 @@
     }
   },
   {
-    "id": "CVT-L10",
+    "id": "TASK-125",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "L",
     "label": "Systems thinking",
-    "prompt": "Map the feedback loops in our customer growth system \u2014 viral acquisition, churn, support load, NPS \u2014 and identify the highest-leverage intervention point.",
+    "prompt": "Map the feedback loops in our customer growth system — viral acquisition, churn, support load, NPS — and identify the highest-leverage intervention point.",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -3000,7 +3000,7 @@
     }
   },
   {
-    "id": "CVT-M01",
+    "id": "TASK-126",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Investor pitch deck",
@@ -3025,7 +3025,7 @@
     }
   },
   {
-    "id": "CVT-M02",
+    "id": "TASK-127",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Sales deck",
@@ -3050,7 +3050,7 @@
     }
   },
   {
-    "id": "CVT-M03",
+    "id": "TASK-128",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Board QBR deck",
@@ -3075,7 +3075,7 @@
     }
   },
   {
-    "id": "CVT-M04",
+    "id": "TASK-129",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Conference talk slides",
@@ -3100,7 +3100,7 @@
     }
   },
   {
-    "id": "CVT-M05",
+    "id": "TASK-130",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Product launch deck",
@@ -3125,7 +3125,7 @@
     }
   },
   {
-    "id": "CVT-M06",
+    "id": "TASK-131",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Training deck",
@@ -3150,7 +3150,7 @@
     }
   },
   {
-    "id": "CVT-M07",
+    "id": "TASK-132",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "All-hands deck",
@@ -3175,7 +3175,7 @@
     }
   },
   {
-    "id": "CVT-M08",
+    "id": "TASK-133",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Webinar deck",
@@ -3200,11 +3200,11 @@
     }
   },
   {
-    "id": "CVT-M09",
+    "id": "TASK-134",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Infographic slide",
-    "prompt": "Design a single-slide visual infographic summarizing our 2025 annual impact report \u2014 revenue, customers, uptime, and team growth.",
+    "prompt": "Design a single-slide visual infographic summarizing our 2025 annual impact report — revenue, customers, uptime, and team growth.",
     "task_type": "presentation",
     "suggested_model": "Gamma",
     "effort_level": "medium",
@@ -3225,7 +3225,7 @@
     }
   },
   {
-    "id": "CVT-M10",
+    "id": "TASK-135",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "M",
     "label": "Partner pitch deck",
@@ -3250,7 +3250,7 @@
     }
   },
   {
-    "id": "CVT-N01",
+    "id": "TASK-136",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "One-word prompt",
@@ -3275,7 +3275,7 @@
     }
   },
   {
-    "id": "CVT-N02",
+    "id": "TASK-137",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Empty context",
@@ -3300,7 +3300,7 @@
     }
   },
   {
-    "id": "CVT-N03",
+    "id": "TASK-138",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Contradictory instructions",
@@ -3325,7 +3325,7 @@
     }
   },
   {
-    "id": "CVT-N04",
+    "id": "TASK-139",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Multi-domain mashup",
@@ -3350,7 +3350,7 @@
     }
   },
   {
-    "id": "CVT-N05",
+    "id": "TASK-140",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Adversarial injection",
@@ -3375,7 +3375,7 @@
     }
   },
   {
-    "id": "CVT-N06",
+    "id": "TASK-141",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Extremely vague",
@@ -3400,7 +3400,7 @@
     }
   },
   {
-    "id": "CVT-N07",
+    "id": "TASK-142",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Typo-heavy",
@@ -3425,11 +3425,11 @@
     }
   },
   {
-    "id": "CVT-N08",
+    "id": "TASK-143",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Non-English only",
-    "prompt": "Erstellen Sie eine detaillierte technische Spezifikation f\u00fcr unser neues Authentifizierungssystem.",
+    "prompt": "Erstellen Sie eine detaillierte technische Spezifikation für unser neues Authentifizierungssystem.",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -3450,7 +3450,7 @@
     }
   },
   {
-    "id": "CVT-N09",
+    "id": "TASK-144",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Meta-routing question",
@@ -3475,7 +3475,7 @@
     }
   },
   {
-    "id": "CVT-N10",
+    "id": "TASK-145",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "N",
     "label": "Impossible task",
@@ -3500,7 +3500,7 @@
     }
   },
   {
-    "id": "CVT-O01",
+    "id": "TASK-146",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Research + write",
@@ -3525,7 +3525,7 @@
     }
   },
   {
-    "id": "CVT-O02",
+    "id": "TASK-147",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Analyze + present",
@@ -3550,7 +3550,7 @@
     }
   },
   {
-    "id": "CVT-O03",
+    "id": "TASK-148",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Extract + summarize",
@@ -3575,7 +3575,7 @@
     }
   },
   {
-    "id": "CVT-O04",
+    "id": "TASK-149",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Code + test + deploy",
@@ -3600,7 +3600,7 @@
     }
   },
   {
-    "id": "CVT-O05",
+    "id": "TASK-150",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Survey + report",
@@ -3625,7 +3625,7 @@
     }
   },
   {
-    "id": "CVT-O06",
+    "id": "TASK-151",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Translate + localize + test",
@@ -3650,7 +3650,7 @@
     }
   },
   {
-    "id": "CVT-O07",
+    "id": "TASK-152",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Audit + fix + document",
@@ -3675,7 +3675,7 @@
     }
   },
   {
-    "id": "CVT-O08",
+    "id": "TASK-153",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Competitive intel pipeline",
@@ -3700,7 +3700,7 @@
     }
   },
   {
-    "id": "CVT-O09",
+    "id": "TASK-154",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Data pipeline end-to-end",
@@ -3725,11 +3725,11 @@
     }
   },
   {
-    "id": "CVT-O10",
+    "id": "TASK-155",
     "suite": "Comprehensive Variety (150 Tasks)",
     "group": "O",
     "label": "Incident response workflow",
-    "prompt": "Write the incident response runbook: detection \u2192 triage \u2192 communication \u2192 resolution \u2192 postmortem template, with Slack/PagerDuty integration examples.",
+    "prompt": "Write the incident response runbook: detection → triage → communication → resolution → postmortem template, with Slack/PagerDuty integration examples.",
     "task_type": "professional_writing",
     "suggested_model": "Claude 3.7 Sonnet",
     "effort_level": "high",
@@ -3750,7 +3750,7 @@
     }
   },
   {
-    "id": "STRESS-A01",
+    "id": "TASK-156",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "Bug fix legacy code",
@@ -3775,7 +3775,7 @@
     }
   },
   {
-    "id": "STRESS-A02",
+    "id": "TASK-157",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "API integration",
@@ -3800,7 +3800,7 @@
     }
   },
   {
-    "id": "STRESS-A03",
+    "id": "TASK-158",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "DB schema design",
@@ -3825,7 +3825,7 @@
     }
   },
   {
-    "id": "STRESS-A04",
+    "id": "TASK-159",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "Frontend UI component",
@@ -3850,7 +3850,7 @@
     }
   },
   {
-    "id": "STRESS-A05",
+    "id": "TASK-160",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "DevOps/CI-CD script",
@@ -3875,7 +3875,7 @@
     }
   },
   {
-    "id": "STRESS-A06",
+    "id": "TASK-161",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "Mobile app dev",
@@ -3900,7 +3900,7 @@
     }
   },
   {
-    "id": "STRESS-A07",
+    "id": "TASK-162",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "Code review",
@@ -3925,7 +3925,7 @@
     }
   },
   {
-    "id": "STRESS-A08",
+    "id": "TASK-163",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "Algorithm design",
@@ -3950,7 +3950,7 @@
     }
   },
   {
-    "id": "STRESS-A09",
+    "id": "TASK-164",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "Unit test generation",
@@ -3975,7 +3975,7 @@
     }
   },
   {
-    "id": "STRESS-A10",
+    "id": "TASK-165",
     "suite": "Stress Test (210 Prompts)",
     "group": "A",
     "label": "Security vulnerability scan",
@@ -4000,7 +4000,7 @@
     }
   },
   {
-    "id": "STRESS-B11",
+    "id": "TASK-166",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "Excel formula fix",
@@ -4025,7 +4025,7 @@
     }
   },
   {
-    "id": "STRESS-B12",
+    "id": "TASK-167",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "SQL query writing",
@@ -4050,11 +4050,11 @@
     }
   },
   {
-    "id": "STRESS-B13",
+    "id": "TASK-168",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "Data cleaning",
-    "prompt": "Clean and deduplicate this customer database \u2014 remove duplicate email entries and standardize phone formats.",
+    "prompt": "Clean and deduplicate this customer database — remove duplicate email entries and standardize phone formats.",
     "task_type": "data_extraction",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "high",
@@ -4075,7 +4075,7 @@
     }
   },
   {
-    "id": "STRESS-B14",
+    "id": "TASK-169",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "Statistical analysis",
@@ -4100,7 +4100,7 @@
     }
   },
   {
-    "id": "STRESS-B15",
+    "id": "TASK-170",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "Dashboard/BI report",
@@ -4125,7 +4125,7 @@
     }
   },
   {
-    "id": "STRESS-B16",
+    "id": "TASK-171",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "A/B test analysis",
@@ -4150,7 +4150,7 @@
     }
   },
   {
-    "id": "STRESS-B17",
+    "id": "TASK-172",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "Large CSV reconciliation",
@@ -4175,7 +4175,7 @@
     }
   },
   {
-    "id": "STRESS-B18",
+    "id": "TASK-173",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "Time-series forecasting",
@@ -4200,7 +4200,7 @@
     }
   },
   {
-    "id": "STRESS-B19",
+    "id": "TASK-174",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "Data visualization",
@@ -4225,7 +4225,7 @@
     }
   },
   {
-    "id": "STRESS-B20",
+    "id": "TASK-175",
     "suite": "Stress Test (210 Prompts)",
     "group": "B",
     "label": "ETL pipeline design",
@@ -4250,7 +4250,7 @@
     }
   },
   {
-    "id": "STRESS-C21",
+    "id": "TASK-176",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Competitor pricing",
@@ -4275,7 +4275,7 @@
     }
   },
   {
-    "id": "STRESS-C22",
+    "id": "TASK-177",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Industry news",
@@ -4300,7 +4300,7 @@
     }
   },
   {
-    "id": "STRESS-C23",
+    "id": "TASK-178",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Stock market update",
@@ -4325,7 +4325,7 @@
     }
   },
   {
-    "id": "STRESS-C24",
+    "id": "TASK-179",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Product comparison",
@@ -4350,7 +4350,7 @@
     }
   },
   {
-    "id": "STRESS-C25",
+    "id": "TASK-180",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Regulatory/policy update",
@@ -4375,7 +4375,7 @@
     }
   },
   {
-    "id": "STRESS-C26",
+    "id": "TASK-181",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Travel destination research",
@@ -4400,7 +4400,7 @@
     }
   },
   {
-    "id": "STRESS-C27",
+    "id": "TASK-182",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Local business lookup",
@@ -4425,7 +4425,7 @@
     }
   },
   {
-    "id": "STRESS-C28",
+    "id": "TASK-183",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Academic paper discovery",
@@ -4450,7 +4450,7 @@
     }
   },
   {
-    "id": "STRESS-C29",
+    "id": "TASK-184",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Real estate market research",
@@ -4475,7 +4475,7 @@
     }
   },
   {
-    "id": "STRESS-C30",
+    "id": "TASK-185",
     "suite": "Stress Test (210 Prompts)",
     "group": "C",
     "label": "Sports scores lookup",
@@ -4500,7 +4500,7 @@
     }
   },
   {
-    "id": "STRESS-D31",
+    "id": "TASK-186",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Legal contract summary",
@@ -4525,7 +4525,7 @@
     }
   },
   {
-    "id": "STRESS-D32",
+    "id": "TASK-187",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Meeting transcript summary",
@@ -4550,7 +4550,7 @@
     }
   },
   {
-    "id": "STRESS-D33",
+    "id": "TASK-188",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Research paper summary",
@@ -4575,7 +4575,7 @@
     }
   },
   {
-    "id": "STRESS-D34",
+    "id": "TASK-189",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "News article summary",
@@ -4600,7 +4600,7 @@
     }
   },
   {
-    "id": "STRESS-D35",
+    "id": "TASK-190",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Book chapter summary",
@@ -4625,7 +4625,7 @@
     }
   },
   {
-    "id": "STRESS-D36",
+    "id": "TASK-191",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Email thread summary",
@@ -4650,7 +4650,7 @@
     }
   },
   {
-    "id": "STRESS-D37",
+    "id": "TASK-192",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Customer feedback summary",
@@ -4675,7 +4675,7 @@
     }
   },
   {
-    "id": "STRESS-D38",
+    "id": "TASK-193",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Financial report summary",
@@ -4700,7 +4700,7 @@
     }
   },
   {
-    "id": "STRESS-D39",
+    "id": "TASK-194",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Podcast transcript summary",
@@ -4725,7 +4725,7 @@
     }
   },
   {
-    "id": "STRESS-D40",
+    "id": "TASK-195",
     "suite": "Stress Test (210 Prompts)",
     "group": "D",
     "label": "Multi-document synthesis",
@@ -4750,7 +4750,7 @@
     }
   },
   {
-    "id": "STRESS-E41",
+    "id": "TASK-196",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Short story",
@@ -4775,7 +4775,7 @@
     }
   },
   {
-    "id": "STRESS-E42",
+    "id": "TASK-197",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Poetry",
@@ -4800,7 +4800,7 @@
     }
   },
   {
-    "id": "STRESS-E43",
+    "id": "TASK-198",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Marketing copy",
@@ -4825,7 +4825,7 @@
     }
   },
   {
-    "id": "STRESS-E44",
+    "id": "TASK-199",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Screenplay dialogue",
@@ -4850,7 +4850,7 @@
     }
   },
   {
-    "id": "STRESS-E45",
+    "id": "TASK-200",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Blog post",
@@ -4875,7 +4875,7 @@
     }
   },
   {
-    "id": "STRESS-E46",
+    "id": "TASK-201",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Brand naming/slogans",
@@ -4900,7 +4900,7 @@
     }
   },
   {
-    "id": "STRESS-E47",
+    "id": "TASK-202",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Children's story",
@@ -4925,7 +4925,7 @@
     }
   },
   {
-    "id": "STRESS-E48",
+    "id": "TASK-203",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Speech writing",
@@ -4950,7 +4950,7 @@
     }
   },
   {
-    "id": "STRESS-E49",
+    "id": "TASK-204",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Parody writing",
@@ -4975,7 +4975,7 @@
     }
   },
   {
-    "id": "STRESS-E50",
+    "id": "TASK-205",
     "suite": "Stress Test (210 Prompts)",
     "group": "E",
     "label": "Product description",
@@ -5000,7 +5000,7 @@
     }
   },
   {
-    "id": "STRESS-F51",
+    "id": "TASK-206",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Investor pitch deck",
@@ -5025,7 +5025,7 @@
     }
   },
   {
-    "id": "STRESS-F52",
+    "id": "TASK-207",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Sales presentation",
@@ -5050,7 +5050,7 @@
     }
   },
   {
-    "id": "STRESS-F53",
+    "id": "TASK-208",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Training/onboarding deck",
@@ -5075,7 +5075,7 @@
     }
   },
   {
-    "id": "STRESS-F54",
+    "id": "TASK-209",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Conference talk slides",
@@ -5100,7 +5100,7 @@
     }
   },
   {
-    "id": "STRESS-F55",
+    "id": "TASK-210",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Product launch deck",
@@ -5125,7 +5125,7 @@
     }
   },
   {
-    "id": "STRESS-F56",
+    "id": "TASK-211",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Board meeting deck",
@@ -5150,11 +5150,11 @@
     }
   },
   {
-    "id": "STRESS-F57",
+    "id": "TASK-212",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Single-slide infographic",
-    "prompt": "Design a single-slide visual summary of our Q2 KPIs \u2014 growth, churn, NPS, and ARR.",
+    "prompt": "Design a single-slide visual summary of our Q2 KPIs — growth, churn, NPS, and ARR.",
     "task_type": "presentation",
     "suggested_model": "Gamma",
     "effort_level": "medium",
@@ -5175,7 +5175,7 @@
     }
   },
   {
-    "id": "STRESS-F58",
+    "id": "TASK-213",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Data-heavy chart deck",
@@ -5200,7 +5200,7 @@
     }
   },
   {
-    "id": "STRESS-F59",
+    "id": "TASK-214",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Executive summary deck",
@@ -5225,7 +5225,7 @@
     }
   },
   {
-    "id": "STRESS-F60",
+    "id": "TASK-215",
     "suite": "Stress Test (210 Prompts)",
     "group": "F",
     "label": "Webinar slide deck",
@@ -5250,7 +5250,7 @@
     }
   },
   {
-    "id": "STRESS-G61",
+    "id": "TASK-216",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Sentiment classification",
@@ -5275,7 +5275,7 @@
     }
   },
   {
-    "id": "STRESS-G62",
+    "id": "TASK-217",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Support ticket categorization",
@@ -5300,7 +5300,7 @@
     }
   },
   {
-    "id": "STRESS-G63",
+    "id": "TASK-218",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Spam/fraud detection",
@@ -5325,7 +5325,7 @@
     }
   },
   {
-    "id": "STRESS-G64",
+    "id": "TASK-219",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Content moderation",
@@ -5350,7 +5350,7 @@
     }
   },
   {
-    "id": "STRESS-G65",
+    "id": "TASK-220",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Lead scoring",
@@ -5375,7 +5375,7 @@
     }
   },
   {
-    "id": "STRESS-G66",
+    "id": "TASK-221",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Document type classification",
@@ -5400,7 +5400,7 @@
     }
   },
   {
-    "id": "STRESS-G67",
+    "id": "TASK-222",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Language detection",
@@ -5425,7 +5425,7 @@
     }
   },
   {
-    "id": "STRESS-G68",
+    "id": "TASK-223",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Topic/genre classification",
@@ -5450,7 +5450,7 @@
     }
   },
   {
-    "id": "STRESS-G69",
+    "id": "TASK-224",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Priority/urgency tagging",
@@ -5475,7 +5475,7 @@
     }
   },
   {
-    "id": "STRESS-G70",
+    "id": "TASK-225",
     "suite": "Stress Test (210 Prompts)",
     "group": "G",
     "label": "Duplicate detection",
@@ -5500,7 +5500,7 @@
     }
   },
   {
-    "id": "STRESS-H71",
+    "id": "TASK-226",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Document translation",
@@ -5525,7 +5525,7 @@
     }
   },
   {
-    "id": "STRESS-H72",
+    "id": "TASK-227",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Website localization",
@@ -5550,7 +5550,7 @@
     }
   },
   {
-    "id": "STRESS-H73",
+    "id": "TASK-228",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Marketing translation",
@@ -5575,7 +5575,7 @@
     }
   },
   {
-    "id": "STRESS-H74",
+    "id": "TASK-229",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Legal doc translation",
@@ -5600,7 +5600,7 @@
     }
   },
   {
-    "id": "STRESS-H75",
+    "id": "TASK-230",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Real-time chat translation",
@@ -5625,7 +5625,7 @@
     }
   },
   {
-    "id": "STRESS-H76",
+    "id": "TASK-231",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Subtitle translation",
@@ -5650,7 +5650,7 @@
     }
   },
   {
-    "id": "STRESS-H77",
+    "id": "TASK-232",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Technical manual translation",
@@ -5675,7 +5675,7 @@
     }
   },
   {
-    "id": "STRESS-H78",
+    "id": "TASK-233",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Multilingual SEO",
@@ -5700,7 +5700,7 @@
     }
   },
   {
-    "id": "STRESS-H79",
+    "id": "TASK-234",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Voice transcript translation",
@@ -5725,7 +5725,7 @@
     }
   },
   {
-    "id": "STRESS-H80",
+    "id": "TASK-235",
     "suite": "Stress Test (210 Prompts)",
     "group": "H",
     "label": "Idiomatic/cultural adaptation",
@@ -5750,7 +5750,7 @@
     }
   },
   {
-    "id": "STRESS-I81",
+    "id": "TASK-236",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Mathematical proof",
@@ -5775,7 +5775,7 @@
     }
   },
   {
-    "id": "STRESS-I82",
+    "id": "TASK-237",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Logic puzzle",
@@ -5800,7 +5800,7 @@
     }
   },
   {
-    "id": "STRESS-I83",
+    "id": "TASK-238",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Algorithm complexity",
@@ -5825,7 +5825,7 @@
     }
   },
   {
-    "id": "STRESS-I84",
+    "id": "TASK-239",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Statistical hypothesis",
@@ -5850,7 +5850,7 @@
     }
   },
   {
-    "id": "STRESS-I85",
+    "id": "TASK-240",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Game theory",
@@ -5875,7 +5875,7 @@
     }
   },
   {
-    "id": "STRESS-I86",
+    "id": "TASK-241",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Multi-step word problem",
@@ -5900,7 +5900,7 @@
     }
   },
   {
-    "id": "STRESS-I87",
+    "id": "TASK-242",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Architecture tradeoff",
@@ -5925,11 +5925,11 @@
     }
   },
   {
-    "id": "STRESS-I88",
+    "id": "TASK-243",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Root-cause analysis",
-    "prompt": "Walk through the root cause of why our API latency spiked 400% on Tuesday \u2014 here are the traces, DB metrics, and deploy log.",
+    "prompt": "Walk through the root cause of why our API latency spiked 400% on Tuesday — here are the traces, DB metrics, and deploy log.",
     "task_type": "coding",
     "suggested_model": "Claude Code / Cursor",
     "effort_level": "high",
@@ -5950,7 +5950,7 @@
     }
   },
   {
-    "id": "STRESS-I89",
+    "id": "TASK-244",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Scientific hypothesis",
@@ -5975,7 +5975,7 @@
     }
   },
   {
-    "id": "STRESS-I90",
+    "id": "TASK-245",
     "suite": "Stress Test (210 Prompts)",
     "group": "I",
     "label": "Strategic decision analysis",
@@ -6000,7 +6000,7 @@
     }
   },
   {
-    "id": "STRESS-J91",
+    "id": "TASK-246",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Full contract review",
@@ -6025,7 +6025,7 @@
     }
   },
   {
-    "id": "STRESS-J92",
+    "id": "TASK-247",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Codebase-wide analysis",
@@ -6050,7 +6050,7 @@
     }
   },
   {
-    "id": "STRESS-J93",
+    "id": "TASK-248",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Multi-year financial review",
@@ -6075,7 +6075,7 @@
     }
   },
   {
-    "id": "STRESS-J94",
+    "id": "TASK-249",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Litigation document review",
@@ -6100,7 +6100,7 @@
     }
   },
   {
-    "id": "STRESS-J95",
+    "id": "TASK-250",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Regulatory compliance review",
@@ -6125,7 +6125,7 @@
     }
   },
   {
-    "id": "STRESS-J96",
+    "id": "TASK-251",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Manuscript analysis",
@@ -6150,7 +6150,7 @@
     }
   },
   {
-    "id": "STRESS-J97",
+    "id": "TASK-252",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Research corpus meta-analysis",
@@ -6175,7 +6175,7 @@
     }
   },
   {
-    "id": "STRESS-J98",
+    "id": "TASK-253",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Transcript series review",
@@ -6200,7 +6200,7 @@
     }
   },
   {
-    "id": "STRESS-J99",
+    "id": "TASK-254",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "Technical spec review",
@@ -6225,7 +6225,7 @@
     }
   },
   {
-    "id": "STRESS-J100",
+    "id": "TASK-255",
     "suite": "Stress Test (210 Prompts)",
     "group": "J",
     "label": "M&A due-diligence docs",
@@ -6250,7 +6250,7 @@
     }
   },
   {
-    "id": "STRESS-K101",
+    "id": "TASK-256",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Chart interpretation",
@@ -6275,7 +6275,7 @@
     }
   },
   {
-    "id": "STRESS-K102",
+    "id": "TASK-257",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Screenshot bug diagnosis",
@@ -6300,7 +6300,7 @@
     }
   },
   {
-    "id": "STRESS-K103",
+    "id": "TASK-258",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Image product cataloging",
@@ -6325,7 +6325,7 @@
     }
   },
   {
-    "id": "STRESS-K104",
+    "id": "TASK-259",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Diagram/flowchart explanation",
@@ -6350,7 +6350,7 @@
     }
   },
   {
-    "id": "STRESS-K105",
+    "id": "TASK-260",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Handwriting/OCR extraction",
@@ -6375,7 +6375,7 @@
     }
   },
   {
-    "id": "STRESS-K106",
+    "id": "TASK-261",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Video content summary",
@@ -6400,7 +6400,7 @@
     }
   },
   {
-    "id": "STRESS-K107",
+    "id": "TASK-262",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "UI/UX mockup review",
@@ -6425,7 +6425,7 @@
     }
   },
   {
-    "id": "STRESS-K108",
+    "id": "TASK-263",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Image description",
@@ -6450,7 +6450,7 @@
     }
   },
   {
-    "id": "STRESS-K109",
+    "id": "TASK-264",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Receipt/form data extraction",
@@ -6475,7 +6475,7 @@
     }
   },
   {
-    "id": "STRESS-K110",
+    "id": "TASK-265",
     "suite": "Stress Test (210 Prompts)",
     "group": "K",
     "label": "Comparative image analysis",
@@ -6500,7 +6500,7 @@
     }
   },
   {
-    "id": "STRESS-L111",
+    "id": "TASK-266",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Web + code task",
@@ -6525,7 +6525,7 @@
     }
   },
   {
-    "id": "STRESS-L112",
+    "id": "TASK-267",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "File organization",
@@ -6550,7 +6550,7 @@
     }
   },
   {
-    "id": "STRESS-L113",
+    "id": "TASK-268",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Calendar + email coordination",
@@ -6575,7 +6575,7 @@
     }
   },
   {
-    "id": "STRESS-L114",
+    "id": "TASK-269",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Multi-API orchestration",
@@ -6600,7 +6600,7 @@
     }
   },
   {
-    "id": "STRESS-L115",
+    "id": "TASK-270",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Browser automation",
@@ -6625,7 +6625,7 @@
     }
   },
   {
-    "id": "STRESS-L116",
+    "id": "TASK-271",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Research + report pipeline",
@@ -6650,7 +6650,7 @@
     }
   },
   {
-    "id": "STRESS-L117",
+    "id": "TASK-272",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Multi-file refactor + deploy",
@@ -6675,7 +6675,7 @@
     }
   },
   {
-    "id": "STRESS-L118",
+    "id": "TASK-273",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Data pipeline + notification",
@@ -6700,7 +6700,7 @@
     }
   },
   {
-    "id": "STRESS-L119",
+    "id": "TASK-274",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Cross-platform sync",
@@ -6725,7 +6725,7 @@
     }
   },
   {
-    "id": "STRESS-L120",
+    "id": "TASK-275",
     "suite": "Stress Test (210 Prompts)",
     "group": "L",
     "label": "Monitoring agent",
@@ -6750,7 +6750,7 @@
     }
   },
   {
-    "id": "STRESS-M121",
+    "id": "TASK-276",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "Contract clause drafting",
@@ -6775,7 +6775,7 @@
     }
   },
   {
-    "id": "STRESS-M122",
+    "id": "TASK-277",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "NDA review",
@@ -6800,7 +6800,7 @@
     }
   },
   {
-    "id": "STRESS-M123",
+    "id": "TASK-278",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "Compliance checklist",
@@ -6825,7 +6825,7 @@
     }
   },
   {
-    "id": "STRESS-M124",
+    "id": "TASK-279",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "IP/trademark research",
@@ -6850,7 +6850,7 @@
     }
   },
   {
-    "id": "STRESS-M125",
+    "id": "TASK-280",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "Employment law question",
@@ -6875,7 +6875,7 @@
     }
   },
   {
-    "id": "STRESS-M126",
+    "id": "TASK-281",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "Case brief summarization",
@@ -6900,7 +6900,7 @@
     }
   },
   {
-    "id": "STRESS-M127",
+    "id": "TASK-282",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "Regulatory filing drafting",
@@ -6925,7 +6925,7 @@
     }
   },
   {
-    "id": "STRESS-M128",
+    "id": "TASK-283",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "ToS drafting",
@@ -6950,7 +6950,7 @@
     }
   },
   {
-    "id": "STRESS-M129",
+    "id": "TASK-284",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "Litigation strategy",
@@ -6975,7 +6975,7 @@
     }
   },
   {
-    "id": "STRESS-M130",
+    "id": "TASK-285",
     "suite": "Stress Test (210 Prompts)",
     "group": "M",
     "label": "Legal citation formatting",
@@ -7000,7 +7000,7 @@
     }
   },
   {
-    "id": "STRESS-N131",
+    "id": "TASK-286",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Symptom info lookup",
@@ -7025,7 +7025,7 @@
     }
   },
   {
-    "id": "STRESS-N132",
+    "id": "TASK-287",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Medical literature summary",
@@ -7050,7 +7050,7 @@
     }
   },
   {
-    "id": "STRESS-N133",
+    "id": "TASK-288",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Clinical trial data review",
@@ -7075,7 +7075,7 @@
     }
   },
   {
-    "id": "STRESS-N134",
+    "id": "TASK-289",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Patient education material",
@@ -7100,7 +7100,7 @@
     }
   },
   {
-    "id": "STRESS-N135",
+    "id": "TASK-290",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Healthcare policy analysis",
@@ -7125,7 +7125,7 @@
     }
   },
   {
-    "id": "STRESS-N136",
+    "id": "TASK-291",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Medical billing question",
@@ -7150,7 +7150,7 @@
     }
   },
   {
-    "id": "STRESS-N137",
+    "id": "TASK-292",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Public health data analysis",
@@ -7175,7 +7175,7 @@
     }
   },
   {
-    "id": "STRESS-N138",
+    "id": "TASK-293",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Nutrition/fitness plan",
@@ -7200,7 +7200,7 @@
     }
   },
   {
-    "id": "STRESS-N139",
+    "id": "TASK-294",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Medical device documentation",
@@ -7225,7 +7225,7 @@
     }
   },
   {
-    "id": "STRESS-N140",
+    "id": "TASK-295",
     "suite": "Stress Test (210 Prompts)",
     "group": "N",
     "label": "Insurance claims analysis",
@@ -7250,7 +7250,7 @@
     }
   },
   {
-    "id": "STRESS-O141",
+    "id": "TASK-296",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Budget forecasting",
@@ -7275,7 +7275,7 @@
     }
   },
   {
-    "id": "STRESS-O142",
+    "id": "TASK-297",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Tax question research",
@@ -7300,7 +7300,7 @@
     }
   },
   {
-    "id": "STRESS-O143",
+    "id": "TASK-298",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Investment portfolio analysis",
@@ -7325,7 +7325,7 @@
     }
   },
   {
-    "id": "STRESS-O144",
+    "id": "TASK-299",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Expense reconciliation",
@@ -7350,7 +7350,7 @@
     }
   },
   {
-    "id": "STRESS-O145",
+    "id": "TASK-300",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Financial statement prep",
@@ -7375,7 +7375,7 @@
     }
   },
   {
-    "id": "STRESS-O146",
+    "id": "TASK-301",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Loan calculation",
@@ -7400,7 +7400,7 @@
     }
   },
   {
-    "id": "STRESS-O147",
+    "id": "TASK-302",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Currency conversion analysis",
@@ -7425,7 +7425,7 @@
     }
   },
   {
-    "id": "STRESS-O148",
+    "id": "TASK-303",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Audit checklist",
@@ -7450,7 +7450,7 @@
     }
   },
   {
-    "id": "STRESS-O149",
+    "id": "TASK-304",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Payroll question",
@@ -7475,7 +7475,7 @@
     }
   },
   {
-    "id": "STRESS-O150",
+    "id": "TASK-305",
     "suite": "Stress Test (210 Prompts)",
     "group": "O",
     "label": "Valuation/DCF modeling",
@@ -7500,7 +7500,7 @@
     }
   },
   {
-    "id": "STRESS-P151",
+    "id": "TASK-306",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Ad campaign copy",
@@ -7525,7 +7525,7 @@
     }
   },
   {
-    "id": "STRESS-P152",
+    "id": "TASK-307",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "SEO keyword research",
@@ -7550,7 +7550,7 @@
     }
   },
   {
-    "id": "STRESS-P153",
+    "id": "TASK-308",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Social media content calendar",
@@ -7575,7 +7575,7 @@
     }
   },
   {
-    "id": "STRESS-P154",
+    "id": "TASK-309",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Sales email sequences",
@@ -7600,7 +7600,7 @@
     }
   },
   {
-    "id": "STRESS-P155",
+    "id": "TASK-310",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Customer persona development",
@@ -7625,7 +7625,7 @@
     }
   },
   {
-    "id": "STRESS-P156",
+    "id": "TASK-311",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Competitive positioning",
@@ -7650,11 +7650,11 @@
     }
   },
   {
-    "id": "STRESS-P157",
+    "id": "TASK-312",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Brand voice guidelines",
-    "prompt": "Write brand voice guidelines for a fintech startup targeting Gen Z \u2014 tone, vocabulary, and things to avoid.",
+    "prompt": "Write brand voice guidelines for a fintech startup targeting Gen Z — tone, vocabulary, and things to avoid.",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -7675,7 +7675,7 @@
     }
   },
   {
-    "id": "STRESS-P158",
+    "id": "TASK-313",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Email A/B test copy",
@@ -7700,7 +7700,7 @@
     }
   },
   {
-    "id": "STRESS-P159",
+    "id": "TASK-314",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Influencer outreach",
@@ -7725,7 +7725,7 @@
     }
   },
   {
-    "id": "STRESS-P160",
+    "id": "TASK-315",
     "suite": "Stress Test (210 Prompts)",
     "group": "P",
     "label": "Product launch messaging",
@@ -7750,7 +7750,7 @@
     }
   },
   {
-    "id": "STRESS-Q161",
+    "id": "TASK-316",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Job description writing",
@@ -7775,7 +7775,7 @@
     }
   },
   {
-    "id": "STRESS-Q162",
+    "id": "TASK-317",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Resume screening",
@@ -7800,7 +7800,7 @@
     }
   },
   {
-    "id": "STRESS-Q163",
+    "id": "TASK-318",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Interview question generation",
@@ -7825,7 +7825,7 @@
     }
   },
   {
-    "id": "STRESS-Q164",
+    "id": "TASK-319",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Employee handbook drafting",
@@ -7850,7 +7850,7 @@
     }
   },
   {
-    "id": "STRESS-Q165",
+    "id": "TASK-320",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Performance review writing",
@@ -7875,7 +7875,7 @@
     }
   },
   {
-    "id": "STRESS-Q166",
+    "id": "TASK-321",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Onboarding plan creation",
@@ -7900,7 +7900,7 @@
     }
   },
   {
-    "id": "STRESS-Q167",
+    "id": "TASK-322",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Compensation benchmarking",
@@ -7925,7 +7925,7 @@
     }
   },
   {
-    "id": "STRESS-Q168",
+    "id": "TASK-323",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "DEI policy drafting",
@@ -7950,7 +7950,7 @@
     }
   },
   {
-    "id": "STRESS-Q169",
+    "id": "TASK-324",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Exit interview analysis",
@@ -7975,7 +7975,7 @@
     }
   },
   {
-    "id": "STRESS-Q170",
+    "id": "TASK-325",
     "suite": "Stress Test (210 Prompts)",
     "group": "Q",
     "label": "Org restructuring proposal",
@@ -8000,7 +8000,7 @@
     }
   },
   {
-    "id": "STRESS-R171",
+    "id": "TASK-326",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Lesson plan creation",
@@ -8025,7 +8025,7 @@
     }
   },
   {
-    "id": "STRESS-R172",
+    "id": "TASK-327",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Quiz/exam generation",
@@ -8050,7 +8050,7 @@
     }
   },
   {
-    "id": "STRESS-R173",
+    "id": "TASK-328",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Concept explanation",
@@ -8075,7 +8075,7 @@
     }
   },
   {
-    "id": "STRESS-R174",
+    "id": "TASK-329",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Math/science homework help",
@@ -8100,7 +8100,7 @@
     }
   },
   {
-    "id": "STRESS-R175",
+    "id": "TASK-330",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Curriculum design",
@@ -8125,7 +8125,7 @@
     }
   },
   {
-    "id": "STRESS-R176",
+    "id": "TASK-331",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Grading/feedback assistance",
@@ -8150,7 +8150,7 @@
     }
   },
   {
-    "id": "STRESS-R177",
+    "id": "TASK-332",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Study guide creation",
@@ -8175,7 +8175,7 @@
     }
   },
   {
-    "id": "STRESS-R178",
+    "id": "TASK-333",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Language learning exercises",
@@ -8200,7 +8200,7 @@
     }
   },
   {
-    "id": "STRESS-R179",
+    "id": "TASK-334",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Research methodology teaching",
@@ -8225,7 +8225,7 @@
     }
   },
   {
-    "id": "STRESS-R180",
+    "id": "TASK-335",
     "suite": "Stress Test (210 Prompts)",
     "group": "R",
     "label": "Thesis feedback",
@@ -8250,7 +8250,7 @@
     }
   },
   {
-    "id": "STRESS-S181",
+    "id": "TASK-336",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Physics calculation",
@@ -8275,7 +8275,7 @@
     }
   },
   {
-    "id": "STRESS-S182",
+    "id": "TASK-337",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Chemical reaction analysis",
@@ -8300,11 +8300,11 @@
     }
   },
   {
-    "id": "STRESS-S183",
+    "id": "TASK-338",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "CAD/mechanical design",
-    "prompt": "Explain the trade-offs in material selection for a load-bearing bracket \u2014 aluminum vs. carbon fiber vs. steel.",
+    "prompt": "Explain the trade-offs in material selection for a load-bearing bracket — aluminum vs. carbon fiber vs. steel.",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -8325,7 +8325,7 @@
     }
   },
   {
-    "id": "STRESS-S184",
+    "id": "TASK-339",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Environmental impact analysis",
@@ -8350,11 +8350,11 @@
     }
   },
   {
-    "id": "STRESS-S185",
+    "id": "TASK-340",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Materials science research",
-    "prompt": "Explain what happens to the tensile strength of 7075 aluminum alloy when heat-treated above 200\u00b0C.",
+    "prompt": "Explain what happens to the tensile strength of 7075 aluminum alloy when heat-treated above 200°C.",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -8375,7 +8375,7 @@
     }
   },
   {
-    "id": "STRESS-S186",
+    "id": "TASK-341",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Experimental design",
@@ -8400,7 +8400,7 @@
     }
   },
   {
-    "id": "STRESS-S187",
+    "id": "TASK-342",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Simulation data modeling",
@@ -8425,7 +8425,7 @@
     }
   },
   {
-    "id": "STRESS-S188",
+    "id": "TASK-343",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Robotics/control systems",
@@ -8450,7 +8450,7 @@
     }
   },
   {
-    "id": "STRESS-S189",
+    "id": "TASK-344",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Renewable energy analysis",
@@ -8475,7 +8475,7 @@
     }
   },
   {
-    "id": "STRESS-S190",
+    "id": "TASK-345",
     "suite": "Stress Test (210 Prompts)",
     "group": "S",
     "label": "Structural engineering review",
@@ -8500,7 +8500,7 @@
     }
   },
   {
-    "id": "STRESS-T191",
+    "id": "TASK-346",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Code + slide deck",
@@ -8525,7 +8525,7 @@
     }
   },
   {
-    "id": "STRESS-T192",
+    "id": "TASK-347",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Summarize + translate",
@@ -8550,7 +8550,7 @@
     }
   },
   {
-    "id": "STRESS-T193",
+    "id": "TASK-348",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Research + writing",
@@ -8575,7 +8575,7 @@
     }
   },
   {
-    "id": "STRESS-T194",
+    "id": "TASK-349",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Classify + summarize",
@@ -8600,7 +8600,7 @@
     }
   },
   {
-    "id": "STRESS-T195",
+    "id": "TASK-350",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Data extraction + presentation",
@@ -8625,7 +8625,7 @@
     }
   },
   {
-    "id": "STRESS-T196",
+    "id": "TASK-351",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Creative + technical hybrid",
@@ -8650,7 +8650,7 @@
     }
   },
   {
-    "id": "STRESS-T197",
+    "id": "TASK-352",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Multi-domain business plan",
@@ -8675,7 +8675,7 @@
     }
   },
   {
-    "id": "STRESS-T198",
+    "id": "TASK-353",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Cross-functional project brief",
@@ -8700,7 +8700,7 @@
     }
   },
   {
-    "id": "STRESS-T199",
+    "id": "TASK-354",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "Contradictory instructions",
@@ -8725,7 +8725,7 @@
     }
   },
   {
-    "id": "STRESS-T200",
+    "id": "TASK-355",
     "suite": "Stress Test (210 Prompts)",
     "group": "T",
     "label": "No clear deliverable",
@@ -8750,7 +8750,7 @@
     }
   },
   {
-    "id": "STRESS-U201",
+    "id": "TASK-356",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "One-word prompt",
@@ -8775,7 +8775,7 @@
     }
   },
   {
-    "id": "STRESS-U202",
+    "id": "TASK-357",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Extremely long rambling prompt",
@@ -8800,11 +8800,11 @@
     }
   },
   {
-    "id": "STRESS-U203",
+    "id": "TASK-358",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Non-English prompt",
-    "prompt": "Schreiben Sie eine kurze Zusammenfassung unseres Produkts auf Deutsch f\u00fcr unsere Investoren.",
+    "prompt": "Schreiben Sie eine kurze Zusammenfassung unseres Produkts auf Deutsch für unsere Investoren.",
     "task_type": "writing",
     "suggested_model": "ChatGPT (GPT-4o / GPT-5.1)",
     "effort_level": "medium",
@@ -8825,7 +8825,7 @@
     }
   },
   {
-    "id": "STRESS-U204",
+    "id": "TASK-359",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Typo-heavy prompt",
@@ -8850,7 +8850,7 @@
     }
   },
   {
-    "id": "STRESS-U205",
+    "id": "TASK-360",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Missing attachment reference",
@@ -8875,7 +8875,7 @@
     }
   },
   {
-    "id": "STRESS-U206",
+    "id": "TASK-361",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Mixed languages prompt",
@@ -8900,7 +8900,7 @@
     }
   },
   {
-    "id": "STRESS-U207",
+    "id": "TASK-362",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Real-time data request",
@@ -8925,7 +8925,7 @@
     }
   },
   {
-    "id": "STRESS-U208",
+    "id": "TASK-363",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Adversarial/trick prompt",
@@ -8950,7 +8950,7 @@
     }
   },
   {
-    "id": "STRESS-U209",
+    "id": "TASK-364",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Meta-prompt",
@@ -8975,7 +8975,7 @@
     }
   },
   {
-    "id": "STRESS-U210",
+    "id": "TASK-365",
     "suite": "Stress Test (210 Prompts)",
     "group": "U",
     "label": "Novel/unprecedented task",
